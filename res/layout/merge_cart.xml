@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent" >
+    <RelativeLayout 
+              android:id="@+id/titleview_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:visibility="invisible"
+        >
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/titlebtn_cart"
+            android:layout_margin="8dp"
+            />
+        <TextView 
+            android:id="@+id/tv_titlecartcount"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/white"
+            android:background="@drawable/shape_titlecount_bg_red"
+            android:textSize="@dimen/textsize_min"
+            android:gravity="center"
+            android:text="1"
+            />
+    </RelativeLayout>
+
+</merge>

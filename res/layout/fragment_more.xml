@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <!-- <include layout="@layout/merge_jacktitle"/> -->
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:gravity="center_vertical"
+	    android:background="@drawable/bg_login"
+	    >
+	</LinearLayout>
+    <TextView 
+        android:id="@+id/tv_more2_about"
+        style="@style/ClickBar"
+        android:text="关于乐活"
+        />
+    <View 
+        style="@style/DividerWH"
+        android:background="@drawable/divider_h_grey"
+        />
+     <View 
+        android:layout_marginTop="@dimen/v_margin_activity"
+        style="@style/DividerWH"
+        android:background="@drawable/divider_h_grey"
+        />
+    <TextView 
+        android:id="@+id/tv_more2_focus"
+        android:text="关注我们"
+        style="@style/ClickBar"
+        />
+    <View 
+        style="@style/DividerWH"
+        />
+</LinearLayout>

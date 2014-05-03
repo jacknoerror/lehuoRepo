@@ -1,0 +1,61 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+	<style name="WrapAll">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="MatchWidthOnly">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ClickBar" parent="MatchWidthOnly">
+        <item name="android:drawableRight">@drawable/ic_launcher</item>
+        <item name="android:layout_margin">@dimen/common_margin</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="DividerWH">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.4dp</item>
+        <item name="android:background">@drawable/divider_h_grey</item>
+    </style>
+    <style name="TextView_MiddleGrey" parent="WrapAll">
+        <item name="android:textSize">@dimen/textsize_itemcontent</item>
+        
+    </style>
+    <style name="RadioButton_category"  parent="WrapAll">
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_tabs_category</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColorLink">@color/selector_tab_textcolor_black</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/common_margin</item>
+        <item name="android:layout_margin">0.5dp</item>
+    </style>
+    <style name="EditText_Transparent" parent="MatchWidthOnly">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">@dimen/common_margin_bigger</item>
+    </style>
+    <style name="Img_inItem">
+        <item name="android:layout_width">@dimen/side_goodsicon</item>
+        <item name="android:layout_height">@dimen/side_goodsicon</item>
+        <item name="android:src">@drawable/ic_launcher</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+</resources>

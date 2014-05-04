@@ -7,37 +7,41 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.lehuo.R;
-import com.lehuo.data.MyData;
-import com.lehuo.net.NetStrategies;
-import com.lehuo.net.action.ActionBuilder;
-import com.lehuo.net.action.ActionPhpReceiverImpl;
-import com.lehuo.net.action.ActionPhpRequestImpl;
-import com.lehuo.net.action.goods.GetProductDetailReq;
-import com.lehuo.ui.MyTitleActivity;
-import com.lehuo.ui.adapter.MyPagerAdapater;
-import com.lehuo.ui.custom.GoodsListView;
-import com.lehuo.ui.custom.JackRadios;
-import com.lehuo.util.JackImageLoader;
-import com.lehuo.vo.Category;
-import com.lehuo.vo.LehuoPic;
-import com.lehuo.vo.Product;
-
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
+
+import com.lehuo.R;
+import com.lehuo.data.MyData;
+import com.lehuo.net.NetStrategies;
+import com.lehuo.net.action.ActionBuilder;
+import com.lehuo.net.action.ActionPhpReceiverImpl;
+import com.lehuo.net.action.ActionPhpRequestImpl;
+import com.lehuo.net.action.JackShowToastReceiver;
+import com.lehuo.net.action.NextActionRcv;
+import com.lehuo.net.action.BareReceiver;
+import com.lehuo.net.action.goods.GetProductDetailReq;
+import com.lehuo.net.action.order.AddCartReq;
+import com.lehuo.net.action.order.UpdateCart;
+import com.lehuo.ui.MyTitleActivity;
+import com.lehuo.ui.adapter.MyPagerAdapater;
+import com.lehuo.ui.custom.JackRadios;
+import com.lehuo.util.JackImageLoader;
+import com.lehuo.vo.LehuoPic;
+import com.lehuo.vo.Product;
+import com.lehuo.vo.User;
 
 public class ProductDetailActivity extends MyTitleActivity implements OnPageChangeListener,ActionPhpReceiverImpl {
 
+	User mUser;
 	Product mProduct;
 	List<ImageView> spotList;
 	
@@ -54,9 +58,11 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 
 	@Override
 	public void initView() {
+		mUser = MyData.data().getCurrentUser();
 		mProduct = MyData.data().fetchProduct();
+		if(null==mProduct) return;
 		titleManager.setTitleName(mProduct.getGoods_name());
-		//TODO btns?
+		titleManager.updateCart();
 		
 		TextView tv_pn,tv_pd,tv_pold,tv_pnew;
 		Button btn_buy;
@@ -75,8 +81,33 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 			
 			@Override
 			public void onClick(View v) {
-				// TODO 添加到购物车
-				
+				int user_id = mUser.getUser_id();
+				int goods_id = mProduct.getGoods_id();
+				if(null==mUser||user_id==0) return;//
+				//  添加到购物车
+				ActionPhpRequestImpl req = null;
+				ActionPhpReceiverImpl rcv= null;
+				ActionPhpRequestImpl nReq = null;
+				ActionPhpReceiverImpl nRcv= null;
+				req = new AddCartReq(
+						new AddCartReq.CartGoods(goods_id), 
+						user_id);
+				rcv = new JackShowToastReceiver(ProductDetailActivity.this);
+				nReq = new UpdateCart(user_id);
+				nRcv = new BareReceiver(ProductDetailActivity.this){
+					@Override
+					public boolean response(String result) throws JSONException {
+						
+						if(!super.response(result)){
+							MyData.data().setCartCount(resultJob.optInt(RESULT_OBJ));//没错就是这样
+							titleManager.updateCart();
+							return false;
+						}
+						return true;
+					};
+				};
+				rcv = new NextActionRcv(rcv, nReq, nRcv);
+				ActionBuilder.getInstance().request(req, rcv);
 			}
 		});
 		ActionPhpRequestImpl req = new GetProductDetailReq(mProduct.getGoods_id());

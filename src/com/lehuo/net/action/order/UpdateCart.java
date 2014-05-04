@@ -10,18 +10,20 @@ import com.lehuo.net.action.ActionPhpRequestImpl;
 /**
  * @author tao
  *更新购物车接口（就只是产品数量）
+ *只有userid会变
+ *添加购物车成功后发起
  */
 public class UpdateCart implements ActionPhpRequestImpl {
 
 	int num ;//数量 如果为0 则会删除产品
-	int rec_id ;//同上
+	String rec_id ;//同上
 	int user_id;
 
 	
-	public UpdateCart(int num, int rec_id, int user_id) {
+	public UpdateCart( int user_id) {
 		super();
-		this.num = num;
-		this.rec_id = rec_id;
+		this.num = 1;
+		this.rec_id = "";
 		this.user_id = user_id;
 	}
 

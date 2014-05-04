@@ -1,9 +1,9 @@
 package com.lehuo.ui;
 
 
+import com.lehuo.custom.ActionBuilderTest;
 import com.lehuo.data.MyData;
 import com.lehuo.data.NetConst;
-import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
 import com.lehuo.net.action.user.UGetPlaceRcv;
@@ -115,26 +115,6 @@ public class PersonCreateActivityTest extends ActivityInstrumentationTestCase2<P
 			if(null!=spinner){
 				spinner.setSelection(selection);
 			}
-		}
-		
-	}
-	
-	class ActionBuilderTest implements Runnable{
-		ActionPhpRequestImpl req;
-		ActionPhpReceiverImpl rcv;
-		
-		
-		public ActionBuilderTest(ActionPhpRequestImpl req,
-				ActionPhpReceiverImpl rcv) {
-			super();
-			this.req = req;
-			this.rcv = rcv;
-		}
-
-
-		@Override
-		public void run() {
-			ActionBuilder.getInstance().request(req, rcv);
 		}
 		
 	}

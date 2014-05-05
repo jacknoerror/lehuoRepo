@@ -30,7 +30,7 @@ import com.lehuo.net.action.NextActionRcv;
 import com.lehuo.net.action.BareReceiver;
 import com.lehuo.net.action.goods.GetProductDetailReq;
 import com.lehuo.net.action.order.AddCartReq;
-import com.lehuo.net.action.order.UpdateCart;
+import com.lehuo.net.action.order.UpdateCartReq;
 import com.lehuo.ui.MyTitleActivity;
 import com.lehuo.ui.adapter.MyPagerAdapater;
 import com.lehuo.ui.custom.JackRadios;
@@ -58,7 +58,7 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 
 	@Override
 	public void initView() {
-		mUser = MyData.data().getCurrentUser();
+		mUser = MyData.data().getMe();
 		mProduct = MyData.data().fetchProduct();
 		if(null==mProduct) return;
 		titleManager.setTitleName(mProduct.getGoods_name());
@@ -93,7 +93,7 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 						new AddCartReq.CartGoods(goods_id), 
 						user_id);
 				rcv = new JackShowToastReceiver(ProductDetailActivity.this);
-				nReq = new UpdateCart(user_id);
+				nReq = new UpdateCartReq(user_id);
 				nRcv = new BareReceiver(ProductDetailActivity.this){
 					@Override
 					public boolean response(String result) throws JSONException {

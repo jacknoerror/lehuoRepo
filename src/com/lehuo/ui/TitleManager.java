@@ -11,6 +11,10 @@ import com.lehuo.R;
 import com.lehuo.data.MyData;
 import com.lehuo.ui.product.MyCartActivity;
 
+/**
+ * @author tao
+ *
+ */
 public class TitleManager {
 	JackTitle jackTitle;
 	TextView tv_titlename,tv_right;

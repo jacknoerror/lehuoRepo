@@ -144,7 +144,7 @@ public class NetStrategies implements NetConst{
 		}
 	}
 	
-	private static boolean dataAvailable(JSONObject job) throws JSONException{
+	public static boolean dataAvailable(JSONObject job) throws JSONException{//0505 public
 		if(null!=job&&job.has(NetConst.RESULT_SIGN)&&job.getBoolean(NetConst.RESULT_SIGN)){
 			if(!job.isNull(NetConst.RESULT_OBJ)){
 				return true;

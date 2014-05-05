@@ -32,11 +32,16 @@ import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
 import com.lehuo.net.action.category.GetAllReq;
+import com.lehuo.net.action.order.GetCartRcv;
+import com.lehuo.net.action.order.GetCartReq;
+import com.lehuo.net.action.order.UpdateCartRcv;
+import com.lehuo.net.action.order.UpdateCartReq;
 import com.lehuo.ui.MyGate;
 import com.lehuo.ui.adapter.MyGridViewAdapter;
 import com.lehuo.ui.adapter.MyPagerAdapater;
 import com.lehuo.ui.tab.ContentAbstractFragment;
 import com.lehuo.vo.Category;
+import com.lehuo.vo.User;
 
 public class TabFragMain extends ContentAbstractFragment implements
 		ViewPager.OnPageChangeListener, AdapterView.OnItemClickListener,
@@ -49,6 +54,7 @@ public class TabFragMain extends ContentAbstractFragment implements
 	List<ImageView> imgList;
 	List<ImageView> spotList;
 	List<Category> categoryList;
+	User user;
 
 	DrawerLayout mDrawer;
 	ListView mDrawerList;
@@ -65,12 +71,16 @@ public class TabFragMain extends ContentAbstractFragment implements
 	public void initView() {
 		initTitleManager();
 		titleManager.setTitleName("首页");
-		//TODO应该改为开头发请求，再更新；cartActivity本身不发请求；观察updatecart接口；考虑把title放到hubActivity
-		titleManager.updateCart();
+		// 应该改为开头发请求，再更新；cartActivity本身不发请求；观察updatecart接口；考虑把title放到hubActivity
+		// 开头发的请求是updateCart --0505
+		// titleManager.updateCart();
+		ActionBuilder.getInstance().request(
+				new UpdateCartReq(MyData.data().getMe().getUser_id()),
+				new UpdateCartRcv(getActivity(), titleManager));
 
 		mDrawer = (DrawerLayout) mView.findViewById(R.id.drawer_main);
 		// init the ListView and Adapter, nothing new
-//		initListView();
+		// initListView();
 
 		// set a custom shadow that overlays the main content when the drawer
 		// opens
@@ -135,13 +145,12 @@ public class TabFragMain extends ContentAbstractFragment implements
 
 		// gridview
 
-
-		//request
+		// request
 		if ((categoryList = MyData.data().getAllCate()).size() == 0) {
 
 			ActionPhpRequestImpl actReq = new GetAllReq();
 			ActionBuilder.getInstance().request(actReq, this);
-		}else{
+		} else {
 			updateUI();
 		}
 	}
@@ -151,7 +160,8 @@ public class TabFragMain extends ContentAbstractFragment implements
 	 */
 	private void initGrid(List<Category> categoryList2) {
 		mGridView = (GridView) mView.findViewById(R.id.gridview_main);
-		mGridView.setAdapter(new MyGridViewAdapter(getActivity(), categoryList2));
+		mGridView
+				.setAdapter(new MyGridViewAdapter(getActivity(), categoryList2));
 		mGridView.setOnItemClickListener(this);
 	}
 
@@ -165,7 +175,8 @@ public class TabFragMain extends ContentAbstractFragment implements
 				R.layout.item_drawerlist, mPlanetTitles));
 		// Set the list's click listener
 		mDrawerList.setOnItemClickListener(this);
-		mDrawerList.setDivider(getResources().getDrawable(android.R.color.black));
+		mDrawerList.setDivider(getResources()
+				.getDrawable(android.R.color.black));
 		mDrawerList.setDividerHeight(1);
 	}
 
@@ -190,7 +201,7 @@ public class TabFragMain extends ContentAbstractFragment implements
 	private void updateUI() {
 		mPlanetTitles = new String[categoryList.size()];
 		int i = 0;
-		for(Category cat : categoryList){
+		for (Category cat : categoryList) {
 			mPlanetTitles[i++] = cat.getCat_name();
 		}
 		initListView();
@@ -237,27 +248,28 @@ public class TabFragMain extends ContentAbstractFragment implements
 
 		// Highlight the selected item, update the title, and close the
 		// drawer
-		mDrawerList.setItemChecked(position, true);//delete?
+		mDrawerList.setItemChecked(position, true);// delete?
 		// setTitle(mPlanetTitles[position]);//TODO
 		mDrawer.closeDrawer(mDrawerList);
 
 		Log.i(TAG, "onItemClick:" + position);
-		MyGate.goCategory(getActivity(),(Category) parent.getItemAtPosition(position));
+		MyGate.goCategory(getActivity(),
+				(Category) parent.getItemAtPosition(position));
 	}
 
 	@Override
 	public boolean response(String result) throws JSONException {
 		JSONObject job = new JSONObject(result);
-		if(null!=job&&!job.isNull(NetConst.RESULT_OBJ)){ //这里resultsign竟然是false
-			//fetch data
-			JSONArray jar  = job.getJSONArray(RESULT_OBJ);
+		if (null != job && !job.isNull(NetConst.RESULT_OBJ)) { // 这里resultsign竟然是false
+			// fetch data
+			JSONArray jar = job.getJSONArray(RESULT_OBJ);
 			categoryList = MyData.data().getAllCate();
-			for(int i = 0;i<jar.length();i++){
+			for (int i = 0; i < jar.length(); i++) {
 				JSONObject catJob = jar.getJSONObject(i);
 				Category cate = new Category(catJob);
 				categoryList.add(cate);
 			}
-			//update UI
+			// update UI
 			updateUI();
 		}
 		return false;

@@ -20,7 +20,7 @@ import com.lehuo.net.action.goods.GetProductDetailReq;
 import com.lehuo.net.action.goods.GetProductListReq;
 import com.lehuo.net.action.order.AddCartReq;
 import com.lehuo.net.action.order.GetCartReq;
-import com.lehuo.net.action.order.UpdateCart;
+import com.lehuo.net.action.order.UpdateCartReq;
 import com.lehuo.net.action.user.GetUserAddrReq;
 import com.lehuo.net.action.user.LoginReq;
 import com.lehuo.net.action.user.UGetDistrictReq;
@@ -90,7 +90,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 			ari = new AddCartReq(new AddCartReq.CartGoods(2),28);
 			break;
 		case 15:
-			ari = new UpdateCart(28);
+			ari = new UpdateCartReq(28);
 			break;
 		default:
 			break;

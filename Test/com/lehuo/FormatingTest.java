@@ -10,6 +10,7 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 
 import com.lehuo.net.NetStrategies;
+import com.lehuo.util.HandleStrings;
 import com.lehuo.util.JackUtils;
 
 public class FormatingTest extends AndroidTestCase {
@@ -21,8 +22,15 @@ public class FormatingTest extends AndroidTestCase {
 		super.setUp();
 	}
 	
+	public void fromJsonstrToCode() throws JSONException{
+		convertJsonToCode();
+		String result = HandleStrings.readAndConvert3(mContext);
+		assertNotNull(result);
+		Log.i(TAG, result);
+	}
+	
 	public void convertJsonToCode() throws JSONException{
-		final String jsonStr = "{\"user_id\":\"28\",\"user_name\":\"15858173770\",\"sex\":\"2\",\"mobile_phone\":\"15858173770\",\"truename\":\"\\u9676\\u9676\",\"rank_points\":\"0\"}";
+		final String jsonStr = "{\"goods_price\":1800,\"market_price\":2808,\"saving\":1008,\"save_rate\":\"36%\",\"goods_amount\":1800,\"integral\":0,\"real_goods_count\":1,\"virtual_goods_count\":0}";
 		JSONObject job = new JSONObject(jsonStr);
 		Iterator<String> it = job.keys();
 		StringBuffer sb = new StringBuffer();
@@ -32,7 +40,8 @@ public class FormatingTest extends AndroidTestCase {
 			sb.append(line);
 //			write(name);
 		}
-		Log.i(TAG, sb.toString());
+//		Log.i(TAG, sb.toString());
+		JackUtils.writeToSomeWhere(mContext, sb.toString());
 	}
 
 	/**

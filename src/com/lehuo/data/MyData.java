@@ -6,6 +6,7 @@ import java.util.List;
 import com.lehuo.vo.Category;
 import com.lehuo.vo.Product;
 import com.lehuo.vo.User;
+import com.lehuo.vo.cart.DataCart;
 
 import android.widget.TabHost;
 
@@ -50,7 +51,7 @@ public class MyData {
 	public void setCurrentUser(User user) {
 		this.user = user;
 	}
-	public User getCurrentUser(){
+	public User getMe(){
 		return user;
 	}
 	
@@ -60,6 +61,14 @@ public class MyData {
 	}
 	public void setCartCount(int cc){
 		cartCount = cc;
+	}
+	
+	DataCart currentCart;
+	public void setCurrentCart(DataCart dc) {
+		currentCart = dc;
+	}
+	public DataCart getCurrentCart(){
+		return currentCart;
 	}
 	
 }

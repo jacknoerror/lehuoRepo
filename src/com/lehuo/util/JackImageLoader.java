@@ -32,7 +32,7 @@ public class JackImageLoader {
 //			image.setImageBitmap(bm);
 			Log.i(TAG, "from weakMap bitmap");
 			return jwr.get();
-		}else if(infoHouse.getCurrentUser()!=null) {
+		}else if(infoHouse.getMe()!=null) {
 			/*Log.i(TAG, "try from sdcard");
 			Bitmap bm = JackUtils.getBitmapFromSDCard(MyApplication.app().getPathUponUrl(infoHouse.getMe().getMemberId(), url));
 			return bm;*/

@@ -268,8 +268,8 @@ public class GoodsListView extends ListView implements
 			JackImageLoader.justSetMeImage(p.getGoods_img(), holder.icon);
 			holder.tv_goodsname.setText(p.getGoods_name());
 			holder.tv_goodsdesc.setText(p.getGoods_desc());
-			holder.tv_priceold.setText(p.getMarket_price());
-			holder.tv_pricenew.setText(p.getPromote_price());
+			holder.tv_priceold.setText(p.getMarket_price());//TODO delete line
+			holder.tv_pricenew.setText(p.getRealPriceStr());
 			
 			return view;
 		}

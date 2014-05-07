@@ -1,9 +1,11 @@
 <resources>
 
     <string name="app_name">Lehuo</string>
+    <string name="titlename_my">我的账户</string>
     <string name="titlename_order">订单</string>
     <string name="titlename_getcheck">获取验证码</string>
     <string name="titlename_commitcheck">提交验证码</string>
+    <string name="titlename_confirmorder">确认订单</string>
     <string name="titlename_mycart">我的购物车</string>
 
     

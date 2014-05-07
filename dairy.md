@@ -23,3 +23,8 @@ finish MyCartActivity,finish orders
 0507
 GONNA DO:
 mycart,orders,scores
+TODO NEXT:
+address,others
+ask about confirmOrder.
+see those previews
+ask about order APIs

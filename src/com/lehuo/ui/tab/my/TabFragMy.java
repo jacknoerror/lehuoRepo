@@ -3,6 +3,7 @@
  */
 package com.lehuo.ui.tab.my;
 
+import com.lehuo.R;
 import com.lehuo.ui.tab.ContentAbstractFragment;
 
 /**
@@ -16,16 +17,13 @@ public class TabFragMy extends ContentAbstractFragment {
 	 */
 	@Override
 	public int getLayoutRid() {
-		// TODO Auto-generated method stub
-		return 0;
+		return R.layout.fragment_account;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.lehuo.ui.JackAbsFragment#initView()
-	 */
 	@Override
 	public void initView() {
-		// TODO Auto-generated method stub
+		initTitleManager();
+		titleManager.setTitleName(getString(R.string.titlename_my));
 
 	}
 

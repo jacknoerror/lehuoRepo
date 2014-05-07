@@ -7,7 +7,7 @@
     <dimen name="v_margin_activity">15dp</dimen>
     <dimen name="v_height_bottombar">55dp</dimen>
     
-    <dimen name="side_goodsicon">100dp</dimen>
+    <dimen name="side_goodsicon">124dp</dimen>
     
     <dimen name="textsize_title">20sp</dimen>
     <dimen name="textsize_title_sub">18sp</dimen>

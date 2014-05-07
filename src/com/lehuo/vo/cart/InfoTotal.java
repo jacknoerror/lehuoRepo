@@ -4,8 +4,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.lehuo.entity.json.JsonImport;
+import com.lehuo.net.NetStrategies;
+import com.lehuo.vo.IntPrice;
+import com.lehuo.vo.IntegralPriceImpl;
 
-public class InfoTotal extends JsonImport {
+public class InfoTotal extends JsonImport implements IntegralPriceImpl{
 
 	/*
 	 * {"goods_price":1800,"market_price":2808,"saving":1008,"save_rate":"36%",
@@ -20,6 +23,13 @@ public class InfoTotal extends JsonImport {
 	private int saving;
 	private int integral;
 	private int goods_amount;
+	
+	private IntPrice integral_price;
+	
+
+	public void setIntegral_price(IntPrice integral_price) {
+		this.integral_price = integral_price;
+	}
 
 	public int getGoods_price() {
 		return goods_price;
@@ -111,7 +121,22 @@ public class InfoTotal extends JsonImport {
 			integral = job.getInt("integral");
 		if (job.has("goods_amount"))
 			goods_amount = job.getInt("goods_amount");
+		if(job.has("integral_price")) setIntegral_price(new IntPrice(job.getJSONObject("integral_price"))) ;//TODO to be tested
+	}
 
+	
+	public IntPrice getIntegral_price() {
+		return integral_price;
+	}
+
+	@Override
+	public String getShop_price() {
+		return ""+goods_price;
+	}
+
+	@Override
+	public String getRealPriceStr() {
+		return NetStrategies.getRealPrice(this);
 	}
 
 }

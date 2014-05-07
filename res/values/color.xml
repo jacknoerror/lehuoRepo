@@ -2,4 +2,7 @@
 <resources>
     <color name="green_title">#009933</color>
     <color name="light_cyan">#F6F8FA</color>
+    <color name="red_text">#CC0000</color>
+    <color name="transparent_dark">#9000</color>
+    
 </resources>

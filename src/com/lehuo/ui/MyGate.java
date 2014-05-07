@@ -11,6 +11,7 @@ import com.lehuo.ui.login.RegistPhoneActivity;
 import com.lehuo.ui.product.ProductDetailActivity;
 import com.lehuo.ui.product.ProductListActivity;
 import com.lehuo.ui.tab.HubActivity;
+import com.lehuo.ui.tab.order.ConfirmOrderActivity;
 import com.lehuo.util.JackUtils;
 import com.lehuo.vo.Category;
 import com.lehuo.vo.Product;
@@ -23,7 +24,10 @@ public class MyGate implements NetConst{
 		intent.setClass(context, clazz);
 		context.startActivity(intent);
 	}
-	
+	public static void goConfirmOrder(Context context,Object obj){
+//		if(null==obj)return;
+		justGo(context, ConfirmOrderActivity.class);
+	}
 	public static void goCategory(Context context,Category category){
 		if(null==category)return;
 		MyData.data().storeCategory(category);

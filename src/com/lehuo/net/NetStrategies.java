@@ -20,6 +20,8 @@ import com.lehuo.MyApplication;
 import com.lehuo.data.Const;
 import com.lehuo.data.NetConst;
 import com.lehuo.util.JackUtils;
+import com.lehuo.vo.IntPrice;
+import com.lehuo.vo.IntegralPriceImpl;
 /**
  * 
  * @author taotao
@@ -30,7 +32,7 @@ public class NetStrategies implements NetConst{
 	final static int TIMEOUT = 1000*30;
 	
 	/**
-	 * ÓëopenAPI²»Í¬£¬¹Ì¶¨²ÎÊýºÍ¸¡¶¯²ÎÊýÖ±½ÓÏàÁ¬ 
+	 * ä¸ŽopenAPIä¸åŒï¼Œå›ºå®šå‚æ•°å’Œæµ®åŠ¨å‚æ•°ç›´æŽ¥ç›¸è¿ž 
 	 * @param phpName
 	 * @param actionName
 	 * @param hpMap
@@ -88,14 +90,14 @@ public class NetStrategies implements NetConst{
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			connection.setRequestProperty("Charset", "utf-8");
-			//ÉèÖÃÁ¬½Ó·þÎñÆ÷³¬Ê±Ê±¼ä
+			//è®¾ç½®è¿žæŽ¥æœåŠ¡å™¨è¶…æ—¶æ—¶é—´
 			connection.setConnectTimeout(TIMEOUT);
-			//ÉèÖÃ´Ó·þÎñÆ÷¶ÁÈ¡Êý¾Ý³¬Ê±Ê±¼ä
+			//è®¾ç½®ä»ŽæœåŠ¡å™¨è¯»å–æ•°æ®è¶…æ—¶æ—¶é—´
 			connection.setReadTimeout(TIMEOUT);
 			DataOutputStream dop = new DataOutputStream(
 					connection.getOutputStream());
 			Log.i("doHttpRequest", params[0]);//
-			dop.write(params[0].getBytes());//×ªutf-8ÔÚÕâÀï
+			dop.write(params[0].getBytes());//è½¬utf-8åœ¨è¿™é‡Œ
 			dop.flush();
 			dop.close();
 
@@ -148,7 +150,7 @@ public class NetStrategies implements NetConst{
 		if(null!=job&&job.has(NetConst.RESULT_SIGN)&&job.getBoolean(NetConst.RESULT_SIGN)){
 			if(!job.isNull(NetConst.RESULT_OBJ)){
 				return true;
-			}else{//·µ»ØÕýÈ·µ«ÊÇobjÎª¿Õ
+			}else{//è¿”å›žæ­£ç¡®ä½†æ˜¯objä¸ºç©º
 			}
 		}else{
 			JackUtils.showToast(MyApplication.app(),job.optString(NetConst.RESULT_ERROR_MSG));
@@ -156,4 +158,14 @@ public class NetStrategies implements NetConst{
 		return false;
 	}
 	
+	
+	public static String getRealPrice(IntegralPriceImpl ipi) {
+		String result = "Â¥"+ipi.getShop_price()+"å…ƒ";
+		IntPrice ip = ipi.getIntegral_price();
+		if(ipi.getIntegral()>0&&null!=ip){
+			result = //"Â¥"+integral_price2.getShop_price()+"å…ƒ"+"+"+
+					String.format("Â¥%då…ƒï¼‹%dç§¯åˆ†", ip.getShop_price(),ip.getIntegral_need());
+		}
+		return result;
+	}
 }

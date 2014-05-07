@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@android:color/white"
+    >
+    <include layout="@layout/merge_jacktitle"/>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        >
+        <TextView 
+            style="@style/ContentTitle"
+            android:text="收货地址"
+            />
+        <View 
+            style="@style/DividerWH"
+            />
+        <RelativeLayout 
+            style="@style/MatchWidthOnly"
+            android:padding="@dimen/common_margin"
+            >
+            <LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                
+            </LinearLayout>
+            <ImageView 
+                style="@style/WrapAll"
+                android:src="@drawable/ic_launcher"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+        <View style="@style/DividerWH"/>
+        
+        <TextView 
+            style="@style/ContentTitle"
+            android:text="付款方式"
+            />
+        <View 
+            style="@style/DividerWH"/>
+        <TextView style="@style/ClickBar"
+            android:text="货到付款"/>
+        <View 
+            style="@style/DividerShortLeft"
+            />
+        <TextView style="@style/ClickBar"
+            android:text="支付方式"
+            />
+        <View 
+            style="@style/DividerShortLeft"/>
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView style="@style/ClickBar"
+            android:text="优惠券"
+            android:layout_centerVertical="true"
+            />
+            <TextView 
+                style="@style/WrapAll"
+                android:text="无可用"
+                android:textColor="#00f"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
+        <View 
+            style="@style/DividerWH"/>
+        
+        <TextView 
+            style="@style/ContentTitle"
+            android:text="配送时间选择"
+            />
+        <View style="@style/DividerWH"/>
+        <TextView 
+            style="@style/ClickBar"
+            android:text="送货时段"
+            />
+        <View style="@style/DividerWH"/>
+        
+        <Button style="@style/BtnRed"
+        android:text="提交订单"/>
+    </LinearLayout>
+
+</LinearLayout>

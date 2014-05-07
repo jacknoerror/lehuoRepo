@@ -35,6 +35,7 @@ public abstract class JackAbsFragment extends Fragment {
 	public abstract int getLayoutRid() ;
 
 	/**
+	 * ≥ı ºªØ
 	 */
 	public abstract void initView() ;
 }

@@ -5,12 +5,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.lehuo.entity.json.JsonImport;
+import com.lehuo.net.NetStrategies;
 /**
- * 产品goods。有简单和详细之分，都是这个类
+ * 浜у搧goods銆傛湁绠�鍗曞拰璇︾粏涔嬪垎锛岄兘鏄繖涓被
  * @author taotao
  *
  */
-public class Product extends JsonImport {
+public class Product extends JsonImport implements IntegralPriceImpl{
 
 	private String promote_end_date;
 	private int click_count;
@@ -267,4 +268,8 @@ public class Product extends JsonImport {
 		if(job.has("goods_name_style")) setGoods_name_style(job.getString("goods_name_style"));
 	}
 
+	@Override
+	public String getRealPriceStr() {
+		return NetStrategies.getRealPrice(this);
+	}
 }

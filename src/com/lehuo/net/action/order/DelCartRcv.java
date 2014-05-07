@@ -4,13 +4,13 @@ import org.json.JSONException;
 
 import android.content.Context;
 
+import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 
 public class DelCartRcv implements ActionPhpReceiverImpl {
 
 	@Override
 	public boolean response(String result) throws JSONException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

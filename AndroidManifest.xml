@@ -37,6 +37,7 @@
         <activity android:name="com.lehuo.ui.login.RegistCodeActivity"></activity>
         <activity android:name="com.lehuo.ui.login.RegistPhoneActivity"></activity>
         <activity android:name="com.lehuo.ui.product.MyCartActivity"></activity>
+        <activity android:name="com.lehuo.ui.tab.order.ConfirmOrderActivity"></activity>
         
     </application>
 	<instrumentation android:name="android.test.InstrumentationTestRunner" 

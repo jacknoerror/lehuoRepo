@@ -19,3 +19,7 @@ try to add views ouside the titlelayout
 TODO NEXT:
 ask about getCartReq=>fittings,favourable
 finish MyCartActivity,finish orders
+----
+0507
+GONNA DO:
+mycart,orders,scores

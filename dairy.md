@@ -9,6 +9,7 @@ productDetail-tabs;
 put GetCartReq into a right place;
 ask about "score not enough" hint;
 ----
+0505
 GONNA DO:
 GetCartReq,CartActivity,Score&Price;
 cancel the tab plan;

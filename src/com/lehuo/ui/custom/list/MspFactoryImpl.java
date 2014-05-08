@@ -1,17 +1,17 @@
 package com.lehuo.ui.custom.list;
 
-import com.lehuo.entity.json.JsonImport;
-import com.lehuo.ui.custom.list.MspAdapter.ViewHolderImpl;
+import org.json.JSONObject;
+
+
 
 public interface MspFactoryImpl {
 	public MspAdapter getNewAdapter();
-	public MspFactoryImpl getMspPage();
-	public ViewHolderImpl getViewHolderInstance();
+	public MspPage getMspPage(JSONObject job);
 	public  MspJsonItem getMjiInstance();
+	public MyScrollPageListView.OnGetPageListener getDefaultOnPageChangeListener();
+	public String getPageName();
 	
-	public  ViewHolderImpl getHolderInstance();
-	
-	public  int getLayoutId();
+	/*public  int getLayoutId();
 	public  void init();
-	public  void setup(int position);
+	public  void setup(int position);*/
 }

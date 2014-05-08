@@ -20,6 +20,7 @@ import com.lehuo.net.action.goods.GetProductDetailReq;
 import com.lehuo.net.action.goods.GetProductListReq;
 import com.lehuo.net.action.order.AddCartReq;
 import com.lehuo.net.action.order.GetCartReq;
+import com.lehuo.net.action.order.GetOrderListReq;
 import com.lehuo.net.action.order.UpdateCartReq;
 import com.lehuo.net.action.user.GetUserAddrReq;
 import com.lehuo.net.action.user.LoginReq;
@@ -43,7 +44,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 		ActionPhpRequestImpl ari = null;
 		switch (actNo) {
 		case 0:
-			ari = new GetUserAddrReq(1);
+			ari = new GetUserAddrReq(28);
 			break;
 		case 1:
 			ari = new GetAllReq();
@@ -92,6 +93,9 @@ public class NetStrategiesTest extends AndroidTestCase {
 		case 15:
 			ari = new UpdateCartReq(28);
 			break;
+		case 16:
+			ari = new GetOrderListReq(0, 1, 17);
+			break;
 		default:
 			break;
 		}
@@ -104,7 +108,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 	public void actionTest() throws SocketTimeoutException, UnknownHostException, IOException{
 		String result="";
 		
-		result  = actionChoser(12);
+		result  = actionChoser(0);
 			
 		Log.i(TAG, "result=>"+result);
 		assertNotSame(result, "");

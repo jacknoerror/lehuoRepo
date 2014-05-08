@@ -10,10 +10,10 @@
         android:padding="@dimen/common_margin"
         >
 	    <ImageView 
+	        android:id="@+id/img_itemprod"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:src="@drawable/ic_launcher"
-	        android:id="@+id/img_itemprod"
 	        />
 	    <TextView 
 	        android:id="@+id/tv_itemprodname"

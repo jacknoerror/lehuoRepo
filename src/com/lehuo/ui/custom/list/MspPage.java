@@ -20,22 +20,34 @@ public class MspPage extends JsonImport {
 
 	private MspFactoryImpl factory;
 
-
-	public MspPage(JSONObject job,MspFactoryImpl factory) {
-		super(job);
+	public MspPage(MspFactoryImpl factory){
+		super();
 		this.factory = factory;
 	}
+	/*public MspPage(JSONObject job,MspFactoryImpl factory) {
+		super(job);
+		
+	}*/
 
 	@Override
 	public void initJackJson(JSONObject job) throws JSONException {
 		if (job.has("result"))
 			resultSign = job.getBoolean("result");
-		if (job.has("next"))
+		if (job.has("next")){
+			
 			hasNext = job.getBoolean("next");
-		if (job.has("data"))
-			infoArr = job.getJSONArray("data");
+			if (job.has("data"))
+				infoArr = job.getJSONArray("data");
+		}else{
+			if(job.has("data")){
+				JSONObject jacob = job.getJSONObject("data");
+				infoArr = jacob.optJSONArray(factory.getPageName());
+				hasNext = jacob.optBoolean("next");
+			}
+		}
 
 	}
+	
 	
 	List<MspJsonItem> LiiList;
 	public  List<MspJsonItem> getDataList(){

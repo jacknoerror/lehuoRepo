@@ -32,7 +32,7 @@
             </LinearLayout>
             <ImageView 
                 style="@style/WrapAll"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/arrow"
                 android:layout_alignParentRight="true"
                 />
         </RelativeLayout>

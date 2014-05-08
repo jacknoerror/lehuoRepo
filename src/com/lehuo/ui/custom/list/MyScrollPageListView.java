@@ -48,6 +48,8 @@ public class MyScrollPageListView extends ListView implements
 		factory = new MspFactory(mType);
 		mAdapter = factory.getNewAdapter();
 
+		setOnGetPageListener(factory.getDefaultOnPageChangeListener());
+		
 		setOnScrollListener(this);
 		// setOnItemClickListener(this);
 		setFastScrollEnabled(true);
@@ -76,10 +78,10 @@ public class MyScrollPageListView extends ListView implements
 		isSetup = true;
 
 		if (gpListener != null) {// 开始发请求
+			requestingPage = 1;// 0227
 			gpListener.page(this, 1);
 			if (everythingList != null)
 				everythingList.clear();// reset
-			requestingPage = 1;// 0227
 		}
 		addMoreView();// 开始时加入 ，不需要时消除 ， 注意位置，小心报错
 
@@ -128,7 +130,8 @@ public class MyScrollPageListView extends ListView implements
 
 	@Override
 	public boolean response(String result) throws JSONException {
-		currentPage = new MspPage(new JSONObject(result), factory);
+		currentPage = new MspPage( factory);
+		currentPage.initJackJson(new JSONObject(result));
 		if (currentPage.resultSign) {
 			currentPage.curPageNo = requestingPage;
 			everythingList.addAll(currentPage.getDataList());

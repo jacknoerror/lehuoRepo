@@ -12,15 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class MspAdapter extends BaseAdapter {
+public abstract class MspAdapter extends BaseAdapter {
 
 	public abstract class ViewHolderImpl{
 		View holderView;
 		public ViewHolderImpl(){
-			holderView = LayoutInflater.from(context).inflate(factory.getLayoutId(), null);
-			factory.init();
+			holderView = LayoutInflater.from(context).inflate(getLayoutId(), null);
+			init();
 			holderView.setTag(this);
 		}
+		
+		public abstract void init()  ;
+		public abstract void setup(int position);
+		public abstract int getLayoutId();
 		
 		public View getHolderView(){
 			return holderView;
@@ -31,18 +35,15 @@ public class MspAdapter extends BaseAdapter {
 
 	SparseArray<View> viewMap;
 	List<ListItemImpl> contentList;
-	Context context;
-	private MspFactoryImpl factory;
+	protected Context context;
 	
-	public MspAdapter(MspFactoryImpl factory){
-		this(new ArrayList<ListItemImpl>(),factory);
+	public MspAdapter(){
+		this(new ArrayList<ListItemImpl>());
 	}
-	public MspAdapter(List<ListItemImpl> contentList,MspFactoryImpl factory){
+	public MspAdapter(List<ListItemImpl> contentList){
 		this.contentList = contentList;
 		viewMap = new SparseArray<View>();
 		this.context = MyApplication.app();
-		this.factory = factory;
-		if(null==factory) throw new IllegalStateException("factory cannot be null");
 	}
 	
 
@@ -65,7 +66,7 @@ public class MspAdapter extends BaseAdapter {
 		ViewHolderImpl holder;
 		
 		if(null==view){
-			holder= factory.getHolderInstance();
+			holder= getHolderInstance();
 			view = holder.getHolderView();
 			viewMap.put(position, view);
 		}else{
@@ -73,7 +74,7 @@ public class MspAdapter extends BaseAdapter {
 		}
 		
 //		holder.setup(position);
-		factory.setup(position);
+		holder.setup(position);
 		
 		return view;
 	}
@@ -83,4 +84,5 @@ public class MspAdapter extends BaseAdapter {
 		return contentList;
 	}
 	
+	public abstract ViewHolderImpl getHolderInstance();
 }

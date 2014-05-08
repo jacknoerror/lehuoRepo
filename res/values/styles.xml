@@ -25,7 +25,7 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="ClickBar" parent="MatchWidthOnly">
-        <item name="android:drawableRight">@drawable/ic_launcher</item>
+        <item name="android:drawableRight">@drawable/arrow</item>
         <item name="android:layout_margin">@dimen/common_margin</item>
         <item name="android:gravity">center_vertical</item>
     </style>

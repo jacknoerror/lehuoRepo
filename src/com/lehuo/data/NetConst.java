@@ -77,5 +77,15 @@ public interface NetConst {
 	public static final String RESULT_OBJ = "data";
 
 	public static final String EXTRA_PHONE = "phone";
+
+	public static final String ACTION_ORDERLIST = "orderlist";
+
+	public static final String PARAMS_BONUS_ID = "bonus_id";
+
+	public static final String PARAMS_INTEGRAL = "integral";
+
+	public static final String PARAMS_PAY_ID = "pay_id";
+
+	public static final String PARAMS_TIMEZONE = "timezone";
 	
 }

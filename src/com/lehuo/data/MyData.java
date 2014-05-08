@@ -1,11 +1,13 @@
 package com.lehuo.data;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.lehuo.vo.Category;
 import com.lehuo.vo.Product;
 import com.lehuo.vo.User;
+import com.lehuo.vo.UserAddress;
 import com.lehuo.vo.cart.DataCart;
 
 import android.widget.TabHost;
@@ -69,6 +71,27 @@ public class MyData {
 	}
 	public DataCart getCurrentCart(){
 		return currentCart;
+	}
+	
+	List<UserAddress> addressList;
+	public void setMyAddrs(List<UserAddress> addressList) {
+		this.addressList = addressList;
+		
+	}
+	public List<UserAddress> getMyAddrs(){
+		if(null==addressList) addressList = new ArrayList<UserAddress>();
+		return addressList;
+	}
+	public UserAddress getMyDefaultAddr(){
+		if(getMyAddrs().size()==0	)return null;
+		UserAddress dAddr = addressList.get(0);
+		for(UserAddress addr:addressList	){
+			if(addr.isDefault()){
+				dAddr = addr;
+				break;
+			}
+		}
+		return dAddr;
 	}
 	
 }

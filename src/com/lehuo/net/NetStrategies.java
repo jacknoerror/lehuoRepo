@@ -29,7 +29,7 @@ import com.lehuo.vo.IntegralPriceImpl;
  */
 public class NetStrategies implements NetConst{
 	final static String TAG ="NetS_";
-	final static int TIMEOUT = 1000*30;
+	final static int TIMEOUT = 1000*25 ;
 	
 	/**
 	 * 与openAPI不同，固定参数和浮动参数直接相连 

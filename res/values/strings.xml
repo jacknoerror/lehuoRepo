@@ -7,6 +7,8 @@
     <string name="titlename_commitcheck">提交验证码</string>
     <string name="titlename_confirmorder">确认订单</string>
     <string name="titlename_mycart">我的购物车</string>
+    <string name="titlename_myaddr">收货地址</string>
+    <string name="titlename_addaddr">新增收货地址</string>
 
     
     <drawable name="divider_h_grey">#a111</drawable>

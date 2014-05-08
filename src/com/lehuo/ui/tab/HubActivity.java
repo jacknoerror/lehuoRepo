@@ -14,6 +14,7 @@ import android.widget.TabHost.TabContentFactory;
 import android.widget.TextView;
 
 import com.lehuo.R;
+import com.lehuo.data.Const;
 import com.lehuo.data.MyData;
 import com.lehuo.ui.custom.JackFragmentTabChangedHelper;
 import com.lehuo.ui.custom.JackFragmentTabChangedHelper.TabPack;
@@ -41,7 +42,7 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.a_hub);
-		
+		int hub = getIntent().getIntExtra(Const.EXTRAS_HUB, 0);
 		jftcl = new JackFragmentTabChangedHelper(this, R.id.realtabcontent);
 		mTabHost = (TabHost)findViewById(android.R.id.tabhost);
 		for(int i=0;i<hubs.length;i++){
@@ -52,7 +53,7 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 		for(int i=0;i<hubs.length;i++){
 			addTabBtn(i);
 		}
-		mTabHost.setCurrentTab(0);
+		if(hub<hubs.length)mTabHost.setCurrentTab(hub);
 		
 		
 		MyData.data().setTabHost(mTabHost);

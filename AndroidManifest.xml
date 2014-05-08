@@ -38,6 +38,8 @@
         <activity android:name="com.lehuo.ui.login.RegistPhoneActivity"></activity>
         <activity android:name="com.lehuo.ui.product.MyCartActivity"></activity>
         <activity android:name="com.lehuo.ui.tab.order.ConfirmOrderActivity"></activity>
+        <activity android:name="com.lehuo.ui.tab.order.MyAddressActivity"></activity>
+        <activity android:name="com.lehuo.ui.tab.order.AddAddressActivity"></activity>
         
     </application>
 	<instrumentation android:name="android.test.InstrumentationTestRunner" 

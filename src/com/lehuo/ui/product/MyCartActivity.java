@@ -63,7 +63,7 @@ public class MyCartActivity extends MyTitleActivity {
 	@Override
 	public void initView() {
 		titleManager.setTitleName(getString(R.string.titlename_mycart));
-		titleManager.updateCart();
+//		titleManager.updateCart();
 		me = MyData.data().getMe();
 		if (null == me)
 			return;
@@ -204,7 +204,7 @@ public class MyCartActivity extends MyTitleActivity {
 						};//
 						rcv = new NextActionRcv(rcv,
 								new UpdateCartReq(user_id), new UpdateCartRcv(
-										actContext, titleManager));
+										actContext, null));//no cart need update
 						ActionBuilder.getInstance().request(req, rcv);
 					}
 				});

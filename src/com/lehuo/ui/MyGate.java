@@ -24,6 +24,9 @@ public class MyGate implements NetConst{
 		intent.setClass(context, clazz);
 		context.startActivity(intent);
 	}
+	public static void goAddAddr(Context context){
+		justGo(context, clazz)
+	}
 	public static void goConfirmOrder(Context context,Object obj){
 //		if(null==obj)return;
 		justGo(context, ConfirmOrderActivity.class);
@@ -49,13 +52,13 @@ public class MyGate implements NetConst{
 	public static void GoRegistCode(Context context,String phone){
 //		justGo(context, RegistCodeActivity.class);
 		Intent intent = new Intent();
-		intent.putExtra(EXTRA_PHONE, phone);
+		intent.putExtra(EXTRAS_PHONE, phone);
 		intent.setClass(context, RegistCodeActivity.class);
 		context.startActivity(intent);
 	}
 	public static void GoSetUser(Context context,String phone){
 		Intent intent = new Intent();
-		intent.putExtra(EXTRA_PHONE, phone);
+		intent.putExtra(EXTRAS_PHONE, phone);
 		intent.setClass(context, PersonInfoCreateActivity.class);
 		context.startActivity(intent);
 	}

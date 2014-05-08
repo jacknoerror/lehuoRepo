@@ -76,7 +76,7 @@ public interface NetConst {
 
 	public static final String RESULT_OBJ = "data";
 
-	public static final String EXTRA_PHONE = "phone";
+	public static final String EXTRAS_PHONE = "phone";
 
 	public static final String ACTION_ORDERLIST = "orderlist";
 
@@ -87,5 +87,9 @@ public interface NetConst {
 	public static final String PARAMS_PAY_ID = "pay_id";
 
 	public static final String PARAMS_TIMEZONE = "timezone";
+
+	public static final String ACTION_CHECKOUT = "checkout";
+
+	public static final String EXTRAS_HUB = "hub";
 	
 }

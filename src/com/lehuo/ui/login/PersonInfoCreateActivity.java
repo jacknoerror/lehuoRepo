@@ -46,7 +46,7 @@ public class PersonInfoCreateActivity extends MyTitleActivity implements ActionP
 
 	@Override
 	public void initView() {
-		phone = getIntent().getStringExtra(NetConst.EXTRA_PHONE);
+		phone = getIntent().getStringExtra(NetConst.EXTRAS_PHONE);
 		if(null==phone) return ;//
 		titleManager.setTitleName(getString(R.string.titlename_commitcheck));
 		titleManager.initTitleBack();

@@ -28,3 +28,13 @@ address,others
 ask about confirmOrder.
 see those previews
 ask about order APIs
+----
+0508
+GONNA DO:
+orders,and address in it
+TODO NEXT:
+ask about result-format of coupon
+ask about details of timezone
+ask about payment redirecting
+ask about the end of confirmOrder
+see the add address face

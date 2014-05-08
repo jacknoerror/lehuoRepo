@@ -38,7 +38,7 @@ public class RegistCodeActivity extends MyTitleActivity implements ActionPhpRece
 		titleManager.setTitleName(getString(R.string.titlename_commitcheck));
 		titleManager.initTitleBack();
 		
-		phone = getIntent().getStringExtra(NetConst.EXTRA_PHONE);
+		phone = getIntent().getStringExtra(NetConst.EXTRAS_PHONE);
 		if(null==phone) return;
 		
 		tv_mobile = (TextView)this.findViewById(R.id.tv_cmmtchck_mobile);

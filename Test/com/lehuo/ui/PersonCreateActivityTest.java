@@ -39,7 +39,7 @@ public class PersonCreateActivityTest extends ActivityInstrumentationTestCase2<P
 	@Override
 	public void setActivityIntent(Intent i) {
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		i.putExtra(NetConst.EXTRA_PHONE, "15888889999");
+		i.putExtra(NetConst.EXTRAS_PHONE, "15888889999");
 		super.setActivityIntent(i);
 	}
 	@Override

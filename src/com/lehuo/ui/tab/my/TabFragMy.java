@@ -17,7 +17,7 @@ public class TabFragMy extends ContentAbstractFragment {
 	 */
 	@Override
 	public int getLayoutRid() {
-		return R.layout.fragment_account;
+		return R.layout.fragment_my;
 	}
 
 	@Override

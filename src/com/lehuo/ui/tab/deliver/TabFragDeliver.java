@@ -3,30 +3,19 @@
  */
 package com.lehuo.ui.tab.deliver;
 
-import com.lehuo.ui.tab.ContentAbstractFragment;
+import com.lehuo.ui.custom.list.ListItemImpl.Type;
+import com.lehuo.ui.tab.JackListAbsContFrag;
 
 /**
  * @author taotao
  *
  */
-public class TabFragDeliver extends ContentAbstractFragment {
+public class TabFragDeliver extends JackListAbsContFrag {
 
-	/* (non-Javadoc)
-	 * @see com.lehuo.ui.JackAbsFragment#getLayoutRid()
-	 */
 	@Override
-	public int getLayoutRid() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Type getType() {
+		return Type.ORDER_DELIVER;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.lehuo.ui.JackAbsFragment#initView()
-	 */
-	@Override
-	public void initView() {
-		// TODO Auto-generated method stub
-
-	}
 
 }

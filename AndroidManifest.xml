@@ -3,8 +3,13 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--  -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     
     <uses-sdk
         android:minSdkVersion="9"
@@ -38,8 +43,8 @@
         <activity android:name="com.lehuo.ui.login.RegistPhoneActivity"></activity>
         <activity android:name="com.lehuo.ui.product.MyCartActivity"></activity>
         <activity android:name="com.lehuo.ui.tab.order.ConfirmOrderActivity"></activity>
-        <activity android:name="com.lehuo.ui.tab.order.MyAddressActivity"></activity>
-        <activity android:name="com.lehuo.ui.tab.order.AddAddressActivity"></activity>
+        <activity android:name="com.lehuo.ui.address.MyAddressActivity"></activity>
+        <activity android:name="com.lehuo.ui.address.AddAddressActivity"></activity>
         
     </application>
 	<instrumentation android:name="android.test.InstrumentationTestRunner" 

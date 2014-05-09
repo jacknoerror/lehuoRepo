@@ -25,15 +25,21 @@
                     android:text="收货人"
                     />
 
-                <EditText style="@style/NewAddressInput" />
+                <EditText 
+                    android:id="@+id/et_aa_name"
+                    style="@style/NewAddressInput" />
             </LinearLayout>
 
-            <LinearLayout style="@style/SimpleBar" >
+            <LinearLayout style="@style/SimpleBar" 
+                android:layout_marginBottom="@dimen/v_margin_activity"
+                >
 
                 <TextView style="@style/NewAddressTitle" 
                     android:text="手机号码"/>
 
-                <EditText style="@style/NewAddressInput" />
+                <EditText 
+                    android:id="@+id/et_aa_mobile"
+                    style="@style/NewAddressInput" />
             </LinearLayout>
 
             <LinearLayout style="@style/SimpleBar" >
@@ -50,18 +56,25 @@
                 <EditText style="@style/NewAddressInput" />
             </LinearLayout>
 
-            <LinearLayout style="@style/SimpleBar" >
+            <LinearLayout style="@style/SimpleBar" 
+                android:layout_marginTop="@dimen/common_margin"
+                >
 
                 <TextView style="@style/NewAddressTitle" 
                     android:text="详细地址"
+                    android:layout_gravity="start"
                     />
 
-                <EditText style="@style/NewAddressInput" 
+                <EditText 
+                    android:id="@+id/et_aa_detail"
+                    style="@style/NewAddressInput" 
                     android:lines="2"
                     />
             </LinearLayout>
 
-            <View style="@style/DividerWH" />
+            <View style="@style/DividerWH" 
+                android:layout_marginTop="@dimen/v_margin_activity"
+                />
 
             <LinearLayout style="@style/MatchWidthOnly" >
                 <TextView 
@@ -69,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:text="是否设为默认地址"
                     android:textColor="@android:color/black"
+                    android:textSize="@dimen/textsize_title_normal"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/common_margin"
                     />

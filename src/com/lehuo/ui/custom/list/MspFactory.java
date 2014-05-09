@@ -13,6 +13,7 @@ import com.lehuo.net.action.ActionPhpRequestImpl;
 import com.lehuo.net.action.order.GetOrderListReq;
 import com.lehuo.ui.adapter.msp.ListAdapterOrder;
 import com.lehuo.ui.adapter.msp.ListAdapterOrder.OrderViewHolder;
+import com.lehuo.ui.custom.list.ListItemImpl.Type;
 import com.lehuo.ui.custom.list.MspAdapter.ViewHolderImpl;
 import com.lehuo.ui.custom.list.MyScrollPageListView.OnGetPageListener;
 import com.lehuo.util.TestDataTracker;
@@ -20,31 +21,33 @@ import com.lehuo.vo.OrderInfo;
 import com.lehuo.vo.User;
 
 public class MspFactory implements MspFactoryImpl {
-	
+
 	ListItemImpl.Type type;
 
-	public MspFactory(ListItemImpl.Type type){
+	public MspFactory(ListItemImpl.Type type) {
 		this.type = type;
 	}
-	
+
 	@Override
 	public MspAdapter getNewAdapter() {
 		MspAdapter adapter = null;
-				switch (type) {
-				case ORDER:
-					adapter = new ListAdapterOrder();
-					break;
+		switch (type) {
+		case ORDER_DELIVER:
+		case ORDER_DONE:
+			adapter = new ListAdapterOrder();
+			break;
 
-				default:
-					break;
-				}
+		default:
+			break;
+		}
 		return adapter;
 	}
 
 	@Override
 	public MspPage getMspPage(JSONObject job) {
-		if(job==null) return null;
-		MspPage mp = new MspPage( this);
+		if (job == null)
+			return null;
+		MspPage mp = new MspPage(this);
 		try {
 			mp.initJackJson(job);
 		} catch (JSONException e) {
@@ -53,12 +56,12 @@ public class MspFactory implements MspFactoryImpl {
 		return mp;
 	}
 
-
 	@Override
 	public MspJsonItem getMjiInstance() {
-		MspJsonItem mji=null;
+		MspJsonItem mji = null;
 		switch (type) {
-		case ORDER:
+		case ORDER_DELIVER:
+		case ORDER_DONE:
 			mji = new OrderInfo();
 			break;
 
@@ -72,17 +75,23 @@ public class MspFactory implements MspFactoryImpl {
 	public OnGetPageListener getDefaultOnPageChangeListener() {
 		OnGetPageListener listener = null;
 		switch (type) {
-		case ORDER:
+		case ORDER_DELIVER:
+		case ORDER_DONE:
 			listener = new OnGetPageListener() {
-				
+
 				@Override
 				public void page(MyScrollPageListView qListView, int pageNo) {
 					User me = MyData.data().getMe();
-					if(null==me) return;
-					ActionPhpRequestImpl req = new GetOrderListReq(1, pageNo, me.getUser_id());
-//					ActionBuilder.getInstance().request(req, qListView);
-					TestDataTracker.simulateConnection(qListView, req.getApiName());
-					
+					if (null == me)
+						return;
+					ActionPhpRequestImpl req = new GetOrderListReq(
+							type == Type.ORDER_DELIVER ? GetOrderListReq.COMPLETE_DELIVER
+									: GetOrderListReq.COMPLETE_DONE, pageNo,
+							me.getUser_id());
+					ActionBuilder.getInstance().request(req, qListView);
+					// TestDataTracker.simulateConnection(qListView,
+					// req.getApiName());
+
 				}
 			};
 			break;
@@ -95,9 +104,10 @@ public class MspFactory implements MspFactoryImpl {
 
 	@Override
 	public String getPageName() {
-		String name="";
+		String name = "";
 		switch (type) {
-		case ORDER:
+		case ORDER_DELIVER:
+		case ORDER_DONE:
 			name = "orders";
 			break;
 
@@ -106,6 +116,5 @@ public class MspFactory implements MspFactoryImpl {
 		}
 		return name;
 	}
-
 
 }

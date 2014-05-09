@@ -13,7 +13,9 @@
             <TextView
                 android:id="@+id/tv_myaddr_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" 
+                android:textColor="@android:color/black"
+                />
 
         <TextView
             android:id="@+id/tv_myaddr_detail"
@@ -30,8 +32,8 @@
         android:id="@+id/img_myaddr_check"
         style="@style/WrapAll"
         android:layout_alignParentRight="true"
-        android:src="@android:drawable/checkbox_on_background" 
-        
+        android:src="@drawable/selector_check" 
+        android:layout_centerVertical="true"
         />
 
 </RelativeLayout>

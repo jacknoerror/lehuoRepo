@@ -72,6 +72,9 @@ public class UserAddress extends JsonImport {
 		return is_default==1;
 	}
 
+	public final void setDefault(boolean isDefualt){
+		this.is_default = isDefualt?1:0;//0?
+	}
 	public final void setIs_default(int is_default) {
 		this.is_default = is_default;
 	}

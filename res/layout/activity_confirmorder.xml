@@ -38,13 +38,18 @@
                     <TextView
                         android:id="@+id/tv_co_a_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content" 
+                        android:textColor="@android:color/black"
+                        android:layout_marginRight="@dimen/common_margin"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/red_text"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white" 
+                        android:text="默认地址"
+                        />
                 </LinearLayout>
 
                 <TextView
@@ -61,6 +66,7 @@
             <ImageView
                 style="@style/WrapAll"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:src="@drawable/arrow" />
         </RelativeLayout>
 
@@ -72,10 +78,25 @@
 
         <View style="@style/DividerWH" />
 
-        <TextView
+        <RelativeLayout 
             android:id="@+id/checoutclickview_arrivepay"
-            style="@style/ClickBar"
+            style="@style/MatchWidthOnly"
+            android:layout_margin="@dimen/common_margin"
+            >
+        <TextView
+            style="@style/MatchWidthOnly"
+            android:textColor="@color/grey_text"
+            android:textSize="@dimen/textsize_title_normal"
             android:text="货到付款" />
+            <ImageView 
+                android:id="@+id/img_co_arrivepaycheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/selector_check"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/common_margin"
+                />
+        </RelativeLayout>
 
         <View style="@style/DividerShortLeft" />
 

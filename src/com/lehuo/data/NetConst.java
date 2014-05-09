@@ -91,5 +91,21 @@ public interface NetConst {
 	public static final String ACTION_CHECKOUT = "checkout";
 
 	public static final String EXTRAS_HUB = "hub";
+
+	public static final String EXTRAS_FROM = "from";
+
+	public static final String ACTION_SETDEFAULT = "setdefault";
+
+	public static final String PARAMS_IS_DEFAULT = "is_default";
+
+	public static final String PARAMS_COMPLETE = "complete";
+
+	public static final String PARAMS_SIZE = "size";
+
+	public static final String ACTION_GETCOURIER = "getcourier";
+
+	public static final String ACTION_CONFIRMRECEIVE = "confirmreceive";
+
+	public static final String PARAMS_ORDER_ID = "order_id";
 	
 }

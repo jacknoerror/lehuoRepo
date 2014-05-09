@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.lehuo.data.MyData;
 import com.lehuo.data.NetConst;
+import com.lehuo.ui.address.AddAddressActivity;
 import com.lehuo.ui.login.PersonInfoCreateActivity;
 import com.lehuo.ui.login.RegistCodeActivity;
 import com.lehuo.ui.login.RegistPhoneActivity;
@@ -24,8 +25,17 @@ public class MyGate implements NetConst{
 		intent.setClass(context, clazz);
 		context.startActivity(intent);
 	}
+	public static void goGeo(){
+		//TODO
+//		intent.setClass(ShActivityInfo.this, GeoCoderActivity.class);
+//		intent.putExtra("lat", shHelper.dfCompany.getCompLatitude());
+//		intent.putExtra("lon", shHelper.dfCompany.getCompLongitude());
+//		intent.putExtra("searchkey", shHelper.dfCompany.getCompAddress());
+//		startActivity(intent);
+	}
+	
 	public static void goAddAddr(Context context){
-		justGo(context, clazz)
+		justGo(context, AddAddressActivity.class);
 	}
 	public static void goConfirmOrder(Context context,Object obj){
 //		if(null==obj)return;

@@ -13,11 +13,11 @@ public class UserAddAddressReq implements ActionPhpRequestImpl {
 	String truename;// 收货人，必须是汉字
 	int province,city,district;// 地区编号
 	String address;// 详细地址
-	int mobile;// 联系电话
+	String mobile;// 联系电话
     
 
 	public UserAddAddressReq(int user_id, String truename, int province,
-			int city, int district, String address, int mobile) {
+			int city, int district, String address, String mobile) {
 		super();
 		this.user_id = user_id;
 		this.truename = truename;

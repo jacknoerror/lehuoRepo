@@ -6,9 +6,13 @@ import org.json.JSONObject;
 import com.lehuo.entity.json.JsonImport;
 
 public class Payment extends JsonImport {
-	int pay_id;
-	String pay_name;
+	public static int PAYTYPE_ARRIVE=2;
+	public static int PAYTYPE_ALIPAY=1;
+	public static int PAYTYPE_ALIWEB=3;
 	
+	int pay_id;//2，货到付款；1，支付宝客户端；3，支付宝网页
+	String pay_name;
+	//isdefault?
 	public int getPay_id() {
 		return pay_id;
 	}

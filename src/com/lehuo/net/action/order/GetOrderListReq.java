@@ -13,8 +13,9 @@ import com.lehuo.net.action.ActionPhpRequestImpl;
  */
 public class GetOrderListReq implements ActionPhpRequestImpl {
 
-	private static final String PARAMS_COMPLETE = "complete";
-	private static final String PARAMS_SIZE = "size";
+	public static int COMPLETE_DELIVER = 0;
+	public static int COMPLETE_DONE = 1;
+	
 	int complete;//0,送货跟踪列表;1，已完成订单列表
 	int page;
 	int size;
@@ -45,9 +46,9 @@ public class GetOrderListReq implements ActionPhpRequestImpl {
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(PARAMS_COMPLETE,complete+"");
+		halfway.put(NetConst.PARAMS_COMPLETE,complete+"");
 		halfway.put(PARAMS_PAGE,page+"");
-		halfway.put(PARAMS_SIZE,size+"");
+		halfway.put(NetConst.PARAMS_SIZE,size+"");
 		halfway.put(PARAMS_USER_ID,user_id+"");
 		return halfway;
 	}

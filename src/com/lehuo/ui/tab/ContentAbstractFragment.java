@@ -1,15 +1,10 @@
 package com.lehuo.ui.tab;
 
-import com.lehuo.R;
-import com.lehuo.data.MyData;
 import com.lehuo.ui.JackAbsFragment;
 import com.lehuo.ui.TitleManager;
 
 import android.content.Context;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
-import android.widget.TabHost;
 
 
 public abstract class ContentAbstractFragment extends JackAbsFragment {

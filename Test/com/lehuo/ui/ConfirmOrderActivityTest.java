@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.lehuo.data.MyData;
 import com.lehuo.ui.tab.order.ConfirmOrderActivity;
+import com.lehuo.vo.User;
 
 public class ConfirmOrderActivityTest extends ActivityInstrumentationTestCase2<ConfirmOrderActivity> {
 
@@ -22,6 +24,9 @@ public class ConfirmOrderActivityTest extends ActivityInstrumentationTestCase2<C
 	public void setActivityIntent(Intent i) {
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //		i.putExtra(NetConst.EXTRA_PHONE, "15888889999");
+		User user = new User();
+		user.setUser_id(28);
+		MyData.data().setCurrentUser(user);
 		super.setActivityIntent(i);
 	}
 	@Override

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/side_goodsicon"
     android:orientation="horizontal" 
     android:padding="@dimen/common_margin"
     >
     <ImageView 
         android:id="@+id/img_sprod_icon"
         style="@style/Img_inItem"
+        android:layout_width="@dimen/side_goodsicon_smaller"
+        android:layout_height="@dimen/side_goodsicon_smaller"
         />
     <LinearLayout 
         android:layout_width="match_parent"
@@ -18,21 +20,28 @@
             android:id="@+id/tv_item_pname"
             style="@style/MatchWidthOnly"
             android:singleLine="true"
+            android:textColor="@android:color/black"
             />
         <TextView 
             android:id="@+id/tv_item_pdesc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:lines="3"
+            android:ellipsize="end"
+            android:textColor="@color/grey_text"
+            android:textSize="@dimen/textsize_min"
+            android:layout_weight="1"
             />
-        <RelativeLayout 
+        <LinearLayout 
             style="@style/MatchWidthOnly"
+            android:orientation="horizontal"
             >
             <LinearLayout 
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:orientation="vertical"
+                android:layout_weight="10"
                 >
                 <TextView 
                     android:id="@+id/tv_item_sprod_priceold"
@@ -47,14 +56,18 @@
                     />
             </LinearLayout>
             <Button 
-                android:id="@+id/btn_buynow"
+                android:id="@+id/btn_pl_buynow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:textColor="@android:color/white"
+                android:background="@drawable/shape_btn_bg_orange"
+                android:padding="@dimen/common_margin"
                 android:text="立刻购买"
-                android:visibility="invisible"
+                android:focusable="false"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
                 />
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

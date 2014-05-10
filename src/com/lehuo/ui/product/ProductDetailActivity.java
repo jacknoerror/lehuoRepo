@@ -25,12 +25,7 @@ import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
-import com.lehuo.net.action.JackShowToastReceiver;
-import com.lehuo.net.action.NextActionRcv;
-import com.lehuo.net.action.BareReceiver;
 import com.lehuo.net.action.goods.GetProductDetailReq;
-import com.lehuo.net.action.order.AddCartReq;
-import com.lehuo.net.action.order.UpdateCartReq;
 import com.lehuo.ui.MyTitleActivity;
 import com.lehuo.ui.adapter.MyPagerAdapater;
 import com.lehuo.ui.custom.JackRadios;
@@ -84,31 +79,10 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 				int user_id = mUser.getUser_id();
 				int goods_id = mProduct.getGoods_id();
 				if(null==mUser||user_id==0) return;//
-				//  添加到购物车
-				ActionPhpRequestImpl req = null;
-				ActionPhpReceiverImpl rcv= null;
-				ActionPhpRequestImpl nReq = null;
-				ActionPhpReceiverImpl nRcv= null;
-				req = new AddCartReq(
-						new AddCartReq.CartGoods(goods_id), 
-						user_id);
-				rcv = new JackShowToastReceiver(ProductDetailActivity.this);
-				nReq = new UpdateCartReq(user_id);
-				nRcv = new BareReceiver(ProductDetailActivity.this){
-					@Override
-					public boolean response(String result) throws JSONException {
-						
-						if(!super.response(result)){
-							MyData.data().setCartCount(resultJob.optInt(RESULT_OBJ));//没错就是这样
-							titleManager.updateCart();
-							return false;
-						}
-						return true;
-					};
-				};
-				rcv = new NextActionRcv(rcv, nReq, nRcv);
-				ActionBuilder.getInstance().request(req, rcv);
+				NetStrategies.addToCart(ProductDetailActivity.this, goods_id, titleManager);
 			}
+
+			
 		});
 		ActionPhpRequestImpl req = new GetProductDetailReq(mProduct.getGoods_id());
 		ActionBuilder.getInstance().request(req, this);

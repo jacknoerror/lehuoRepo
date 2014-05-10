@@ -14,14 +14,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.lehuo.MyApplication;
 import com.lehuo.data.Const;
+import com.lehuo.data.MyData;
 import com.lehuo.data.NetConst;
+import com.lehuo.net.action.ActionBuilder;
+import com.lehuo.net.action.ActionPhpReceiverImpl;
+import com.lehuo.net.action.ActionPhpRequestImpl;
+import com.lehuo.net.action.BareReceiver;
+import com.lehuo.net.action.JackShowToastReceiver;
+import com.lehuo.net.action.NextActionRcv;
+import com.lehuo.net.action.order.AddCartReq;
+import com.lehuo.net.action.order.AddCartReq.CartGoods;
+import com.lehuo.net.action.order.UpdateCartReq;
+import com.lehuo.ui.TitleManager;
 import com.lehuo.util.JackUtils;
 import com.lehuo.vo.IntPrice;
 import com.lehuo.vo.IntegralPriceImpl;
+import com.lehuo.vo.User;
 /**
  * 
  * @author taotao
@@ -174,4 +187,36 @@ public class NetStrategies implements NetConst{
 		}
 		return result;
 	}
+
+	public static void addToCart(Context context, int goods_id, final TitleManager tManager) {
+		User me = MyData.data().getMe();
+		if(null==me) return;
+		Integer user_id = me.getUser_id();
+		//  添加到购物车
+		ActionPhpRequestImpl req = null;
+		ActionPhpReceiverImpl rcv= null;
+		ActionPhpRequestImpl nReq = null;
+		ActionPhpReceiverImpl nRcv= null;
+		req = new AddCartReq(
+				new AddCartReq.CartGoods(goods_id), 
+				user_id);
+		rcv = new JackShowToastReceiver(context);
+		nReq = new UpdateCartReq(user_id);
+		nRcv = new BareReceiver(context){
+			@Override
+			public boolean response(String result) throws JSONException {
+				
+				if(!super.response(result)){
+					MyData.data().setCartCount(resultJob.optInt(RESULT_OBJ));//没错就是这样
+					tManager.updateCart();
+					return false;
+				}
+				return true;
+			};
+		};
+		rcv = new NextActionRcv(rcv, nReq, nRcv);
+		ActionBuilder.getInstance().request(req, rcv);
+	}
+	
+	
 }

@@ -12,6 +12,9 @@ import com.lehuo.net.action.ActionPhpRequestImpl;
  *获取产品列表接口
  */
 public class GetProductListReq implements ActionPhpRequestImpl {
+	public static String SORT_PRICE="price";
+	public static String SORT_SALES="sales";
+	public static String SORT_RECOMMED="recommed";
 
 	int record_number ;//每页显示的数量（默认20，即如果该参数木有提交，则自动赋值为20）
 	int page_number ;//页数（默认第一页）

@@ -21,8 +21,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.lehuo.MyApplication;
 import com.lehuo.R;
 import com.lehuo.entity.json.JsonImport;
+import com.lehuo.net.NetStrategies;
+import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.ui.MyGate;
 import com.lehuo.util.JackImageLoader;
@@ -40,6 +43,7 @@ public class GoodsListView extends ListView implements
 	
 	GoodsPage currentPage;
 	OnGetPageListener gpListener;
+	View.OnClickListener viewInItemOnclickListener;
 	
 	View moreView;
 
@@ -96,6 +100,16 @@ public class GoodsListView extends ListView implements
 		gpListener.page(this,requestpage);
 	}
 	
+	
+	
+	/**
+	 * @param viewInItemOnclickListener
+	 */
+	public void setViewInItemOnclickListener(
+			View.OnClickListener viewInItemOnclickListener) {
+		this.viewInItemOnclickListener = viewInItemOnclickListener;
+	}
+
 	/**
 	 * 将发请求的操作放入此处
 	 * @param gpListener
@@ -257,6 +271,7 @@ public class GoodsListView extends ListView implements
 				holder.tv_goodsdesc = (TextView)view.findViewById(R.id.tv_item_pdesc);
 				holder.tv_priceold = (TextView)view.findViewById(R.id.tv_item_sprod_priceold);
 				holder.tv_pricenew = (TextView)view.findViewById(R.id.tv_item_sprod_pricenew);
+				holder.btn = (Button)view.findViewById(R.id.btn_pl_buynow);
 				viewMap.put(position, view);
 				view.setTag(holder);
 			}else{
@@ -270,7 +285,8 @@ public class GoodsListView extends ListView implements
 			holder.tv_goodsdesc.setText(p.getGoods_desc());
 			holder.tv_priceold.setText(p.getMarket_price());//TODO delete line
 			holder.tv_pricenew.setText(p.getRealPriceStr());
-			
+			holder.btn.setOnClickListener(viewInItemOnclickListener);
+			holder.btn.setTag(p.getGoods_id());
 			return view;
 		}
 		

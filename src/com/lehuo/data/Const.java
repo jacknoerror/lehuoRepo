@@ -8,5 +8,5 @@ public class Const implements NetConst{
 	public static final String LOC_DEFAULT_LON = "120.511389";
 	
 	public static boolean _DEBUG = true;
-	
+	public static boolean _SIM = false;
 }

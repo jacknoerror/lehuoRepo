@@ -38,3 +38,7 @@ ask about details of timezone
 ask about payment redirecting
 ask about the end of confirmOrder
 see the add address face
+----
+0509
+GONNA DO:
+category,product,account if still has time

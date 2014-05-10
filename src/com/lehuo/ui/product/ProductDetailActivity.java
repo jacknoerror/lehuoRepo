@@ -55,7 +55,7 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 	public void initView() {
 		mUser = MyData.data().getMe();
 		mProduct = MyData.data().fetchProduct();
-		if(null==mProduct) return;
+		if(null==mProduct||null==mUser) return;
 		titleManager.setTitleName(mProduct.getGoods_name());
 		titleManager.updateCart();
 		

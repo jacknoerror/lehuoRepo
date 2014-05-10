@@ -42,3 +42,12 @@ see the add address face
 0509
 GONNA DO:
 category,product,account if still has time
+0510
+GONNA DO:
+product,account,
+courier?
+TODO NEXT:
+ask about getcomment
+i didn't find the birthday value in a user,ask about that
+
+

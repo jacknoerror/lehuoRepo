@@ -68,7 +68,7 @@ public class ProductListActivity extends MyTitleActivity implements
 		frameContainer.addView(tempEmpty);
 		for (int i = 0; i < rBtns.length; i++) {
 			rBtns[i].setTextColor(getResources().getColorStateList(
-					R.color.selector_tab_textcolor_black));
+					R.color.selector_tab_textcolor_green));
 			rBtns[i].setText(TITLES[i]);
 			GoodsListView jlv = new GoodsListView(this);
 			jlv.setViewInItemOnclickListener(new View.OnClickListener() {

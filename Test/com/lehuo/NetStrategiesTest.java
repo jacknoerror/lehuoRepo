@@ -68,7 +68,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 			ari = new GetBrandReq(1);
 			break;
 		case 7:
-			ari = new GetProductCommentReq(2, 1);
+			ari = new GetProductCommentReq(3, 1);
 			break;
 		case 8:
 			ari = new GetCartReq(4);
@@ -118,7 +118,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 	public void actionTest() throws SocketTimeoutException, UnknownHostException, IOException{
 		String result="";
 		
-		result  = actionChoser(12);
+		result  = actionChoser(7);
 			
 		Log.i(TAG, "result=>"+result);
 		assertNotSame(result, "");

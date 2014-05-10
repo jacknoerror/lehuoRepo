@@ -28,11 +28,11 @@ import com.lehuo.util.JackUtils;
 public class HubActivity extends FragmentActivity implements OnTabChangeListener{
 	
 	final TabPack[] hubs = new TabPack[]{
-			new TabPack(R.drawable.selector_tab_home, "首页1", TabFragMain.class),
-			new TabPack(R.drawable.selector_tab_order, "首页2", TabFragOrder.class),
-			new TabPack(R.drawable.selector_tab_track, "首页3", TabFragDeliver.class),
-			new TabPack(R.drawable.selector_tab_center, "首页4", TabFragMy.class),
-			new TabPack(R.drawable.selector_tab_more, "首页5", TabFragMore.class)
+			new TabPack(R.drawable.selector_tab_home, "首页", TabFragMain.class),
+			new TabPack(R.drawable.selector_tab_order, "订单", TabFragOrder.class),
+			new TabPack(R.drawable.selector_tab_track, "配送", TabFragDeliver.class),
+			new TabPack(R.drawable.selector_tab_center, "我的账户", TabFragMy.class),
+			new TabPack(R.drawable.selector_tab_more, "更多", TabFragMore.class)
 	};
 	
 	private TabHost mTabHost;
@@ -93,6 +93,7 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 		img.setImageResource(hubs[index].icon);
 		String title=hubs[index].title;
 		TextView tv = (TextView)view.findViewById(R.id.tv_tab);
+		tv.setTextColor(getResources().getColorStateList(R.color.selector_tab_textcolor_orange));
 		tv.setText(title);
 		
 		mTabHost.addTab(

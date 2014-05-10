@@ -3,31 +3,43 @@
  */
 package com.lehuo.ui.custom;
 
+import java.util.Iterator;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 
 import com.lehuo.R;
 import com.lehuo.data.MyData;
+import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
+import com.lehuo.net.action.JackDefJobRcv;
+import com.lehuo.net.action.JackShowToastReceiver;
 import com.lehuo.net.action.brand.GetBrandRcv;
 import com.lehuo.net.action.brand.GetBrandReq;
 import com.lehuo.net.action.goods.GetProductAttrRcv;
 import com.lehuo.net.action.goods.GetProductAttrReq;
 import com.lehuo.net.action.goods.GetProductCommentReq;
 import com.lehuo.vo.Product;
+import com.lehuo.vo.ProductComment;
 
 /**
  * @author taotao
@@ -64,6 +76,8 @@ public class JackRadios implements OnCheckedChangeListener {
 			/*View view = initView(i);
 			if(null!=view) jlvMap.put(getBtnId(i), view);*/
 			rBtns[i] = (RadioButton)rGroup.findViewById(ids[0]);
+			rBtns[i].setTextColor(context.getResources().getColorStateList(
+					R.color.selector_tab_textcolor_green));
 		}
 		
 		rGroup.setOnCheckedChangeListener(this);
@@ -94,6 +108,7 @@ public class JackRadios implements OnCheckedChangeListener {
 			break;
 		case R.id.radio2:
 			LinearLayout mLayout = new LinearLayout(context);
+			mLayout.setOrientation(LinearLayout.VERTICAL);
 			actReq = new GetProductAttrReq(p.getGoods_id());
 			actRcv = new GetProductAttrRcv(context,mLayout);
 			ActionBuilder.getInstance().request(actReq, actRcv);
@@ -107,7 +122,45 @@ public class JackRadios implements OnCheckedChangeListener {
 			view = mGrid;
 			break;
 		case R.id.radio4:
-//			actReq = new GetProductCommentReq(p.getGoods_id(), page);
+			final LinearLayout fml = new LinearLayout(context);
+			fml.setOrientation(LinearLayout.VERTICAL);
+			actReq = new GetProductCommentReq(p.getGoods_id(), 1);
+			actRcv = new JackDefJobRcv(context) {
+				
+				@Override
+				public boolean respJob(JSONObject job) throws JSONException {
+					if(null!=job&&job.has("comments")){
+						Iterator<String> it = (job=job.getJSONObject("comments")).keys();
+						while(it.hasNext()){
+							String name = it.next();
+							if(!name.equals("next")){
+								ProductComment pc = new ProductComment(job.getJSONObject(name));
+								View cv = LayoutInflater.from(context).inflate(R.layout.item_comment_goods, null);
+								TextView tv_name = (TextView)cv.findViewById(R.id.tv_item_commentgoods_username);
+								LinearLayout layout_star = (LinearLayout)cv.findViewById(R.id.layout_item_commentgoods_stars);
+								TextView tv_comment = (TextView)cv.findViewById(R.id.tv_item_commentgoods_comment);
+								TextView tv_date = (TextView)cv.findViewById(R.id.tv_item_commentgoods_date);
+								tv_name.setText(pc.getUsername());
+								tv_comment.setText(pc.getContent());
+								tv_date.setText(pc.getAdd_time());
+								for(int i=0;i<pc.getRank();i++){
+									ImageView star = new ImageView(context);
+									star.setImageResource(android.R.drawable.star_big_on);
+									layout_star.addView(star);
+								}
+								fml.addView(cv);
+								fml.addView(NetStrategies.getSimpleDivider(context));
+								
+							}
+						}
+						
+						return false;
+					}
+					return true;
+				}
+			};
+			ActionBuilder.getInstance().request(actReq, actRcv);
+			view = fml;
 			break;
 		default:
 			break;

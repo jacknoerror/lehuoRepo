@@ -106,4 +106,57 @@ public class User extends JsonImport {
 		this.rank_points = rank_points;
 	}
 
+	public String getUser_money() {
+		return user_money;
+	}
+
+	public int getPay_points() {
+		return pay_points;
+	}
+
+	public long getReg_time() {
+		return reg_time;
+	}
+
+	public long getLast_login() {
+		return last_login;
+	}
+
+	public int getUser_rank() {
+		return user_rank;
+	}
+
+	public int getIs_courier() {
+		return is_courier;
+	}
+	public boolean isCourier(){
+		return is_courier==1;
+	}
+
+	public void setUser_money(String user_money) {
+		this.user_money = user_money;
+	}
+
+	public void setPay_points(int pay_points) {
+		this.pay_points = pay_points;
+	}
+
+	public void setReg_time(long reg_time) {
+		this.reg_time = reg_time;
+	}
+
+	public void setLast_login(long last_login) {
+		this.last_login = last_login;
+	}
+
+	public void setUser_rank(int user_rank) {
+		this.user_rank = user_rank;
+	}
+
+	public void setIs_courier(int is_courier) {
+		this.is_courier = is_courier;
+	}
+	public void setIs_courier(boolean iscourier) {
+		is_courier = iscourier?1:0;
+	}
 }

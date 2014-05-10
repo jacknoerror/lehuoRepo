@@ -44,7 +44,7 @@ public class ProductListActivityTest extends ActivityInstrumentationTestCase2<Pr
 //		fail("Not yet implemented");
 //		assertEquals(2, );
 		assertNotNull(getActivity());
-		SystemClock.sleep(15000);
+		SystemClock.sleep(25000);
 	}
 	
 }

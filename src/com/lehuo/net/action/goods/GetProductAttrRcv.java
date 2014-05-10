@@ -4,44 +4,47 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.JackDefJarRcv;
+import com.lehuo.util.JackUtils;
 import com.lehuo.vo.ProductAttitute;
 
 public class GetProductAttrRcv extends JackDefJarRcv {
 	LinearLayout mLayout;
-
-
 
 	public GetProductAttrRcv(Context context, LinearLayout mLayout) {
 		super(context);
 		this.mLayout = mLayout;
 	}
 
-
-
 	@Override
 	public boolean respJar(JSONArray jar) throws JSONException {
-		if(null!=jar){
-			if(jar.length()>0&&null!=mLayout&&null!=context){
-				for(int i = 0 ; i<jar.length();i++){
-					ProductAttitute pa = new ProductAttitute(jar.getJSONObject(i));
-//					if(i!=0) mLayout.addView(divider);
+		if (null != jar) {
+			if (jar.length() > 0 && null != mLayout && null != context) {
+				for (int i = 0; i < jar.length(); i++) {
+					ProductAttitute pa = new ProductAttitute(
+							jar.getJSONObject(i));
+					// if(i!=0) mLayout.addView(divider);
 					TextView tempTv = new TextView(context);
-					tempTv.setText(pa.getAttr_name()+":"+pa.getAttr_value());
+					int p = JackUtils.dip2px(context, 3);
+					tempTv.setPadding(p, p, p, p);
+					tempTv.setText(pa.getAttr_name() + ":\t" + pa.getAttr_value());
+					View v = NetStrategies.getSimpleDivider(context);
+					if (i != 0)
+						mLayout.addView(v);
 					mLayout.addView(tempTv);
-					
+
 				}
-				return false;//0?
+				return false;// 0?
 			}
-		}else{
+		} else {
 		}
 		return true;
 	}
-
-
 
 }

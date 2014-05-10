@@ -19,7 +19,8 @@ public class LoginRcv extends JackDefJobRcv{
 	public boolean respJob(JSONObject job) throws JSONException {
 		if(null!=job){
 			User user = new User(job);
-			MyGate.login(context,user);
+			if(!user.isCourier())MyGate.login(context,user);
+			else ;//TODO
 			return false;
 		}
 		return true;

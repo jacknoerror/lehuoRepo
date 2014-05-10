@@ -14,7 +14,7 @@ public abstract class JackListAbsContFrag extends ContentAbstractFragment {
 
 	@Override
 	public int getLayoutRid() {
-		return R.layout.fragment_order;
+		return R.layout.fragment_common_frame;
 	}
 
 	@Override

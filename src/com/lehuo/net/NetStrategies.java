@@ -16,8 +16,12 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 
 import com.lehuo.MyApplication;
+import com.lehuo.R;
+import com.lehuo.R.color;
 import com.lehuo.data.Const;
 import com.lehuo.data.MyData;
 import com.lehuo.data.NetConst;
@@ -216,6 +220,15 @@ public class NetStrategies implements NetConst{
 		};
 		rcv = new NextActionRcv(rcv, nReq, nRcv);
 		ActionBuilder.getInstance().request(req, rcv);
+	}
+
+	public static View getSimpleDivider(Context c) {
+		View v = new View(c);
+		v.setBackgroundColor(c.getResources().getColor(
+				R.color.grey_text));
+		v.setLayoutParams(new LayoutParams(
+				LayoutParams.MATCH_PARENT, 1));
+		return v;
 	}
 	
 	

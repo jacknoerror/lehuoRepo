@@ -8,14 +8,15 @@
     <include layout="@layout/merge_jacktitle"/> 
 	<LinearLayout 
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
+	    android:layout_height="150dp"
 	    android:orientation="horizontal"
 	    android:gravity="center_vertical"
+	    android:background="@color/transparent_dark"
 	    >
 	    <ImageView 
 	        android:id="@+id/img_account_userhead"
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
+	        android:layout_width="@dimen/side_goodsicon"
+	        android:layout_height="@dimen/side_goodsicon"
 	        android:layout_marginLeft="@dimen/h_margin_activity"
 	        android:src="@drawable/ic_launcher"
 	        />
@@ -24,6 +25,7 @@
 	        android:layout_height="match_parent"
 	        android:layout_weight="1"
 	        android:orientation="vertical"
+	        android:gravity="center_vertical"
 	        >
 	        <TextView 
 	            android:id="@+id/tv_account1_username"
@@ -31,6 +33,7 @@
 	            android:layout_height="wrap_content"
 	            android:textColor="@android:color/white"
 	            android:textSize="@dimen/textsize_title_sub"
+	            android:text="1"
 	            />
 	        <TextView 
 	            android:id="@+id/tv_account1_score"
@@ -48,6 +51,10 @@
 	            />
 	    </LinearLayout>
 	</LinearLayout>
+	<View 
+        style="@style/DividerWH"
+        android:background="#a111"
+        />
     <TextView 
         android:id="@+id/tv_account2_address"
         android:text="地址管理"

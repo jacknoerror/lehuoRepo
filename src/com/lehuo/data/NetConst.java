@@ -107,5 +107,27 @@ public interface NetConst {
 	public static final String ACTION_CONFIRMRECEIVE = "confirmreceive";
 
 	public static final String PARAMS_ORDER_ID = "order_id";
+
+	public static final String PARAMS_BIRTHDAY = "birthday";
+
+	public static final String ACTION_LONGITUDE = "longitude";
+
+	public static final String ACTION_LATITUDE = "latitude";
+
+	public static final String ACTION_ADDRESSNAME = "addressname";
+
+	public static final String ACTION_COURIERLOCATION = "courierlocation";
+
+	public static final String ACTION_START = "start";
+
+	public static final String PHPNAME_COURIER = "courier";
+
+	public static final String ACTION_LIST = "list";
+
+	public static final String EXTRAS_LON = "lon";
+
+	public static final String EXTRAS_LAT = "lat";
+
+	public static final String EXTRAS_LOCATION = "location";
 	
 }

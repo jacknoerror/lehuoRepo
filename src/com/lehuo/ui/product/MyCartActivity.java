@@ -40,7 +40,7 @@ import com.lehuo.util.JackImageLoader;
 import com.lehuo.vo.User;
 import com.lehuo.vo.cart.CartInfo;
 import com.lehuo.vo.cart.DataCart;
-import com.lehuo.vo.cart.InfoGoods;
+import com.lehuo.vo.cart.InfoGoodsInCart;
 import com.lehuo.vo.cart.InfoTotal;
 
 /**
@@ -119,10 +119,10 @@ public class MyCartActivity extends MyTitleActivity {
 
 	class MyCartAdapter extends BaseAdapter {
 
-		List<InfoGoods> contentList;
+		List<InfoGoodsInCart> contentList;
 		SparseArray<View> viewMap;
 
-		public MyCartAdapter(List<InfoGoods> contentList) {
+		public MyCartAdapter(List<InfoGoodsInCart> contentList) {
 			super();
 			this.contentList = contentList;
 			viewMap = new SparseArray<View>();
@@ -173,7 +173,7 @@ public class MyCartActivity extends MyTitleActivity {
 			}
 
 			// 哟啊不要换地方？
-			final InfoGoods itm = contentList.get(position);
+			final InfoGoodsInCart itm = contentList.get(position);
 			if (null != itm) {
 				JackImageLoader
 						.justSetMeImage(itm.getGoods_thumb(), holder.img);

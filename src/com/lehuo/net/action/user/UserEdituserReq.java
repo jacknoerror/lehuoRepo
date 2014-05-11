@@ -7,15 +7,11 @@ import com.lehuo.data.NetConst;
 import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionPhpRequestImpl;
 
-
 public class UserEdituserReq implements ActionPhpRequestImpl {
-	int user_id;//用户ID
-	int sex;// 性别 1男性 2女性
+	int user_id;// 用户ID
+	Integer sex;// 性别 1男性 2女性
 	String birthday;// 格式为 1999-01-02
 	String truename;// 真实姓名，必须是汉字
-
-	
-
 
 	public UserEdituserReq(int user_id, int sex, String birthday,
 			String truename) {
@@ -38,15 +34,19 @@ public class UserEdituserReq implements ActionPhpRequestImpl {
 
 	@Override
 	public String toHttpBody() {
-		return NetStrategies.getPhpHttpBody(getPhpName(), getApiName(), halfwayParamMap(new HashMap<String, String>()));
+		return NetStrategies.getPhpHttpBody(getPhpName(), getApiName(),
+				halfwayParamMap(new HashMap<String, String>()));
 	}
 
 	@Override
 	public Map<String, String> halfwayParamMap(Map<String, String> halfway) {
-		halfway.put(NetConst.PARAMS_USER_ID, user_id+"");
-		halfway.put(NetConst.PARAMS_SEX, sex+"");
-		halfway.put("birthday", birthday);
-		halfway.put(PARAMS_TRUENAME,truename );
+		halfway.put(NetConst.PARAMS_USER_ID, user_id + "");
+		if (null != sex)
+			halfway.put(NetConst.PARAMS_SEX, sex + "");
+		if (null != birthday)
+			halfway.put(NetConst.PARAMS_BIRTHDAY, birthday);
+		if (null != truename)
+			halfway.put(PARAMS_TRUENAME, truename);
 		return halfway;
 	}
 

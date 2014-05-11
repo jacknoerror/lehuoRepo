@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_margin"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_margin" 
+        android:layout_marginTop="@dimen/common_margin"
+        android:layout_marginBottom="@dimen/common_margin"
+        >
+
+        <TextView
+            android:id="@+id/tv_spc_pname"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="土豆"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/textsize_title_normal" />
+
+        <LinearLayout
+            style="@style/WrapAll"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_spc_price"
+                style="@style/WrapAll"
+                android:text="$$$$" />
+
+            <TextView
+                android:id="@+id/tv_spc_count"
+                style="@style/WrapAll"
+                android:layout_gravity="right"
+                android:text="xx" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/DividerShortLeft" />
+
+</LinearLayout>

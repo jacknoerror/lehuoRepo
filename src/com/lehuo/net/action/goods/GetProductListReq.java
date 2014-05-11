@@ -18,7 +18,7 @@ public class GetProductListReq implements ActionPhpRequestImpl {
 
 	int record_number ;//每页显示的数量（默认20，即如果该参数木有提交，则自动赋值为20）
 	int page_number ;//页数（默认第一页）
-	int catid ;//分类ID （默认没有，则获取全部数据）
+	Integer catid ;//分类ID （默认没有，则获取全部数据）
 	String sort ;//排序字段 （可选值有：price价钱,sales 销量,recommed 推荐排序.默认情况下安装商品最新添加和修改时间排序）
 	String sc ;//排序方式 升序或者降序（该参数只有sort 值是price是才生效 可选值：ASC,DESC）
 
@@ -33,6 +33,14 @@ public class GetProductListReq implements ActionPhpRequestImpl {
 		this.sc = sc;
 	}
 
+	public GetProductListReq(int page_number){
+		this.record_number = 5;//
+		this.page_number = page_number;
+		this.catid = null;
+		this.sort = "";
+		this.sc = "";
+	}
+	
 	@Override
 	public String getPhpName() {
 		return PHPNAME_GOODS;

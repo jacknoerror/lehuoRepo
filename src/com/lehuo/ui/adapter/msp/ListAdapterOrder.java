@@ -57,12 +57,13 @@ public class ListAdapterOrder extends MspAdapter {
 						JackImageLoader.justSetMeImage(jgio.getGoods_thumb(), img);
 						name.setText(jgio.getGoods_name());
 						price.setText(jgio.getGoods_price());
-						count.setText("X"+jgio.getGoods_number());
+						count.setText("x"+jgio.getGoods_number());
 						//TODO comment
 						//holder?clear?
 						upLayout.addView(view);
 					} catch (JSONException e) {
 						Log.e("ListAdapterOrder", "infogoodsinorder jsonwrong:"+e.getMessage());
+						continue;
 					}
 				}
 			}

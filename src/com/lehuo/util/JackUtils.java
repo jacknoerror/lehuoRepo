@@ -11,11 +11,11 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
-import com.lehuo.data.Const;
-
+import com.lehuo.MyApplication;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -25,8 +25,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -39,12 +37,13 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
-import android.text.Html;
-import android.text.Html.ImageGetter;
 import android.text.TextPaint;
 import android.util.Log;
 import android.view.View;
@@ -591,5 +590,47 @@ public class JackUtils {
 		}catch(Exception e){
 			return 0;
 		}
+	}
+	
+	public static double[] getLocation(Context c){
+		double[] dar = new double[2];
+		
+		LocationManager lm = (LocationManager)MyApplication.app(). getSystemService(Context.LOCATION_SERVICE);
+        // 返回所有已知的位置提供者的名称列表，包括未获准访问或调用活动目前已停用的。
+        List<String> lp = lm.getAllProviders();
+        for (String item:lp)
+        {
+            Log.i("8023", "可用位置服务："+item); 
+        }
+
+
+        Criteria criteria = new Criteria();  
+        criteria.setCostAllowed(false); 
+//设置位置服务免费 
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE); //设置水平位置精度
+         //getBestProvider 只有允许访问调用活动的位置供应商将被返回
+        String  providerName =         lm.getBestProvider(criteria, true);
+        Log.i("8023", "------位置服务："+providerName);
+
+
+
+        if (providerName != null)
+        {        
+            Location location = lm.getLastKnownLocation(providerName);
+            Log.i("8023", "-------"+location);    
+             //获取维度信息
+            double latitude = location.getLatitude();
+            //获取经度信息
+            double longitude = location.getLongitude();
+            showToast(c,"定位方式： "+providerName+"  维度："+latitude+"  经度："+longitude);   
+            dar[0] = latitude;
+            dar[1] = longitude;
+        }
+        else
+        {
+              Toast.makeText(c, "1.请检查网络连接 \n2.请打开我的位置", Toast.LENGTH_SHORT).show();
+        }
+        
+        return dar;
 	}
 }

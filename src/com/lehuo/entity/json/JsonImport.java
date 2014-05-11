@@ -13,6 +13,9 @@ public abstract class JsonImport extends JackJson  {
 
 	JSONObject jliJob;
 	
+	/**
+	 * remember to init after this no-param construct
+	 */
 	public JsonImport(){
 	}
 	public JsonImport(JSONObject job){

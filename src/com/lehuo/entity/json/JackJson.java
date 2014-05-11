@@ -23,6 +23,11 @@ public abstract class JackJson {
 	}
 	
 	public abstract JSONObject toJsonObj();
+	/**
+	 * init JackJson with jsonObject
+	 * @param job
+	 * @throws JSONException
+	 */
 	public abstract void initJackJson(JSONObject job) throws JSONException;
 	
 	public String toJsonStr(){

@@ -14,12 +14,14 @@ import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionPhpRequestImpl;
 import com.lehuo.net.action.brand.GetBrandReq;
 import com.lehuo.net.action.category.GetAllReq;
+import com.lehuo.net.action.courier.DeliverListReq;
 import com.lehuo.net.action.goods.GetProductAttrReq;
 import com.lehuo.net.action.goods.GetProductCommentReq;
 import com.lehuo.net.action.goods.GetProductDetailReq;
 import com.lehuo.net.action.goods.GetProductListReq;
 import com.lehuo.net.action.order.AddCartReq;
 import com.lehuo.net.action.order.CheckoutOrderReq;
+import com.lehuo.net.action.order.GetBonusReq;
 import com.lehuo.net.action.order.GetCartReq;
 import com.lehuo.net.action.order.GetOrderListReq;
 import com.lehuo.net.action.order.UpdateCartReq;
@@ -100,6 +102,15 @@ public class NetStrategiesTest extends AndroidTestCase {
 		case 17:
 			ari = new CheckoutOrderReq(28);
 			break;
+		case 18://»ý·Ö³¬ÊÐ
+			ari = new GetProductListReq(1);
+			break;
+		case 19:
+			ari = new GetBonusReq(17);
+			break;
+		case 20://deliver
+			ari = new DeliverListReq(1);
+			break;
 		default:
 			break;
 		}
@@ -118,7 +129,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 	public void actionTest() throws SocketTimeoutException, UnknownHostException, IOException{
 		String result="";
 		
-		result  = actionChoser(7);
+		result  = actionChoser(20);
 			
 		Log.i(TAG, "result=>"+result);
 		assertNotSame(result, "");

@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.lehuo.data.MyData;
 import com.lehuo.data.NetConst;
 import com.lehuo.ui.address.AddAddressActivity;
+import com.lehuo.ui.courier.DeliverListActivity;
 import com.lehuo.ui.login.PersonInfoCreateActivity;
 import com.lehuo.ui.login.RegistCodeActivity;
 import com.lehuo.ui.login.RegistPhoneActivity;
@@ -18,55 +19,62 @@ import com.lehuo.vo.Category;
 import com.lehuo.vo.Product;
 import com.lehuo.vo.User;
 
-public class MyGate implements NetConst{
+public class MyGate implements NetConst {
 	@SuppressWarnings("rawtypes")
-	private static void justGo(Context context , Class clazz){
+	private static void justGo(Context context, Class clazz) {
 		Intent intent = new Intent();
 		intent.setClass(context, clazz);
 		context.startActivity(intent);
 	}
-	public static void goGeo(){
-		//TODO
-//		intent.setClass(ShActivityInfo.this, GeoCoderActivity.class);
-//		intent.putExtra("lat", shHelper.dfCompany.getCompLatitude());
-//		intent.putExtra("lon", shHelper.dfCompany.getCompLongitude());
-//		intent.putExtra("searchkey", shHelper.dfCompany.getCompAddress());
-//		startActivity(intent);
+
+	public static void goGeo() {
+		// TODO
+		// intent.setClass(ShActivityInfo.this, GeoCoderActivity.class);
+		// intent.putExtra("lat", shHelper.dfCompany.getCompLatitude());
+		// intent.putExtra("lon", shHelper.dfCompany.getCompLongitude());
+		// intent.putExtra("searchkey", shHelper.dfCompany.getCompAddress());
+		// startActivity(intent);
 	}
-	
-	public static void goAddAddr(Context context){
+
+	public static void goAddAddr(Context context) {
 		justGo(context, AddAddressActivity.class);
 	}
-	public static void goConfirmOrder(Context context,Object obj){
-//		if(null==obj)return;
+
+	public static void goConfirmOrder(Context context, Object obj) {
+		// if(null==obj)return;
 		justGo(context, ConfirmOrderActivity.class);
 	}
-	public static void goCategory(Context context,Category category){
-		if(null==category)return;
+
+	public static void goCategory(Context context, Category category) {
+		if (null == category)
+			return;
 		MyData.data().storeCategory(category);
-		justGo(context,ProductListActivity.class );
+		justGo(context, ProductListActivity.class);
 	}
-	
-	public static void GoProduct(Context context,Product product){
-		if(null==product)return;
+
+	public static void GoProduct(Context context, Product product) {
+		if (null == product)
+			return;
 		MyData.data().storeProduct(product);
 		Intent intent = new Intent();
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.setClass(context, ProductDetailActivity.class);
 		context.startActivity(intent);
 	}
-	
-	public static void GoRegist(Context context){
+
+	public static void GoRegist(Context context) {
 		justGo(context, RegistPhoneActivity.class);
 	}
-	public static void GoRegistCode(Context context,String phone){
-//		justGo(context, RegistCodeActivity.class);
+
+	public static void GoRegistCode(Context context, String phone) {
+		// justGo(context, RegistCodeActivity.class);
 		Intent intent = new Intent();
 		intent.putExtra(EXTRAS_PHONE, phone);
 		intent.setClass(context, RegistCodeActivity.class);
 		context.startActivity(intent);
 	}
-	public static void GoSetUser(Context context,String phone){
+
+	public static void GoSetUser(Context context, String phone) {
 		Intent intent = new Intent();
 		intent.putExtra(EXTRAS_PHONE, phone);
 		intent.setClass(context, PersonInfoCreateActivity.class);
@@ -74,14 +82,19 @@ public class MyGate implements NetConst{
 	}
 
 	public static void login(Context context, User user) {
-		if(null==user||user.getUser_id()==0){
+		if (null == user || user.getUser_id() == 0) {
 			JackUtils.showToast(context, "获取用户数据出错");
 			return;
 		}
 		MyData.data().setCurrentUser(user);
+		user.setIs_courier(true);// test
 		Intent intent = new Intent();
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		intent.setClass(context, HubActivity.class);
+//		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		if (user.isCourier()) {
+			intent.setClass(context, DeliverListActivity.class);
+		} else {
+			intent.setClass(context, HubActivity.class);
+		}
 		context.startActivity(intent);
 	}
 }

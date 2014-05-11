@@ -10,7 +10,9 @@ import com.lehuo.data.MyData;
 import com.lehuo.entity.json.JsonImport;
 import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpRequestImpl;
+import com.lehuo.net.action.courier.DeliverListReq;
 import com.lehuo.net.action.order.GetOrderListReq;
+import com.lehuo.ui.adapter.msp.ListAdapterCourier;
 import com.lehuo.ui.adapter.msp.ListAdapterOrder;
 import com.lehuo.ui.adapter.msp.ListAdapterOrder.OrderViewHolder;
 import com.lehuo.ui.custom.list.ListItemImpl.Type;
@@ -19,6 +21,7 @@ import com.lehuo.ui.custom.list.MyScrollPageListView.OnGetPageListener;
 import com.lehuo.util.TestDataTracker;
 import com.lehuo.vo.OrderInfo;
 import com.lehuo.vo.User;
+import com.lehuo.vo.deliver.OrderInCourier;
 
 public class MspFactory implements MspFactoryImpl {
 
@@ -36,7 +39,9 @@ public class MspFactory implements MspFactoryImpl {
 		case ORDER_DONE:
 			adapter = new ListAdapterOrder();
 			break;
-
+		case ORDER_COURIER:
+			adapter = new ListAdapterCourier();
+			break;
 		default:
 			break;
 		}
@@ -64,7 +69,9 @@ public class MspFactory implements MspFactoryImpl {
 		case ORDER_DONE:
 			mji = new OrderInfo();
 			break;
-
+		case ORDER_COURIER:
+			mji = new OrderInCourier();
+			break;
 		default:
 			break;
 		}
@@ -95,7 +102,22 @@ public class MspFactory implements MspFactoryImpl {
 				}
 			};
 			break;
+		case ORDER_COURIER:
+			listener = new OnGetPageListener() {
 
+				@Override
+				public void page(MyScrollPageListView qListView, int pageNo) {
+					User me = MyData.data().getMe();
+					if (null == me)
+						return;
+					ActionPhpRequestImpl req = new DeliverListReq(
+							me.getUser_id());
+//					 ActionBuilder.getInstance().request(req, qListView);
+					TestDataTracker.simulateConnection(qListView, req.getApiName());
+
+				}
+			};
+			break;
 		default:
 			break;
 		}
@@ -108,6 +130,7 @@ public class MspFactory implements MspFactoryImpl {
 		switch (type) {
 		case ORDER_DELIVER:
 		case ORDER_DONE:
+		case ORDER_COURIER:
 			name = "orders";
 			break;
 

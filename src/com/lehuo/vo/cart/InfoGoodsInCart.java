@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import com.lehuo.entity.json.JsonImport;
 
-public class InfoGoods extends JsonImport {
+public class InfoGoodsInCart extends JsonImport {
 	/*
 	 * {"rec_id":"101","user_id":"28","session_id":"","goods_id":"2","goods_sn":
 	 * "ECS000002"
@@ -229,11 +229,11 @@ public class InfoGoods extends JsonImport {
 		this.rec_id = rec_id;
 	}
 
-	public InfoGoods() {
+	public InfoGoodsInCart() {
 		super();
 	}
 
-	public InfoGoods(JSONObject job) {
+	public InfoGoodsInCart(JSONObject job) {
 		super(job);
 	}
 

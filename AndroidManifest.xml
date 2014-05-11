@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!--  -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -48,6 +49,8 @@
         <activity android:name="com.lehuo.ui.tab.order.ConfirmOrderActivity"></activity>
         <activity android:name="com.lehuo.ui.address.MyAddressActivity"></activity>
         <activity android:name="com.lehuo.ui.address.AddAddressActivity"></activity>
+        <activity android:name="com.lehuo.ui.courier.DeliverListActivity"></activity>
+        <activity android:name="com.baidumap.GeoCoderActivity"></activity>
         
     </application>
 	<instrumentation android:name="android.test.InstrumentationTestRunner" 

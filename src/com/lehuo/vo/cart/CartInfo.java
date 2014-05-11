@@ -22,12 +22,12 @@ public class CartInfo extends JsonImport {
 	 * "pid":"2","integral":"0","subtotal":1800,"goods_thumb":
 	 * "http:\/\/58.64.178.2\/images\/201404\/thumb_img\/2_thumb_G_1398134141589118734_105X105.jpg"}],"total":{"goods_price":1800,"market_price":2808,"saving":1008,"save_rate":"36%","goods_amount":1800,"integral":0,"real_goods_count":1,"virtual_goods_count":0}
 	 */
-	List<InfoGoods> goods_list;
+	List<InfoGoodsInCart> goods_list;
 	InfoTotal total;
 
 	
 	
-	public List<InfoGoods> getGoods_list() {
+	public List<InfoGoodsInCart> getGoods_list() {
 		return goods_list;
 	}
 
@@ -39,7 +39,7 @@ public class CartInfo extends JsonImport {
 
 
 
-	public void setGoods_list(List<InfoGoods> goods_list) {
+	public void setGoods_list(List<InfoGoodsInCart> goods_list) {
 		this.goods_list = goods_list;
 	}
 
@@ -66,10 +66,10 @@ public class CartInfo extends JsonImport {
 	@Override
 	public void initJackJson(JSONObject job) throws JSONException {
 		if (job.has("goods_list")) {
-			goods_list = new ArrayList<InfoGoods>();
+			goods_list = new ArrayList<InfoGoodsInCart>();
 			JSONArray jar = job.getJSONArray("goods_list");
 			for (int i = 0; i < jar.length(); i++) {
-				goods_list.add(new InfoGoods(jar.getJSONObject(i)));
+				goods_list.add(new InfoGoodsInCart(jar.getJSONObject(i)));
 			}
 		}
 		if (job.has("total"))

@@ -13,6 +13,7 @@ import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.vo.Product;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -20,6 +21,7 @@ import android.widget.ListView;
 
 public class MyScrollPageListView extends ListView implements
 		AbsListView.OnScrollListener, ActionPhpReceiverImpl {
+	final String TAG = getClass().getSimpleName();
 
 	List<ListItemImpl> everythingList;
 	MspFactoryImpl factory;
@@ -153,11 +155,27 @@ public class MyScrollPageListView extends ListView implements
 
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
+		Log.i(TAG, "scrollState:"+scrollState);
+		switch (scrollState) {
+		case SCROLL_STATE_IDLE:
+			
+			break;
+		case SCROLL_STATE_TOUCH_SCROLL:
+			break;
+		case SCROLL_STATE_FLING:
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
+		Log.i(TAG, "firstVisibleItem:"+firstVisibleItem);
+//		Log.i(TAG, "visibleItemCount:"+visibleItemCount);
+//		Log.i(TAG, "totalItemCount:"+totalItemCount);
+
 		if (mAdapter == null || mAdapter.getCount() == 0)
 			return;
 		int count = mAdapter.getCount();

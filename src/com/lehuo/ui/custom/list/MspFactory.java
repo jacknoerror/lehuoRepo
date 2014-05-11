@@ -112,8 +112,8 @@ public class MspFactory implements MspFactoryImpl {
 						return;
 					ActionPhpRequestImpl req = new DeliverListReq(
 							me.getUser_id());
-//					 ActionBuilder.getInstance().request(req, qListView);
-					TestDataTracker.simulateConnection(qListView, req.getApiName());
+					 ActionBuilder.getInstance().request(req, qListView);
+//					TestDataTracker.simulateConnection(qListView, req.getApiName());
 
 				}
 			};

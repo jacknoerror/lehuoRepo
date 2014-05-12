@@ -1,42 +1,41 @@
 package com.baidumap;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
+import android.os.Handler;
+import android.os.IBinder;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.mapapi.map.ItemizedOverlay;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.OverlayItem;
-import com.baidu.mapapi.search.MKAddrInfo;
-import com.baidu.mapapi.search.MKBusLineResult;
-import com.baidu.mapapi.search.MKDrivingRouteResult;
-import com.baidu.mapapi.search.MKPoiResult;
 import com.baidu.mapapi.search.MKSearch;
-import com.baidu.mapapi.search.MKSearchListener;
-import com.baidu.mapapi.search.MKShareUrlResult;
-import com.baidu.mapapi.search.MKSuggestionResult;
-import com.baidu.mapapi.search.MKTransitRouteResult;
-import com.baidu.mapapi.search.MKWalkingRouteResult;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.lehuo.MyApplication;
 import com.lehuo.R;
 import com.lehuo.data.Const;
-import com.lehuo.data.NetConst;
+import com.lehuo.net.service.LocationService;
+import com.lehuo.ui.tab.HubActivity;
 import com.lehuo.util.JackUtils;
+import com.lehuo.util.LocationGetter;
 
 /**
  * 此demo用来展示如何进行地理编码搜索（用地址检索坐标）、反地理编码搜索（用坐标检索地址）
  * 同时展示了如何使用ItemizedOverlay在地图上标注结果点
- * 
+ * [network 30.279750,120.110628 acc=88 et=+4d11h39m19s805ms]
+
  */
-public class GeoCoderActivity extends Activity {
+public class GeoCoderActivity extends Activity implements LocationListener{
 	/*
 	 * //UI相关 Button mBtnReverseGeoCode = null; // 将坐标反编码为地址 Button mBtnGeoCode
 	 * = null; // 将地址编码为坐标
@@ -49,7 +48,29 @@ public class GeoCoderActivity extends Activity {
 
 	GeoPoint ptCenter;
 	private double[] mLocations;
+	
+	LocationGetter lg;
+	protected LocationService localService;
 
+	
+	Handler mHandler = new Handler(){
+		@Override
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 0:
+				if(null!=localService){
+					mLocations = localService.getLoc();
+					updatePtCenterWithLocations();
+				}
+				break;
+
+			default:
+				break;
+			}
+		};
+		
+	};
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		MyApplication app = (MyApplication) this.getApplication();
@@ -62,10 +83,32 @@ public class GeoCoderActivity extends Activity {
 		mMapView = (MapView) findViewById(R.id.bmapView);
 		mMapView.getController().enableClick(true);
 		mMapView.getController().setZoom(18);
-		updatePtCenterWithLocations();
 		
+		mLocations = new double[2];
+		
+//		lg = new LocationGetter(this,this);
+		
+		updatePtCenterWithLocations();
+		bindService(new Intent(this,LocationService.class), new ServiceConnection(){
+            @Override
+            public void onServiceConnected(ComponentName componentName, IBinder binder) {
+                //调用bindService方法启动服务时候，如果服务需要与activity交互，
+                //则通过onBind方法返回IBinder并返回当前本地服务
+                localService=((LocationService.LocalBinder)binder).getService();
+                localService.setHandler(mHandler);
+                //这里可以提示用户,或者调用服务的某些方法
+            }
 
-		// 初始化搜索模块，注册事件监听
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+                localService=null;
+                //这里可以提示用户
+            }     
+		},  Context.BIND_AUTO_CREATE);
+		
+		
+		
+		/*// 初始化搜索模块，注册事件监听
 		mSearch = new MKSearch();
 		mSearch.init(app.mBMapManager, new MKSearchListener() {
 			@Override
@@ -128,7 +171,7 @@ public class GeoCoderActivity extends Activity {
 
 			}
 
-		});
+		});*/
 
 		// mSearch.reverseGeocode(ptCenter);
 
@@ -207,16 +250,20 @@ public class GeoCoderActivity extends Activity {
 
 	@Override
 	protected void onPause() {
-		mMapView.onPause();
 		super.onPause();
+		mMapView.onPause();
+//		if(null!=lg)lg.onPause();
+		if(null!=localService) localService.onActivityPause();
 	}
 
 	@Override
 	protected void onResume() {
-
-		mMapView.onResume();
 		super.onResume();
+		mMapView.onResume();
+//		if(null!=lg)lg.onResume();
+		if(null!=localService) localService.onActivityResume();
 	}
+	
 
 	private void getExtras() {
 //		Intent intent = getIntent();
@@ -224,7 +271,10 @@ public class GeoCoderActivity extends Activity {
 	}
 
 	private void updatePtCenterWithLocations() {
-		mLocations = JackUtils.getLocation(this);
+//		mLocations = JackUtils.getLocation();
+//		if(null==lg) return;
+//		mLocations = lg.getLocArr();//0512 注释了 监听写在activity里了
+		Log.i("GEOCODERACTIVITY", "updatePtCenterWithLocations");
 		if (null == mLocations || mLocations.length != 2)
 			return;
 		ptCenter = new GeoPoint((int) (mLocations[0] * 1e6),
@@ -255,4 +305,45 @@ public class GeoCoderActivity extends Activity {
 		super.onRestoreInstanceState(savedInstanceState);
 		mMapView.onRestoreInstanceState(savedInstanceState);
 	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// 获取维度信息
+				double latitude = location.getLatitude();
+				// 获取经度信息
+				double longitude = location.getLongitude();
+				// textView.setText("定位方式： "+providerName+"  维度："+latitude+"  经度："+longitude);
+				mLocations[0] = latitude;
+				mLocations[1] = longitude;
+		updatePtCenterWithLocations();
+		Log.i("GEO", "onLocationChanged");
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		Log.i("GEO", "onStatusChanged");
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		Log.i("GEO", "onProviderEnabled");
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		Log.i("GEO", "onProviderDisabled");
+
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode==KeyEvent.KEYCODE_BACK){
+			
+			return true;
+		}
+		
+		return super.onKeyDown(keyCode, event);
+	}
+	
 }

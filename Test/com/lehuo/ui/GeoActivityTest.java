@@ -51,7 +51,7 @@ public class GeoActivityTest extends ActivityInstrumentationTestCase2<GeoCoderAc
 	}
 	
 	public void testGetLocation(){
-		JackUtils.getLocation(getActivity());
+		JackUtils.getLocation();
 	}
 	
 }

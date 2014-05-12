@@ -592,10 +592,11 @@ public class JackUtils {
 		}
 	}
 	
-	public static double[] getLocation(Context c){
+	public static double[] getLocation(){
 		double[] dar = new double[2];
 		
-		LocationManager lm = (LocationManager)MyApplication.app(). getSystemService(Context.LOCATION_SERVICE);
+		MyApplication c = MyApplication.app();
+		LocationManager lm = (LocationManager)c. getSystemService(Context.LOCATION_SERVICE);
         // 返回所有已知的位置提供者的名称列表，包括未获准访问或调用活动目前已停用的。
         List<String> lp = lm.getAllProviders();
         for (String item:lp)

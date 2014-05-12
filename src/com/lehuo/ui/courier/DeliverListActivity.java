@@ -38,7 +38,7 @@ public class DeliverListActivity extends MyTitleActivity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-//				intent.putExtra(NetConst.EXTRAS_LOCATION, JackUtils.getLocation(DeliverListActivity.this));
+//				intent.putExtra(NetConst.EXTRAS_LOCATION, JackUtils.getLocation());
 				intent.setClass(DeliverListActivity.this, GeoCoderActivity.class);
 				startActivity(intent);
 			}

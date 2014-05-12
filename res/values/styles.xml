@@ -119,5 +119,13 @@
         <item name="android:padding">@dimen/common_margin</item>
         <item name="android:text">立刻购买</item>
     </style>
-
+	<style name="Nodata_textview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

@@ -56,6 +56,7 @@ public class ListAdapterCourier extends MspAdapter {
 			tv_status2.setText(itm.getShipping_status());//TODO ÅäËÍ×´Ì¬ 
 			JSONArray jar = itm.getGoods();
 			for(int i=0;i<jar.length();i++){
+				if(midLayout.getChildCount()>0) break;
 				InfoGoodsInOrder g;
 				try {
 					g = new InfoGoodsInOrder(jar.getJSONObject(i));

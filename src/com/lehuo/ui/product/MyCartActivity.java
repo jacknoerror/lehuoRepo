@@ -70,6 +70,10 @@ public class MyCartActivity extends MyTitleActivity {
 
 		mList = (ListView) this.findViewById(R.id.listview_common_activity);
 
+		getCart();
+	}
+
+	private void getCart() {
 		ActionPhpRequestImpl req = new GetCartReq(me.getUser_id());//
 		ActionPhpReceiverImpl rcv = new GetCartRcv(this) {
 			@Override
@@ -195,16 +199,19 @@ public class MyCartActivity extends MyTitleActivity {
 							public boolean response(String result)
 									throws JSONException {
 								if (!super.response(result)) {
-									contentList.remove(position);
-									notifyDataSetChanged();
+//									contentList.remove(position);
+//									notifyDataSetChanged();
+									getCart();
 									return false;
 								}
 								return true;
 							}
 						};//
-						rcv = new NextActionRcv(rcv,
-								new UpdateCartReq(user_id), new UpdateCartRcv(
-										actContext, null));//no cart need update
+//						rcv = new NextActionRcv(rcv,
+//								new UpdateCartReq(user_id), new UpdateCartRcv(
+//										actContext, null));{//no cart need update
+//											
+//										}
 						ActionBuilder.getInstance().request(req, rcv);
 					}
 				});

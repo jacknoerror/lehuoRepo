@@ -1,7 +1,11 @@
 listadapter 1,2.
 onclick 1,2.
+adapter listView activity tag.
+consignee confirm.
+position check.
 map diff
-position check
-give adapter a listview instance, give listview a activity tag
 leftDrawer
 cart add minus
+address 
+checkout
+service

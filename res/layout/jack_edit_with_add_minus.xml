@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:gravity="center"
+     >
+
+    <Button
+        android:id="@+id/btn_jackedit_wam_m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/et_jackedit_wam"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:inputType="number"
+        android:text="0"
+        android:gravity="center"
+        android:focusable="false" 
+        />
+
+    <Button
+        android:id="@+id/btn_jackedit_wam_a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:textStyle="bold" />
+
+</LinearLayout>

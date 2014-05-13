@@ -60,7 +60,7 @@ public class ListAdapterOrder extends MspAdapter {
 		}
 
 		private void addGoodsView(final InfoGoodsInOrder jgio) {
-			View view = LayoutInflater.from(context).inflate(R.layout.item_product_single, null);
+			View view = LayoutInflater.from(getContextInAdapter()).inflate(R.layout.item_product_single, null);
 			ImageView img = (ImageView)view.findViewById(R.id.img_itemprod);
 			TextView name = (TextView)view.findViewById(R.id.tv_itemprodname);
 			TextView price = (TextView)view.findViewById(R.id.tv_itemprodprice);
@@ -77,7 +77,7 @@ public class ListAdapterOrder extends MspAdapter {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					MyGate.goComment(context,jgio.getGoods_id());
+					MyGate.goComment(getContextInAdapter(),jgio.getGoods_id());
 				}
 			});
 			//holder?clear?

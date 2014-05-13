@@ -133,5 +133,13 @@ public interface NetConst {
 	public static final String EXTRAS_COURIER_ID = "courierId";
 
 	public static final String ACTION_PAY = "pay";
+
+	public static final String EXTRAS_IS_ARRIVED = "isArrived";
+
+	public static final String EXTRAS_ORDER_ID = "order_id";
+
+	public static final String PARAMS_CONTENT = "content";
+
+	public static final String EXTRAS_GOODS_ID = "goods_id";
 	
 }

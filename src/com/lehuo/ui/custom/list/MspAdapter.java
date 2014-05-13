@@ -17,7 +17,7 @@ public abstract class MspAdapter extends BaseAdapter {
 	public abstract class ViewHolderImpl{
 		View holderView;
 		public ViewHolderImpl(){
-			holderView = LayoutInflater.from(context).inflate(getLayoutId(), null);
+			holderView = LayoutInflater.from(getContextInAdapter()).inflate(getLayoutId(), null);
 			init();
 			holderView.setTag(this);
 		}
@@ -35,7 +35,8 @@ public abstract class MspAdapter extends BaseAdapter {
 
 	SparseArray<View> viewMap;
 	List<ListItemImpl> contentList;
-	protected Context context;
+	private Context contextInAdapter;
+	protected MyScrollPageListView myScrollPageListView;//0513
 	
 	public MspAdapter(){
 		this(new ArrayList<ListItemImpl>());
@@ -43,9 +44,18 @@ public abstract class MspAdapter extends BaseAdapter {
 	public MspAdapter(List<ListItemImpl> contentList){
 		this.contentList = contentList;
 		viewMap = new SparseArray<View>();
-		this.context = MyApplication.app();
+		
 	}
 	
+	protected Context getContextInAdapter(){
+		Object tag = myScrollPageListView.getTag();
+		if(tag instanceof Context){
+			contextInAdapter = (Context)tag;
+		}else{
+			this.contextInAdapter = MyApplication.app();
+		}
+		return contextInAdapter;
+	}
 
 	@Override
 	public int getCount() {
@@ -85,5 +95,10 @@ public abstract class MspAdapter extends BaseAdapter {
 	}
 	
 	public abstract ViewHolderImpl getHolderInstance();
+	
+	public void setListView(MyScrollPageListView myScrollPageListView) {
+		this.myScrollPageListView = myScrollPageListView;
+		
+	}
 	
 }

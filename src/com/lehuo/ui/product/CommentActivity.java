@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.lehuo.R;
+import com.lehuo.data.MyData;
+import com.lehuo.data.NetConst;
 import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
 import com.lehuo.net.action.JackFinishActivityReceiver;
+import com.lehuo.net.action.goods.AddCommentReq;
 import com.lehuo.ui.MyTitleActivity;
+import com.lehuo.vo.User;
 
 /**
  * @author tao
@@ -20,6 +24,7 @@ import com.lehuo.ui.MyTitleActivity;
 public class CommentActivity extends MyTitleActivity {
 
 	EditText edit;
+	protected int goods_id;
 	
 	@Override
 	public int getLayoutRid() {
@@ -35,13 +40,15 @@ public class CommentActivity extends MyTitleActivity {
 			public void onClick(View v) {
 				String cmmt = edit.getText().toString();
 				
-				ActionPhpRequestImpl actReq = null;//TODO
+				User me = MyData.data().getMe();
+				if(null==me||goods_id==0) return;
+				ActionPhpRequestImpl actReq = new AddCommentReq(me.getUser_id(), goods_id, cmmt);//TODO
 				ActionPhpReceiverImpl actRcv = new JackFinishActivityReceiver(CommentActivity.this);
 				ActionBuilder.getInstance().request(actReq, actRcv);
 				
 			}
 		});
-		
+		goods_id = getIntent().getIntExtra(NetConst.EXTRAS_GOODS_ID, 0);
 		edit = (EditText) this.findViewById(R.id.et_comment);
 
 	}

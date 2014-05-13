@@ -3,6 +3,7 @@ package com.lehuo.ui.adapter.msp;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
+import com.lehuo.net.action.JackShowToastReceiver;
 import com.lehuo.net.action.courier.ConfirmArriveForCourierReq;
 import com.lehuo.ui.custom.list.MspAdapter;
 import com.lehuo.util.JackUtils;
@@ -93,14 +95,26 @@ public class ListAdapterCourier extends MspAdapter {
 		}
 
 		protected void showDialog(final OrderInCourier itm) {
-			JackUtils.showDialog(context, "确认收货吗", new DialogInterface.OnClickListener() {
+			JackUtils.showDialog(getContextInAdapter(), "确认收货吗", new DialogInterface.OnClickListener() {
 				
 				@Override
-				public void onClick(DialogInterface arg0, int arg1) {
+				public void onClick(DialogInterface dialog, int arg1) {
 					ActionPhpRequestImpl actReq = new ConfirmArriveForCourierReq(MyData.data().getMe().getUser_id(), itm.getOrder_id());
-					ActionPhpReceiverImpl actRcv = null;//TODO
+					ActionPhpReceiverImpl actRcv = new JackShowToastReceiver(getContextInAdapter()){
+						@Override
+						public boolean response(String result)
+								throws JSONException {
+							// TODO Auto-generated method stub
+							boolean response =  super.response(result);
+							if(!response){
+								myScrollPageListView.setup();
+							}
+							return response;
+						}
+					};
 					//TODO 
 					ActionBuilder.getInstance().request(actReq, actRcv);
+					dialog.dismiss();
 				}
 			});
 			
@@ -113,7 +127,7 @@ public class ListAdapterCourier extends MspAdapter {
 		
 		private void addProdView(LinearLayout layout,InfoGoodsInOrder g){
 			if(null==layout) return;
-			View view = LayoutInflater.from(context).inflate(R.layout.item_singleproduct_courier, null);
+			View view = LayoutInflater.from(getContextInAdapter()).inflate(R.layout.item_singleproduct_courier, null);
 			TextView name = (TextView)view.findViewById(R.id.tv_spc_pname);
 			TextView price = (TextView)view.findViewById(R.id.tv_spc_price);
 			TextView count = (TextView)view.findViewById(R.id.tv_spc_count);

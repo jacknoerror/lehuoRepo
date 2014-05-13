@@ -9,7 +9,8 @@ deliverList needShip.
 courier confirm pay req.
 many couriers.//u select
 addCommentReq.
+status.
+confirm dialog
 sendLoc addressname?
 diff between two maps
-status.
-confirm dialog?
+birthday?

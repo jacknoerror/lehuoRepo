@@ -29,6 +29,7 @@ public class DeliverListActivityTest extends ActivityInstrumentationTestCase2<De
 //		i.putExtra(NetConst.EXTRA_PHONE, "15888889999");
 		User user = new User();
 		user.setUser_id(1);
+		user.setIs_courier(true);
 		MyData.data().setCurrentUser(user);
 		super.setActivityIntent(i);
 	}

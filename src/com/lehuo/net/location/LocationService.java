@@ -1,9 +1,17 @@
-package com.lehuo.net.service;
+package com.lehuo.net.location;
 
 import java.util.List;
 
 import com.lehuo.MyApplication;
+import com.lehuo.data.MyData;
+import com.lehuo.net.action.ActionBuilder;
+import com.lehuo.net.action.ActionPhpReceiverImpl;
+import com.lehuo.net.action.ActionPhpRequestImpl;
+import com.lehuo.net.action.JackShowToastReceiver;
+import com.lehuo.net.action.user.SendCourierLocReq;
+import com.lehuo.net.location.LocHandlerHelper.GeoGetter;
 import com.lehuo.util.JackUtils;
+import com.lehuo.vo.User;
 
 import android.app.Service;
 import android.content.Context;
@@ -24,7 +32,8 @@ import android.widget.Toast;
 /**
  * @author taotao get locations per 10 sec
  */
-public class LocationService extends Service implements LocationListener {
+public class LocationService extends Service implements LocationListener,
+		GeoGetter {
 
 	private static final String TAG = "LocationService";
 	private IBinder binder = new LocationService.LocalBinder();
@@ -34,32 +43,92 @@ public class LocationService extends Service implements LocationListener {
 	public LocationListener listener;
 
 	private boolean RUNNING = true;
-	
+
 	@Override
 	public IBinder onBind(Intent intent) {
 
 		return binder;
 	}
 
-	public void onActivityResume(){
-		if(null!=lm)lm.requestLocationUpdates(providerName, 0,0, listener);
+	public void onActivityResume() {
+		if (null != lm)
+			lm.requestLocationUpdates(providerName, 0, 0, listener);
 	}
-	public void onActivityPause(){
-		if(null!=lm)lm.removeUpdates(listener);
+
+	public void onActivityPause() {
+		if (null != lm)
+			lm.removeUpdates(listener);
 	}
-	
+
 	MediaPlayer mediaPlayer = null;
 	private double[] locArr;
 
 	Handler aHandler = null;;
-	
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		Log.i(TAG, "onCreate");
 		// 这里可以启动媒体播放器
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		// 返回所有已知的位置提供者的名称列表，包括未获准访问或调用活动目前已停用的。
+
+		getProvider();
+		listener = this;
+		locArr = new double[2];
+
+		new Thread() {
+			@Override
+			public void run() {
+				while (RUNNING) {
+					Log.i(TAG, "--running:" + locArr[0] + "+" + locArr[1]);
+					// 定时重新获得提供器
+					if (count % 8 == 7) {
+						count -= 7;
+						getProvider();
+					}
+					// 获取位置
+						// tryLocation();
+					tryHandler.sendEmptyMessage(0);
+					// 发请求
+					if (locArr[0] != 0) {
+						User me = MyData.data().getMe();
+						if (null != me) {
+
+							ActionPhpRequestImpl actReq = new SendCourierLocReq(
+									"", locArr[0] + "", locArr[1] + "",
+									me.getUser_id());
+							ActionPhpReceiverImpl actRcv = new JackShowToastReceiver(
+									null);
+							ActionBuilder.getInstance().request(actReq, actRcv);
+						}
+					}
+					// 通知修改位置
+					if (null != aHandler) {
+						aHandler.sendEmptyMessage(0);
+					}
+
+					SystemClock.sleep(1000 * 10);
+					count++;
+				}
+			};
+
+		}.start();
+
+	}
+
+	Handler tryHandler = new Handler() {
+
+		@Override
+		public void handleMessage(android.os.Message msg) {
+			tryLocation();
+		};
+
+	};
+
+	/**
+	 * // 返回所有已知的位置提供者的名称列表，包括未获准访问或调用活动目前已停用的。
+	 */
+	private void getProvider() {
 		List<String> lp = lm.getAllProviders();
 		for (String item : lp) {
 			Log.i("8023", "可用位置服务：" + item);
@@ -71,32 +140,14 @@ public class LocationService extends Service implements LocationListener {
 		criteria.setAccuracy(Criteria.ACCURACY_COARSE); // 设置水平位置精度
 		// getBestProvider 只有允许访问调用活动的位置供应商将被返回
 		providerName = lm.getBestProvider(criteria, true);
-		listener = this;
-		locArr = new double[2];
-		tryLocation();
-
-		
-		new Thread(){
-@Override
-			public void run() {
-				while (RUNNING) {
-					SystemClock.sleep(1000*10);
-					Log.i(TAG, "--running:"+locArr[0]+"+"+locArr[1]);
-					//inform activity to update location
-					if(null!=aHandler){
-						aHandler.sendEmptyMessage(0);
-					}
-				}
-			};
-			
-		}.start();
-		
 	}
 
-	public void setHandler(Handler handler){
+	int count;
+
+	public void setHandler(Handler handler) {
 		aHandler = handler;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -108,7 +159,7 @@ public class LocationService extends Service implements LocationListener {
 			if (location == null) {
 				Log.e(TAG, "failed to get last know loc");
 				lm.requestLocationUpdates(providerName, 0, 0, listener);
-				return  ;
+				return;
 			}
 			Log.i("8023", "-------" + location);
 
@@ -119,16 +170,18 @@ public class LocationService extends Service implements LocationListener {
 			// textView.setText("定位方式： "+providerName+"  维度："+latitude+"  经度："+longitude);
 			locArr[0] = latitude;
 			locArr[1] = longitude;
-			JackUtils.showToast(MyApplication.app(), "tryLocation():"+latitude+"+"+longitude);
-//			return locArr;
+			// JackUtils.showToast(MyApplication.app(),
+			// "tryLocation():"+latitude+"+"+longitude);
+			// return locArr;
 		} else {
 			Toast.makeText(MyApplication.app(), "1.请检查网络连接 \n2.请打开我的位置",
 					Toast.LENGTH_SHORT).show();
-//			return null;
+			// return null;
 		}
 	}
-	
-	public double[] getLoc(){
+
+	@Override
+	public double[] getLoc() {
 		return locArr;
 	}
 
@@ -158,9 +211,9 @@ public class LocationService extends Service implements LocationListener {
 		locArr[0] = location.getLatitude();
 		locArr[1] = location.getLongitude();
 		Log.i(TAG, "onLocationChanged");
-		JackUtils.showToast(MyApplication.app(), "onLocationChanged:"+locArr[0]+"+"+locArr[1]);
+		JackUtils.showToast(MyApplication.app(), "onLocationChanged:"
+				+ locArr[0] + "+" + locArr[1]);
 	}
-
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -168,11 +221,9 @@ public class LocationService extends Service implements LocationListener {
 
 	}
 
-
 	@Override
 	public void onProviderEnabled(String provider) {
 	}
-
 
 	@Override
 	public void onProviderDisabled(String provider) {

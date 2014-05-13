@@ -3,8 +3,12 @@ package com.baidumap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
@@ -34,8 +38,13 @@ import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
+import com.lehuo.net.action.JackFinishActivityReceiver;
+import com.lehuo.net.action.order.ConfirmArriveReq;
 import com.lehuo.net.action.user.GetCourierReq;
-import com.lehuo.net.service.LocationService;
+import com.lehuo.net.location.LocHandlerHelper;
+import com.lehuo.net.location.LocHandlerHelper.GeoGetter;
+import com.lehuo.net.location.LocHandlerHelper.GeoHolder;
+import com.lehuo.net.location.LocationService;
 import com.lehuo.ui.MyTitleActivity;
 import com.lehuo.util.JackImageLoader;
 import com.lehuo.util.JackUtils;
@@ -48,7 +57,7 @@ import com.lehuo.vo.deliver.CourierInfo;
  * et=+4d11h39m19s805ms]
  */
 public class GeoCoderActivity extends MyTitleActivity implements
-		LocationListener {
+		 GeoGetter, GeoHolder {
 	/*
 	 * //UI相关 Button mBtnReverseGeoCode = null; // 将坐标反编码为地址 Button mBtnGeoCode
 	 * = null; // 将地址编码为坐标
@@ -69,31 +78,14 @@ public class GeoCoderActivity extends MyTitleActivity implements
 
 	private int courierId;
 	protected boolean CHASING_COURIER = true;
-	Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
-			case 0:
-				if (null != localService) {
-					mLocations = localService.getLoc();
-					updatePtCenterWithLocations();
-				}
-				break;
-			case 1:
-				if (null != curCourier) {
-					mLocations[0] = curCourier.getLatitude();
-					mLocations[1] = curCourier.getLongitude();
-					updatePtCenterWithLocations();
-				}
-				break;
-			default:
-				break;
-			}
-		};
-
-	};
+	
 	private boolean inited;
 
+	Handler mHandler;
+	private LocHandlerHelper locHelper;
+	private boolean isArrived;
+	private int order_id;
+	
 	@Override
 	public int getLayoutRid() {
 		return R.layout.map_geocoder;
@@ -110,6 +102,9 @@ public class GeoCoderActivity extends MyTitleActivity implements
 		mMapView.getController().setZoom(18);
 
 		mLocations = new double[2];
+		locHelper = LocHandlerHelper.getInstance();
+		
+		mHandler = locHelper.getHandler();
 
 		// lg = new LocationGetter(this,this);
 		if (MyData.data().getMe().isCourier()) {
@@ -121,7 +116,7 @@ public class GeoCoderActivity extends MyTitleActivity implements
 
 	}
 
-	private void updateUIwhenNotCourier() {
+	private void initUIwhenNotCourier() {
 		if (inited || null == curCourier)
 			return;
 		View view1, view2;
@@ -170,7 +165,42 @@ public class GeoCoderActivity extends MyTitleActivity implements
 		inited = true;
 	}
 
+	private void showArriveDialog(final int order_id) {
+		AlertDialog.Builder builder = new Builder(this);
+		  builder.setMessage("货已送到，确认收货吗？");
+	
+		  builder.setTitle("提示");
+	
+		  OnClickListener positiveListener = new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO to be tested
+				ActionPhpRequestImpl actReq = new ConfirmArriveReq(MyData.data().getMe().getUser_id(), order_id);
+				ActionPhpReceiverImpl actRcv = new JackFinishActivityReceiver(GeoCoderActivity.this);
+				ActionBuilder.getInstance().request(actReq, actRcv);
+			}
+		};
+		builder.setPositiveButton("确认", positiveListener );
+		  
+		  builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+	
+		   @Override
+		   public void onClick(DialogInterface dialog, int which) {
+		    dialog.dismiss();
+		    finish();//退出
+		   }
+		  });
+		  
+		  builder.show();
+	}
+
 	private void whenNotCourier() {
+		locHelper.setGetter(this);
+		locHelper.setHolder(this);
+		if(isArrived&&order_id>0){
+			showArriveDialog(order_id);
+		}
 		new Thread() {
 			@Override
 			public void run() {
@@ -184,8 +214,10 @@ public class GeoCoderActivity extends MyTitleActivity implements
 							JSONObject job = NetStrategies.getResultObj(result);
 							if (null != job) {
 								curCourier = new CourierInfo(job);
-								mHandler.sendEmptyMessage(1);// not nece
-								updateUIwhenNotCourier();
+								mLocations[0]=curCourier.getLatitude();
+								mLocations[1]=curCourier.getLongitude();
+								mHandler.sendEmptyMessage(1);// not nece?
+								initUIwhenNotCourier();
 								return false;
 							}
 							return true;
@@ -215,8 +247,9 @@ public class GeoCoderActivity extends MyTitleActivity implements
 	}
 
 	private void whenIsCourier() {
-		updatePtCenterWithLocations();
-		bindService(new Intent(MyApplication.app(), LocationService.class),
+		locHelper.setHolder(this);
+//		updatePtCenterWithLocations();
+		MyApplication.app().bindService(new Intent(MyApplication.app(), LocationService.class),
 				new ServiceConnection() {
 					@Override
 					public void onServiceConnected(ComponentName componentName,
@@ -227,6 +260,8 @@ public class GeoCoderActivity extends MyTitleActivity implements
 								.getService();
 						localService.setHandler(mHandler);
 						// 这里可以提示用户,或者调用服务的某些方法
+						locHelper.setGetter(localService);
+						
 					}
 
 					@Override
@@ -312,17 +347,20 @@ public class GeoCoderActivity extends MyTitleActivity implements
 	private void getExtras() {
 		Intent intent = getIntent();
 		courierId = intent.getIntExtra(NetConst.EXTRAS_COURIER_ID, 0);
+		order_id = intent.getIntExtra(NetConst.EXTRAS_ORDER_ID, 0);
+		isArrived = intent.getBooleanExtra(NetConst.EXTRAS_IS_ARRIVED, false);
 	}
 
-	private void updatePtCenterWithLocations() {
+	@Override
+	public void updatePtCenterWithLocations(double d1,double d2) {
 		// mLocations = JackUtils.getLocation();
 		// if(null==lg) return;
 		// mLocations = lg.getLocArr();//0512 注释了 监听写在activity里了
 		Log.i("GEOCODERACTIVITY", "updatePtCenterWithLocations");
-		if (null == mLocations || mLocations.length != 2)
-			return;
-		ptCenter = new GeoPoint((int) (mLocations[0] * 1e6),
-				(int) (mLocations[1] * 1e6));
+//		if (null == mLocations || mLocations.length != 2)
+//			return;
+		ptCenter = new GeoPoint((int) (d1 * 1e6),
+				(int) (d2* 1e6));
 
 		if (ptCenter != null) {
 			mMapView.getController().setCenter(ptCenter);
@@ -335,6 +373,10 @@ public class GeoCoderActivity extends MyTitleActivity implements
 		super.onDestroy();
 		mMapView.destroy();
 		CHASING_COURIER = false;
+		if(null!=locHelper) {
+			locHelper.setGetter(null);
+			locHelper.setHolder(null);
+		}
 		// mSearch.destory();
 	}
 
@@ -351,7 +393,7 @@ public class GeoCoderActivity extends MyTitleActivity implements
 		mMapView.onRestoreInstanceState(savedInstanceState);
 	}
 
-	@Override
+	/*@Override
 	public void onLocationChanged(Location location) {
 		// 获取维度信息
 		double latitude = location.getLatitude();
@@ -379,7 +421,7 @@ public class GeoCoderActivity extends MyTitleActivity implements
 	public void onProviderDisabled(String provider) {
 		Log.i("GEO", "onProviderDisabled");
 
-	}
+	}*/
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -389,6 +431,12 @@ public class GeoCoderActivity extends MyTitleActivity implements
 		}
 
 		return super.onKeyDown(keyCode, event);
+	}
+
+
+	@Override
+	public double[] getLoc() {
+		return mLocations;
 	}
 
 }

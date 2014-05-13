@@ -88,7 +88,7 @@ public class MyGate implements NetConst {
 			return;
 		}
 		MyData.data().setCurrentUser(user);
-//		user.setIs_courier(true);// test
+		user.setIs_courier(true);// test
 		Intent intent = new Intent();
 //		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		if (user.isCourier()) {
@@ -103,6 +103,7 @@ public class MyGate implements NetConst {
 		if(null==context) return;
 		Intent intent = new Intent();
 		intent.setClass(context, CommentActivity.class);
+		intent.putExtra(NetConst.EXTRAS_GOODS_ID, goods_id);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(intent);
 	}

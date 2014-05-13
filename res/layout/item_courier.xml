@@ -60,7 +60,7 @@
                 android:id="@+id/tv_item_courier_status1"
                 style="@style/MatchWidthOnly"
                 android:layout_weight="1"
-                android:background="@drawable/shape_btn_bg_orange"
+                android:background="@drawable/selector_btn_arrive"
                 android:gravity="center"
                 android:textSize="@dimen/textsize_content_normal"
                 android:textColor="@android:color/white" 

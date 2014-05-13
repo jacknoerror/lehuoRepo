@@ -60,7 +60,6 @@ public class MspPage extends JsonImport {
 				MspJsonItem pp = factory.getMjiInstance();
 				pp.initJackJson(infoArr.getJSONObject(i));
 				LiiList.add(pp);
-				LiiList.add(pp);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

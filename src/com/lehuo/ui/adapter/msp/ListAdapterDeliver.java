@@ -74,11 +74,11 @@ public class ListAdapterDeliver extends MspAdapter {
 					if (shipping_status == 0) {
 						JackUtils.showToast(MyApplication.app(), "还没有发货");
 					} else if (shipping_status == 1) {
-						if(pay_status==2){
-							JackUtils.showToast(MyApplication.app(), "已付款");
-						}else if(pay_status==0){
-							goGeo(oi.getCourier_id());
-						}
+//						if(pay_status==2){
+//							JackUtils.showToast(MyApplication.app(), "已付款");
+//						}else if(pay_status==0){
+							goGeo(oi);
+//						}
 					}
 				}
 			});
@@ -100,7 +100,7 @@ public class ListAdapterDeliver extends MspAdapter {
 		}
 
 		private void addGoodsView(InfoGoodsInOrder jgio) {
-			View view = LayoutInflater.from(context).inflate(
+			View view = LayoutInflater.from(getContextInAdapter()).inflate(
 					R.layout.item_product_single, null);
 			ImageView img = (ImageView) view.findViewById(R.id.img_itemprod);
 			TextView name = (TextView) view.findViewById(R.id.tv_itemprodname);
@@ -120,12 +120,14 @@ public class ListAdapterDeliver extends MspAdapter {
 			return R.layout.item_product_order;
 		}
 
-		private void goGeo(int cid) {
+		private void goGeo(OrderInfo oi) {
 			Intent intent = new Intent();
-			intent.setClass(context, GeoCoderActivity.class);
+			intent.setClass(getContextInAdapter(), GeoCoderActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			intent.putExtra(NetConst.EXTRAS_COURIER_ID, cid);
-			context.startActivity(intent);
+			intent.putExtra(NetConst.EXTRAS_COURIER_ID, oi.getCourier_id());
+			intent.putExtra(NetConst.EXTRAS_IS_ARRIVED, oi.getCourier_status()==2);//0:未开始配送 1:正在配送中 2:配送已完成
+			intent.putExtra(NetConst.EXTRAS_ORDER_ID, oi.getOrder_id());//
+			getContextInAdapter().startActivity(intent);
 		}
 
 	}

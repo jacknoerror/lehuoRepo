@@ -27,7 +27,12 @@ public abstract class JackListAbsContFrag extends ContentAbstractFragment {
 		mFrame.addView(mListView);
 		mListView.setDivider(getResources().getDrawable(android.R.color.transparent));
 		mListView.setDividerHeight(20);
-		mListView.setup();
 	}
 	public abstract Type getType();
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		mListView.setup();
+	}
 }

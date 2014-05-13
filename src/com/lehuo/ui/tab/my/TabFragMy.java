@@ -3,12 +3,16 @@
  */
 package com.lehuo.ui.tab.my;
 
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.lehuo.R;
 import com.lehuo.data.MyData;
+import com.lehuo.ui.address.MyAddressActivity;
 import com.lehuo.ui.tab.ContentAbstractFragment;
 import com.lehuo.util.JackUtils;
 import com.lehuo.vo.User;
@@ -60,15 +64,19 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 	}
 	@Override
 	public void onClick(View arg0) {
+		Intent intent = null;
 		switch (arg0.getId()) {
 		case R.id.tv_account1_score:
 			
 			break;
 		case R.id.tv_account2_address:
-			
+			intent = new Intent();
+			intent.setClass(getActivity(), MyAddressActivity.class);
+			startActivity(intent);
 			break;
 		case R.id.tv_account2_birthday:
-			
+			OnDateSetListener onDateSetListener = null;
+			new DatePickerDialog(getActivity(), onDateSetListener , 2011, 01, 01).show();
 			break;
 		case R.id.tv_account2_coupon:
 			

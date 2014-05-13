@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.lehuo.R;
 import com.lehuo.entity.json.JsonImport;
 import com.lehuo.util.JackImageLoader;
+import com.lehuo.util.JackUtils;
 import com.lehuo.vo.Category;
 
 /**
@@ -96,6 +98,8 @@ public class MyGridViewAdapter extends BaseAdapter {
 		MyGridAbsJsonPic itm = contentList.get(position);
 		if(null!=itm){
 			JackImageLoader.justSetMeImage(itm.getPicUrl(), holder.prizImg);
+			holder.prizImg.setLayoutParams(new LinearLayout.LayoutParams(JackUtils.dip2px(
+					context, 180), JackUtils.dip2px(context, 125)));
 		}
 		return view;
 	}

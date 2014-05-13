@@ -11,5 +11,5 @@ many couriers.//u select
 addCommentReq.
 sendLoc addressname?
 diff between two maps
-status?
+status.
 confirm dialog?

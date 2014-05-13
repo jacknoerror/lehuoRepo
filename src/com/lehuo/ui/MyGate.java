@@ -88,7 +88,7 @@ public class MyGate implements NetConst {
 			return;
 		}
 		MyData.data().setCurrentUser(user);
-		user.setIs_courier(true);// test
+//		user.setIs_courier(true);// test
 		Intent intent = new Intent();
 //		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		if (user.isCourier()) {

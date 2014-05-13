@@ -26,12 +26,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.lehuo.R;
+import com.lehuo.data.Const;
 import com.lehuo.data.MyData;
 import com.lehuo.data.NetConst;
+import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
 import com.lehuo.net.action.category.GetAllReq;
+import com.lehuo.net.action.goods.GetTbarReq;
 import com.lehuo.net.action.order.GetCartRcv;
 import com.lehuo.net.action.order.GetCartReq;
 import com.lehuo.net.action.order.UpdateCartRcv;
@@ -40,7 +43,11 @@ import com.lehuo.ui.MyGate;
 import com.lehuo.ui.adapter.MyGridViewAdapter;
 import com.lehuo.ui.adapter.MyPagerAdapater;
 import com.lehuo.ui.tab.ContentAbstractFragment;
+import com.lehuo.util.JackImageLoader;
+import com.lehuo.util.JackUtils;
 import com.lehuo.vo.Category;
+import com.lehuo.vo.Product;
+import com.lehuo.vo.TongData;
 import com.lehuo.vo.User;
 
 public class TabFragMain extends ContentAbstractFragment implements
@@ -61,6 +68,8 @@ public class TabFragMain extends ContentAbstractFragment implements
 	ActionBarDrawerToggle mDrawerToggle;
 	GridView mGridView;
 	ViewPager mViewPager;
+	private LinearLayout spotLayout;
+	private List<View> viewList;
 
 	@Override
 	public int getLayoutRid() {
@@ -113,46 +122,96 @@ public class TabFragMain extends ContentAbstractFragment implements
 
 		// viewpager
 		mViewPager = (ViewPager) mView.findViewById(R.id.viewpager_);
-		List<View> viewList = new ArrayList<View>();
+		viewList = new ArrayList<View>();
 		imgList = new ArrayList<ImageView>();
 		spotList = new ArrayList<ImageView>();
-		LinearLayout spotLayout = (LinearLayout) mView
+		spotLayout = (LinearLayout) mView
 				.findViewById(R.id.layout_spots);
-		for (int i = 0; i < 4; i++) {
-			LinearLayout layout = new LinearLayout(getActivity());
-			ImageView img = new ImageView(getActivity());
-			img.setScaleType(ScaleType.CENTER);
-			img.setImageResource(R.drawable.ic_launcher);
-			layout.addView(img);
-			viewList.add(layout);
-			imgList.add(img);
-
-			// spot
-			FrameLayout layoutWithImg = new FrameLayout(getActivity());
-			layoutWithImg.setPadding(5, 5, 5, 5);
-			ImageView im = new ImageView(getActivity());// (ImageView)LayoutInflater.from(this).inflate(R.layout.image_spot,
-														// null);//@drawable/spot_selector
-			im.setImageResource(R.drawable.spot_selector);
-			layoutWithImg.addView(im);
-			spotLayout.addView(layoutWithImg);
-			spotList.add(im);
-		}
-		setSpotSelected(0);
-		if (spotList.size() <= 1)
-			spotLayout.setVisibility(View.INVISIBLE);// 只有一个则不显示
-		mViewPager.setAdapter(new MyPagerAdapater(viewList));
+//		for (int i = 0; i < 4; i++) {
+//			addImg();
+//		}
+		
 		mViewPager.setOnPageChangeListener(this);
+		//request
+		ActionPhpRequestImpl actReq = new GetTbarReq();
+		ActionPhpReceiverImpl actRcv = new ActionPhpReceiverImpl() {
+			
+			@Override
+			public boolean response(String result) throws JSONException {
+				JSONArray jar = NetStrategies.getResultArray(result);
+				if(null!=jar){
+					for(int i=0;i<jar.length();i++){
+						TongData td = new TongData(jar.getJSONObject(i));
+						addImg(td);
+					}
+					setSpotSelected(0);
+					if (spotList.size() <= 1)
+						spotLayout.setVisibility(View.INVISIBLE);// 只有一个则不显示
+					mViewPager.setAdapter(new MyPagerAdapater(viewList));
+					return false;
+				}
+				return true;
+			}
+			
+			@Override
+			public Context getReceiverContext() {
+				return null;
+			}
+		};
+		ActionBuilder.getInstance().request(actReq, actRcv);
 
 		// gridview
-
-		// request
+		
+			// request
 		if ((categoryList = MyData.data().getAllCate()).size() == 0) {
 
-			ActionPhpRequestImpl actReq = new GetAllReq();
-			ActionBuilder.getInstance().request(actReq, this);
+			ActionPhpRequestImpl actReq2 = new GetAllReq();
+			ActionBuilder.getInstance().request(actReq2, this);
 		} else {
 			updateUI();
 		}
+	}
+
+	/**
+	 * @param td 
+	 * 
+	 */
+	public void addImg(final TongData td) {
+		LinearLayout layout = new LinearLayout(getActivity());
+		
+		ImageView img = new ImageView(getActivity());
+		img.setScaleType(ScaleType.CENTER_CROP);
+//			img.setImageResource(R.drawable.ic_launcher);
+		
+		String img_s_path = td.getImg_small();
+		JackImageLoader.justSetMeImage(img_s_path, img);
+		img.setLayoutParams(new LinearLayout.LayoutParams((int) Const.SCREEN_WIDTH, JackUtils.dip2px(getActivity(), 125)));
+		
+		layout.addView(img);
+		viewList.add(layout);
+		imgList.add(img);
+
+		if(td.isGoods()){
+			img.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Product product = new Product();
+					product.setGoods_id(td.getGoods_id());//TODO
+					MyGate.GoProduct(getActivity(), product);
+				}
+			});
+		}
+		
+		// spot
+		FrameLayout layoutWithImg = new FrameLayout(getActivity());
+		layoutWithImg.setPadding(5, 5, 5, 5);
+		ImageView im = new ImageView(getActivity());// (ImageView)LayoutInflater.from(this).inflate(R.layout.image_spot,
+													// null);//@drawable/spot_selector
+		im.setImageResource(R.drawable.spot_selector);
+		layoutWithImg.addView(im);
+		spotLayout.addView(layoutWithImg);
+		spotList.add(im);
 	}
 
 	/**

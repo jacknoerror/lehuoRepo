@@ -19,6 +19,7 @@ import com.lehuo.net.action.goods.GetProductAttrReq;
 import com.lehuo.net.action.goods.GetProductCommentReq;
 import com.lehuo.net.action.goods.GetProductDetailReq;
 import com.lehuo.net.action.goods.GetProductListReq;
+import com.lehuo.net.action.goods.GetTbarReq;
 import com.lehuo.net.action.order.AddCartReq;
 import com.lehuo.net.action.order.CheckoutOrderReq;
 import com.lehuo.net.action.order.GetBonusReq;
@@ -111,6 +112,9 @@ public class NetStrategiesTest extends AndroidTestCase {
 		case 20://deliver
 			ari = new DeliverListReq(1);
 			break;
+		case 21:
+			ari = new GetTbarReq();
+			break;
 		default:
 			break;
 		}
@@ -126,10 +130,10 @@ public class NetStrategiesTest extends AndroidTestCase {
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
-	public void actionTest() throws SocketTimeoutException, UnknownHostException, IOException{
+	public void acttionTest() throws SocketTimeoutException, UnknownHostException, IOException{
 		String result="";
 		
-		result  = actionChoser(16);
+		result  = actionChoser(12);
 			
 		Log.i(TAG, "result=>"+result);
 		assertNotSame(result, "");
@@ -143,8 +147,13 @@ public class NetStrategiesTest extends AndroidTestCase {
 		Log.i(TAG, result);
 	}
 	
-	public void actionOnMainUiTest(){
-		
+	public void actionDpNpx(){
+//		int a = JackUtils.px2dip(getContext(), 400);
+//		Log.i(TAG, a+"dp");
+		int a = JackUtils.dip2px(getContext(), 260);
+		Log.i(TAG, a+"px");
+//		assertNotSame(a, 0);
+		assertTrue(a>0);
 	}
 	
 }

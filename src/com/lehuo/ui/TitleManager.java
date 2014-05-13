@@ -53,7 +53,7 @@ public class TitleManager {
 				if(null!=activity)activity.finish();
 			}
 		});
-		
+		btn_titleback.setVisibility(View.VISIBLE);
 	}
 	public JackTitle titleView(){
 		if(null==jackTitle) jackTitle = (JackTitle)findView(R.id.jacktitle);

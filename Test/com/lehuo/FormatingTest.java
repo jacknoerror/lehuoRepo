@@ -30,7 +30,7 @@ public class FormatingTest extends AndroidTestCase {
 	}
 	
 	public void convertJsonToCode() throws JSONException{
-		final String jsonStr = "{\"order_id\":\"37\",\"order_sn\":\"2014042139639\",\"order_time\":\"2014-04-21 02:30:12\",\"order_status_state\":\"已确认,未付款,已发货\",\"order_status\":\"已确认\",\"shipping_status\":\"已发货\",\"pay_status\":\"未付款\",\"pay_method\":\"货到付款\",\"district\":\"上城区\",\"address\":\"望月公寓\",\"consignee\":\"测试账号\",\"best_time\":\"\",\"mobile\":\"15811111111\",\"total_fee\":\"￥310.00元\",\"courier_status\":\"1\",\"nums\":1,\"goods\":[{\"rec_id\":\"75\",\"order_id\":\"37\",\"goods_id\":\"2\",\"goods_name\":\"棉棉靴\",\"goods_number\":\"1\",\"goods_attr\":\"\",\"goods_price\":\"300.00\",\"goods_thumb\":\"http://58.64.178.2/images/201404/thumb_img/2_thumb_G_1398134141589118734_105X105.jpg\"}]}";
+		final String jsonStr = "{\"latitude\":\"30.283775\",\"longitude\":\"120.121765\",\"addressname\":\"\\u897f\\u6e56\\u533a\\u76ca\\u4e50\\u8def7\\u53f7\",\"time\":\"1399660010\",\"truename\":\"\\u90b5\\u6587\\u971e\",\"mobile_phone\":\"15906669497\",\"logo_small\":\"http:\\/\\/58.64.178.2\\/images\\/201404\\/1397106601090738560_100X150.jpg\"}";
 		JSONObject job = new JSONObject(jsonStr);
 		Iterator<String> it = job.keys();
 		StringBuffer sb = new StringBuffer();

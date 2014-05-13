@@ -5,7 +5,7 @@
     <dimen name="h_margin_activity">16dp</dimen>
     
     <dimen name="v_margin_activity">15dp</dimen>
-    <dimen name="v_height_bottombar">55dp</dimen>
+    <dimen name="v_height_bottombar">52dp</dimen>
     
     <dimen name="side_goodsicon">124dp</dimen>
     <dimen name="side_goodsicon_smaller">92dp</dimen>

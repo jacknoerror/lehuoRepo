@@ -32,6 +32,7 @@
 	        >
 	        <TextView 
 	            style="@style/TextView_MiddleGrey"
+	            android:text="订单号："
 	            />
 	        <TextView 
 	            android:id="@+id/tv_itemproduct_whole_ordernum"
@@ -58,15 +59,24 @@
 	        android:layout_height="wrap_content"
 	        android:orientation="vertical"
 	        android:layout_weight="1"
-	        android:visibility="gone"
 	        >
-	         <ImageView 
+	         <!-- <ImageView 
 	             android:id="@+id/btn_checkdeliver"
 	             android:layout_width="wrap_content"
 	             android:layout_height="wrap_content"
 	             android:src="@drawable/ic_launcher"
 	             android:visibility="gone"
-	             />
+	             /> -->
+
+	         <TextView
+	             android:id="@+id/tv_checkdeliver"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:text="查看物流"
+	             android:gravity="center"
+	             android:textColor="@color/green_title"
+	             android:visibility="gone" />
+
 	     </LinearLayout>
 	</LinearLayout>
 	<View 

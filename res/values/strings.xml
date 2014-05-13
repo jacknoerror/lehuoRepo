@@ -4,6 +4,7 @@
     <string name="titlename_my">我的账户</string>
     <string name="titlename_deliverlist">送货订单</string>
     <string name="titlename_order">订单</string>
+    <string name="titlename_deliver">送货追踪</string>
     <string name="titlename_getcheck">获取验证码</string>
     <string name="titlename_commitcheck">提交验证码</string>
     <string name="titlename_confirmorder">确认订单</string>

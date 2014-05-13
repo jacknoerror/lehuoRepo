@@ -13,6 +13,7 @@ import com.lehuo.net.action.ActionPhpRequestImpl;
 import com.lehuo.net.action.courier.DeliverListReq;
 import com.lehuo.net.action.order.GetOrderListReq;
 import com.lehuo.ui.adapter.msp.ListAdapterCourier;
+import com.lehuo.ui.adapter.msp.ListAdapterDeliver;
 import com.lehuo.ui.adapter.msp.ListAdapterOrder;
 import com.lehuo.ui.adapter.msp.ListAdapterOrder.OrderViewHolder;
 import com.lehuo.ui.custom.list.ListItemImpl.Type;
@@ -36,6 +37,8 @@ public class MspFactory implements MspFactoryImpl {
 		MspAdapter adapter = null;
 		switch (type) {
 		case ORDER_DELIVER:
+			adapter = new ListAdapterDeliver();
+			break;
 		case ORDER_DONE:
 			adapter = new ListAdapterOrder();
 			break;

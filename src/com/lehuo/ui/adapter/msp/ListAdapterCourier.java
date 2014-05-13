@@ -3,6 +3,7 @@ package com.lehuo.ui.adapter.msp;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -10,8 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lehuo.R;
+import com.lehuo.data.MyData;
 import com.lehuo.net.NetStrategies;
+import com.lehuo.net.action.ActionBuilder;
+import com.lehuo.net.action.ActionPhpReceiverImpl;
+import com.lehuo.net.action.ActionPhpRequestImpl;
+import com.lehuo.net.action.courier.ConfirmArriveForCourierReq;
 import com.lehuo.ui.custom.list.MspAdapter;
+import com.lehuo.util.JackUtils;
 import com.lehuo.vo.InfoGoodsInOrder;
 import com.lehuo.vo.deliver.OrderInCourier;
 
@@ -41,14 +48,29 @@ public class ListAdapterCourier extends MspAdapter {
 
 		@Override
 		public void setup(int position) {
-			OrderInCourier itm = (OrderInCourier) getItem(position);
+			final OrderInCourier itm = (OrderInCourier) getItem(position);
 			tv_name.setText("收货人："+itm.getConsignee());
 			tv_phone.setText(itm.getMobile());
 			tv_address.setText("地址："+itm.getAddress());
 			String best_time = itm.getBest_time();
 			if(null==best_time||best_time.isEmpty()) best_time = "任何时段";
 			tv_time.setText("最佳送货时间："+best_time);
-			tv_status1.setText(itm.getPay_status());//TODO 付款状态
+			String pay_status = itm.getPay_status();
+			if(pay_status.equals("已付款")){
+				tv_status1.setSelected(false);
+			}else{
+				tv_status1.setSelected(true);
+				pay_status = "确认收货";
+				tv_status1.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) {
+						showDialog(itm);
+						
+					}
+				});
+			}
+			tv_status1.setText(pay_status);//TODO 付款状态
 			tv_sn.setText(""+itm.getOrder_sn());
 			tv_payment.setText(itm.getPay_method());
 			tv_price.setText(itm.getTotal_fee());
@@ -67,6 +89,20 @@ public class ListAdapterCourier extends MspAdapter {
 				addProdView(midLayout, g);
 				
 			}
+			
+		}
+
+		protected void showDialog(final OrderInCourier itm) {
+			JackUtils.showDialog(context, "确认收货吗", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					ActionPhpRequestImpl actReq = new ConfirmArriveForCourierReq(MyData.data().getMe().getUser_id(), itm.getOrder_id());
+					ActionPhpReceiverImpl actRcv = null;//TODO
+					//TODO 
+					ActionBuilder.getInstance().request(actReq, actRcv);
+				}
+			});
 			
 		}
 

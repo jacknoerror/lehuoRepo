@@ -85,4 +85,5 @@ public abstract class MspAdapter extends BaseAdapter {
 	}
 	
 	public abstract ViewHolderImpl getHolderInstance();
+	
 }

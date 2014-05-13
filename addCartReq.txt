@@ -1,1 +1,0 @@
-05-04 22:51:41.474: I/UNIT_TEST(7031): result=>{"result":true,"message":"\u8d2d\u7269\u8f66\u6dfb\u52a0\u6210\u529f","data":{"sum":"2","user_integral":0,"left_integral":0}}

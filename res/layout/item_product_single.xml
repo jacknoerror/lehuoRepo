@@ -3,51 +3,69 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
-   <LinearLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/common_margin"
-        >
-	    <ImageView 
-	        android:id="@+id/img_itemprod"
-	        android:layout_width="@dimen/side_goodsicon"
-	        android:layout_height="@dimen/side_goodsicon"
-	        android:src="@drawable/ic_launcher"
-	        />
-	    <TextView 
-	        android:id="@+id/tv_itemprodname"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="name"
-	        android:padding="@dimen/common_margin_bigger"
-	        android:textSize="@dimen/textsize_content_normal"
-	        android:textColor="@android:color/black"
-	        />
-	    <LinearLayout 
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:orientation="vertical"
-	        >
-	        <TextView 
-	            android:id="@+id/tv_itemprodprice"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:textColor="@android:color/black"
-	            />
-	        <TextView 
-	            android:id="@+id/tv_itemprodnum"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="X1"/>
-	        
-	    </LinearLayout>
+        android:padding="@dimen/common_margin" >
+
+        <ImageView
+            android:id="@+id/img_itemprod"
+            android:layout_width="@dimen/side_goodsicon"
+            android:layout_height="@dimen/side_goodsicon"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_itemprodname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/common_margin_bigger"
+            android:text="name"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/textsize_content_normal" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_itemprodprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black" 
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/tv_itemprodnum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center"
+                android:text="X1" 
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/tv_itemprodcomment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="去评论"
+                android:textColor="@color/green_title"
+                android:textSize="@dimen/textsize_content_normal" 
+                android:layout_weight="1"
+                android:visibility="invisible"
+                />
+        </LinearLayout>
     </LinearLayout>
-	<View 
-	    android:layout_width="match_parent"
-	    android:layout_height="0.5dp"
-	    android:background="@android:color/darker_gray"
-	    android:layout_marginLeft="@dimen/h_margin_activity"
-	    />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/h_margin_activity"
+        android:background="@android:color/darker_gray" />
+
 </LinearLayout>

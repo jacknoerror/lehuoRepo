@@ -10,6 +10,7 @@ import com.lehuo.ui.courier.DeliverListActivity;
 import com.lehuo.ui.login.PersonInfoCreateActivity;
 import com.lehuo.ui.login.RegistCodeActivity;
 import com.lehuo.ui.login.RegistPhoneActivity;
+import com.lehuo.ui.product.CommentActivity;
 import com.lehuo.ui.product.ProductDetailActivity;
 import com.lehuo.ui.product.ProductListActivity;
 import com.lehuo.ui.tab.HubActivity;
@@ -95,6 +96,14 @@ public class MyGate implements NetConst {
 		} else {
 			intent.setClass(context, HubActivity.class);
 		}
+		context.startActivity(intent);
+	}
+
+	public static void goComment(Context context, int goods_id) {
+		if(null==context) return;
+		Intent intent = new Intent();
+		intent.setClass(context, CommentActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(intent);
 	}
 }

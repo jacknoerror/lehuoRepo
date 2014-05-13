@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lehuo.R;
+import com.lehuo.ui.MyGate;
 import com.lehuo.ui.custom.list.MspAdapter;
 import com.lehuo.util.JackImageLoader;
 import com.lehuo.vo.InfoGoodsInOrder;
@@ -49,24 +50,38 @@ public class ListAdapterOrder extends MspAdapter {
 				for(int i=0;i<jar.length();i++){
 					try {
 						InfoGoodsInOrder jgio = new InfoGoodsInOrder(jar.getJSONObject(i));
-						View view = LayoutInflater.from(context).inflate(R.layout.item_product_single, null);
-						ImageView img = (ImageView)view.findViewById(R.id.img_itemprod);
-						TextView name = (TextView)view.findViewById(R.id.tv_itemprodname);
-						TextView price = (TextView)view.findViewById(R.id.tv_itemprodprice);
-						TextView count = (TextView)view.findViewById(R.id.tv_itemprodnum);
-						JackImageLoader.justSetMeImage(jgio.getGoods_thumb(), img);
-						name.setText(jgio.getGoods_name());
-						price.setText(jgio.getGoods_price());
-						count.setText("x"+jgio.getGoods_number());
-						//TODO comment
-						//holder?clear?
-						upLayout.addView(view);
+						addGoodsView(jgio);
 					} catch (JSONException e) {
 						Log.e("ListAdapterOrder", "infogoodsinorder jsonwrong:"+e.getMessage());
 						continue;
 					}
 				}
 			}
+		}
+
+		private void addGoodsView(final InfoGoodsInOrder jgio) {
+			View view = LayoutInflater.from(context).inflate(R.layout.item_product_single, null);
+			ImageView img = (ImageView)view.findViewById(R.id.img_itemprod);
+			TextView name = (TextView)view.findViewById(R.id.tv_itemprodname);
+			TextView price = (TextView)view.findViewById(R.id.tv_itemprodprice);
+			TextView count = (TextView)view.findViewById(R.id.tv_itemprodnum);
+			JackImageLoader.justSetMeImage(jgio.getGoods_thumb(), img);
+			name.setText(jgio.getGoods_name());
+			price.setText(jgio.getGoods_price());
+			count.setText("x"+jgio.getGoods_number());
+			//TODO comment
+			TextView goComment = (TextView)view.findViewById(R.id.tv_itemprodcomment);
+			goComment.setVisibility(View.VISIBLE);
+			goComment.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					MyGate.goComment(context,jgio.getGoods_id());
+				}
+			});
+			//holder?clear?
+			upLayout.addView(view);
 		}
 
 		@Override

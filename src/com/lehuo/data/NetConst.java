@@ -129,5 +129,9 @@ public interface NetConst {
 	public static final String EXTRAS_LAT = "lat";
 
 	public static final String EXTRAS_LOCATION = "location";
+
+	public static final String EXTRAS_COURIER_ID = "courierId";
+
+	public static final String ACTION_PAY = "pay";
 	
 }

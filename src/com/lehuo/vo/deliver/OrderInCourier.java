@@ -20,7 +20,7 @@ public class OrderInCourier extends MspJsonItem {
 	private String order_status_state;
 	private int order_id;
 	private String order_status;
-	private String pay_status;
+	private String pay_status;//pay_status 已付款,则按钮不能点击
 	private String pay_method;
 	private String address;
 	private String order_time;
@@ -28,7 +28,7 @@ public class OrderInCourier extends MspJsonItem {
 	private String total_fee;
 	private String shipping_status;
 	private String order_sn;
-	private int courier_status;
+	private int courier_status;//0:未开始配送 1:正在配送中 2:配送已完成
 	private String district;
 	private String best_time;
 	private String mobile;

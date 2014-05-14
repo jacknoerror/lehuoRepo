@@ -4,6 +4,7 @@
     <dimen name="common_margin_bigger">10dp</dimen>
     <dimen name="h_margin_activity">16dp</dimen>
     
+    <dimen name="v_titleheight">55dp</dimen>
     <dimen name="v_margin_activity">15dp</dimen>
     <dimen name="v_height_bottombar">52dp</dimen>
     

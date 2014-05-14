@@ -45,7 +45,7 @@
                 android:layout_weight="1"
                 />
         </LinearLayout>
-        <RelativeLayout 
+       <!--  <RelativeLayout 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -58,12 +58,19 @@
                 android:inputType="number"
                 android:layout_centerInParent="true"
                 />
-        </RelativeLayout>
+        </RelativeLayout> -->
+        <com.lehuo.ui.custom.JackEditWam
+            android:id="@+id/jack_itemcart_wam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ></com.lehuo.ui.custom.JackEditWam>
         <ImageView 
             android:id="@+id/btn_itemcart_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/btn_trash"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             />

@@ -30,6 +30,7 @@ import com.lehuo.ui.MyTitleActivity;
 import com.lehuo.ui.adapter.MyPagerAdapater;
 import com.lehuo.ui.custom.JackRadios;
 import com.lehuo.util.JackImageLoader;
+import com.lehuo.util.JackUtils;
 import com.lehuo.vo.LehuoPic;
 import com.lehuo.vo.Product;
 import com.lehuo.vo.User;
@@ -46,6 +47,7 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 	
 	JackRadios jRa;
 	
+	TextView tv_pn,tv_pd,tv_pold,tv_pnew;
 	@Override
 	public int getLayoutRid() {
 		return R.layout.activity_productdetail;
@@ -59,7 +61,6 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 		titleManager.setTitleName(mProduct.getGoods_name());
 		titleManager.updateCart();
 		
-		TextView tv_pn,tv_pd,tv_pold,tv_pnew;
 		Button btn_buy;
 		tv_pn = (TextView)this.findViewById(R.id.tv_productdetail_productname);
 		tv_pd = (TextView)this.findViewById(R.id.tv_productdetail_productdesc);
@@ -67,10 +68,7 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 		tv_pnew = (TextView)this.findViewById(R.id.tv_productdetail_pricenew);
 		btn_buy = (Button)this.findViewById(R.id.btn_productdetail_buynow);
 		
-		tv_pn.setText(mProduct.getGoods_name());
-		tv_pd.setText(mProduct.getGoods_brief());
-		tv_pold.setText(mProduct.getMarket_price());
-		tv_pnew.setText(mProduct.getPromote_price());
+		updateProductUI();
 		
 		btn_buy.setOnClickListener(new View.OnClickListener() {
 			
@@ -87,6 +85,20 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 		ActionPhpRequestImpl req = new GetProductDetailReq(mProduct.getGoods_id());
 		ActionBuilder.getInstance().request(req, this);
 		
+	}
+
+	/**
+	 * @param tv_pn
+	 * @param tv_pd
+	 * @param tv_pold
+	 * @param tv_pnew
+	 */
+	public void updateProductUI() {
+		tv_pn.setText(mProduct.getGoods_name());
+		tv_pd.setText(mProduct.getGoods_brief());
+		tv_pold.setText("原价：￥"+mProduct.getMarket_price());
+		JackUtils.textpaint_deleteLine(tv_pold);
+		tv_pnew.setText("现价："+mProduct.getRealPriceStr());
 	}
 
 	/**
@@ -123,7 +135,7 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 			
 			LinearLayout layout = new LinearLayout(this);
 			ImageView img = new ImageView(this);
-			img.setScaleType(ScaleType.CENTER);
+			img.setScaleType(ScaleType.CENTER_CROP);
 //			img.setImageResource(R.drawable.ic_launcher);
 			JackImageLoader.justSetMeImage(gp.getImg_url(), img);//
 			layout.addView(img);
@@ -180,6 +192,8 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 		JSONObject job = NetStrategies.getResultObj(result);
 		if(null!=job){
 			mProduct.initJackJson(job);
+			
+			updateProductUI(	);
 			
 			initPagers();
 			initJackRadios();

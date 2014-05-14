@@ -30,7 +30,7 @@ public class FormatingTest extends AndroidTestCase {
 	}
 	
 	public void convertJsonToCode() throws JSONException{
-		final String jsonStr = "{\"t_id\":\"1\",\"goods_id\":\"3\",\"goods_name\":\"²úÆ·3\",\"img_small\":\"http://58.64.178.2/data/tonglan/1398134190270191568_320X150.jpg\",\"sort\":\"3\",\"time\":\"1398162990\",\"is_goods\":\"0\"}";
+		final String jsonStr = "{\"type_id\":\"5\",\"type_name\":\"\u6ee1300\u9001\",\"type_money\":\"30.00\",\"bonus_id\":\"22\",\"used_time\":\"2014.04.19\"}";
 		JSONObject job = new JSONObject(jsonStr);
 		Iterator<String> it = job.keys();
 		StringBuffer sb = new StringBuffer();

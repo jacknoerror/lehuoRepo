@@ -92,6 +92,11 @@ public class PersonCreateActivityTest extends ActivityInstrumentationTestCase2<P
 //		getActivity().spinnerPrv.setse
 	}
 	
+	public void testMyActivity(){
+		assertNotNull(getActivity());
+		SystemClock.sleep(1000*15);
+	}
+	
 	public void testJava(){
 		Integer a = null; Integer b = 1;
 		assertNotNull(a&b);

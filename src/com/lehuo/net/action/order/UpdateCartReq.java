@@ -27,6 +27,17 @@ public class UpdateCartReq implements ActionPhpRequestImpl {
 		this.user_id = user_id;
 	}
 
+	
+	
+	public UpdateCartReq(int num, String rec_id, int user_id) {
+		super();
+		this.num = num;
+		this.rec_id = rec_id;
+		this.user_id = user_id;
+	}
+
+
+
 	@Override
 	public String getPhpName() {
 		return PHPNAME_ORDER;

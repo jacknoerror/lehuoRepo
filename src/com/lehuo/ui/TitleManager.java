@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.lehuo.R;
 import com.lehuo.data.MyData;
+import com.lehuo.ui.custom.JackTitle;
 import com.lehuo.ui.product.MyCartActivity;
 
 /**

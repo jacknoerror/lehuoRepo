@@ -30,6 +30,8 @@ public class User extends JsonImport {
 	int user_rank;
 	int is_courier;
 	
+	String birthday;
+	
 	@Override
 	public void initJackJson(JSONObject job) throws JSONException {
 		if(job.has("user_id")) user_id = job.getInt("user_id");
@@ -39,6 +41,7 @@ public class User extends JsonImport {
 		if(job.has("mobile_phone")) mobile_phone = job.getString("mobile_phone");
 		if(job.has("truename")) truename = job.getString("truename");
 		//only login has below
+		if(job.has("birthday")) birthday = job.getString("birthday");
 		if(job.has("user_money")) user_money = job.getString("user_money");
 		if(job.has("rank_points")) rank_points = job.getInt("rank_points");
 		if(job.has("user_rank")) user_rank = job.getInt("user_rank");
@@ -50,6 +53,7 @@ public class User extends JsonImport {
 
 	public User() {
 		super();
+		
 	}
 
 	public User(JSONObject job) {
@@ -58,6 +62,16 @@ public class User extends JsonImport {
 
 	
 	
+	public final String getBirthday() {
+		if(null==birthday) birthday="1970-01-01";;
+		return birthday;
+	}
+	
+
+	public final void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
 	public int getUser_id() {
 		return user_id;
 	}

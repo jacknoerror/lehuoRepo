@@ -1,5 +1,6 @@
 package com.lehuo.net.action.order;
 
+import com.lehuo.data.NetConst;
 import com.lehuo.net.action.SingleIdParamAbsReq;
 
 /**
@@ -19,7 +20,7 @@ public class GetBonusReq extends SingleIdParamAbsReq {
 
 	@Override
 	public String getApiName() {
-		return "userbonus";
+		return NetConst.ACTION_USERBONUS;
 	}
 
 	@Override

@@ -16,16 +16,12 @@ import android.widget.Spinner;
 import com.lehuo.R;
 import com.lehuo.data.MyData;
 import com.lehuo.data.NetConst;
+import com.lehuo.entity.LocalDistrictGetter;
 import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
-import com.lehuo.net.action.user.UGetDistrictReq;
-import com.lehuo.net.action.user.UGetPlaceRcv;
-import com.lehuo.net.action.user.UGetcityReq;
-import com.lehuo.net.action.user.UGetprovinceReq;
 import com.lehuo.net.action.user.UserRegistReq;
-import com.lehuo.ui.MyGate;
 import com.lehuo.ui.MyTitleActivity;
 import com.lehuo.util.JackUtils;
 import com.lehuo.vo.Place;
@@ -76,9 +72,10 @@ public class PersonInfoCreateActivity extends MyTitleActivity implements ActionP
 		spinnerDist.setOnItemSelectedListener(this); 
 		
 		//get °∑›
-		ActionPhpRequestImpl req = new UGetprovinceReq();
+		/*ActionPhpRequestImpl req = new UGetprovinceReq();
 		ActionPhpReceiverImpl rcv= new UGetPlaceRcv(this, this.spinnerPrv);
-		ActionBuilder.getInstance().request(req, rcv);
+		ActionBuilder.getInstance().request(req, rcv);*/
+		spinnerPrv.setAdapter(new MySpinnerAdapter(LocalDistrictGetter.getInstance().getPlaceList(0)));
 	}
 	private void done() {
 		if(null==spinnerPrv||null==spinnerCt||null==spinnerDist
@@ -98,11 +95,11 @@ public class PersonInfoCreateActivity extends MyTitleActivity implements ActionP
 		dd=getItemId(spinnerDist);
 		ActionPhpRequestImpl actReq = new UserRegistReq(
 				phone, 
-				"Ã’Ã’", 
-				"123456",
+				et_name.getText().toString(), 
+				"310000",
 				pp, cc, dd, 
 				et_address.getText().toString(), 
-				JackUtils.getMD5("111222"),
+				JackUtils.getMD5(et_pwd.getText().toString()),
 				group.getCheckedRadioButtonId()==R.id.radio_man?1:2);
 		ActionBuilder.getInstance().request(actReq, this);
 		
@@ -143,14 +140,16 @@ public class PersonInfoCreateActivity extends MyTitleActivity implements ActionP
 		Context oisCntxt = this;
 		switch (arg0.getId()) {
 		case R.id.spinner_cuser_province:
-			req = new UGetcityReq((int) arg3);
+			/*req = new UGetcityReq((int) arg3);
 			rcv = new UGetPlaceRcv(oisCntxt, spinnerCt);
-			ActionBuilder.getInstance().request(req, rcv);
+			ActionBuilder.getInstance().request(req, rcv);*/
+			spinnerCt.setAdapter(new MySpinnerAdapter(LocalDistrictGetter.getInstance().getPlaceList((int) arg3)));
 			break;
 		case R.id.spinner_cuser_city:
-			req = new UGetDistrictReq((int) arg3);
+			/*req = new UGetDistrictReq((int) arg3);
 			rcv = new UGetPlaceRcv(oisCntxt, spinnerDist);
-			ActionBuilder.getInstance().request(req, rcv);
+			ActionBuilder.getInstance().request(req, rcv);*/
+			spinnerDist.setAdapter(new MySpinnerAdapter(LocalDistrictGetter.getInstance().getPlaceList((int) arg3)));
 			break;
 		case R.id.spinner_cuser_district:
 	
@@ -165,6 +164,4 @@ public class PersonInfoCreateActivity extends MyTitleActivity implements ActionP
 //		arg0.set
 		Log.i(TAG, "on nothing"+arg0.getId());
 	}
-	
-	
 }

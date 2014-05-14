@@ -87,6 +87,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 			break;
 		case 12://login
 			ari = new LoginReq("15858173770", JackUtils.getMD5("111222"));
+//			ari = new LoginReq("15906669497", JackUtils.getMD5("123456"));
 			break;
 		case 13://getcart
 			ari = new GetCartReq(28);

@@ -1,9 +1,25 @@
 package com.lehuo.net.location;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.List;
 
+import com.baidu.mapapi.search.MKAddrInfo;
+import com.baidu.mapapi.search.MKBusLineResult;
+import com.baidu.mapapi.search.MKDrivingRouteResult;
+import com.baidu.mapapi.search.MKPoiResult;
+import com.baidu.mapapi.search.MKSearch;
+import com.baidu.mapapi.search.MKSearchListener;
+import com.baidu.mapapi.search.MKShareUrlResult;
+import com.baidu.mapapi.search.MKSuggestionResult;
+import com.baidu.mapapi.search.MKTransitRouteResult;
+import com.baidu.mapapi.search.MKWalkingRouteResult;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.baidumap.GeoCoderActivity;
 import com.lehuo.MyApplication;
 import com.lehuo.data.MyData;
+import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
@@ -76,6 +92,9 @@ public class LocationService extends Service implements LocationListener,
 		listener = this;
 		locArr = new double[2];
 
+		
+//		initSearch();
+		
 		new Thread() {
 			@Override
 			public void run() {
@@ -91,15 +110,22 @@ public class LocationService extends Service implements LocationListener,
 					tryHandler.sendEmptyMessage(0);
 					// 发请求
 					if (locArr[0] != 0) {
+//						searchByLatlon(locArr[0], locArr[1]);
 						User me = MyData.data().getMe();
 						if (null != me) {
-
 							ActionPhpRequestImpl actReq = new SendCourierLocReq(
-									"", locArr[0] + "", locArr[1] + "",
+									GeoCoderActivity.addressname, locArr[0] + "", locArr[1] + "",
 									me.getUser_id());
-							ActionPhpReceiverImpl actRcv = new JackShowToastReceiver(
-									null);
-							ActionBuilder.getInstance().request(actReq, actRcv);
+//							ActionPhpReceiverImpl actRcv = new JackShowToastReceiver(
+//									null);
+//							ActionBuilder.getInstance().request(actReq, actRcv);
+							String result;
+							try {
+								result = NetStrategies.doHttpRequest(actReq.toHttpBody());
+								Log.d(TAG, "service result:"+result);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}
 					// 通知修改位置
@@ -115,6 +141,9 @@ public class LocationService extends Service implements LocationListener,
 		}.start();
 
 	}
+
+	
+	
 
 	Handler tryHandler = new Handler() {
 

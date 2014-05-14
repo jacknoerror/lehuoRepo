@@ -141,5 +141,7 @@ public interface NetConst {
 	public static final String PARAMS_CONTENT = "content";
 
 	public static final String EXTRAS_GOODS_ID = "goods_id";
+
+	public static final String ACTION_USERBONUS = "userbonus";
 	
 }

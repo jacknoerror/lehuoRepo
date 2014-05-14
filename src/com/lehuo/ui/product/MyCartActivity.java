@@ -26,6 +26,7 @@ import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
 import com.lehuo.net.action.JackShowToastReceiver;
 import com.lehuo.net.action.NextActionRcv;
+import com.lehuo.net.action.order.AddCartReq;
 import com.lehuo.net.action.order.DelCartRcv;
 import com.lehuo.net.action.order.DelCartReq;
 import com.lehuo.net.action.order.GetCartRcv;
@@ -36,7 +37,9 @@ import com.lehuo.ui.MyGate;
 import com.lehuo.ui.MyTitleActivity;
 import com.lehuo.ui.adapter.MyGridViewAdapter;
 import com.lehuo.ui.adapter.MyGridViewAdapter.MyGridAbsJsonPic;
+import com.lehuo.ui.custom.JackEditWam;
 import com.lehuo.util.JackImageLoader;
+import com.lehuo.util.JackUtils;
 import com.lehuo.vo.User;
 import com.lehuo.vo.cart.CartInfo;
 import com.lehuo.vo.cart.DataCart;
@@ -54,6 +57,9 @@ public class MyCartActivity extends MyTitleActivity {
 	MyCartAdapter myCartAdapter;
 
 	private User me;
+	
+	public ActionPhpReceiverImpl rcvGetcart;
+	InfoTotal cart_total;
 
 	@Override
 	public int getLayoutRid() {
@@ -69,6 +75,19 @@ public class MyCartActivity extends MyTitleActivity {
 			return;
 
 		mList = (ListView) this.findViewById(R.id.listview_common_activity);
+		
+		rcvGetcart = new JackShowToastReceiver(
+				this) {
+			@Override
+			public boolean response(String result)
+					throws JSONException {
+				if (!super.response(result)) {
+					getCart();
+					return false;
+				}
+				return true;
+			}
+		};
 
 		getCart();
 	}
@@ -76,6 +95,8 @@ public class MyCartActivity extends MyTitleActivity {
 	private void getCart() {
 		ActionPhpRequestImpl req = new GetCartReq(me.getUser_id());//
 		ActionPhpReceiverImpl rcv = new GetCartRcv(this) {
+			
+
 			@Override
 			public boolean respJob(JSONObject job) throws JSONException {
 				DataCart cart=null;
@@ -91,21 +112,25 @@ public class MyCartActivity extends MyTitleActivity {
 			}
 
 			private void initTotal(CartInfo ci) {
-				InfoTotal total = ci.getTotal();
-				if(null!=total){
+				cart_total = ci.getTotal();
+				if(null!=cart_total){
 					TextView count = (TextView)findViewById(R.id.tv_mycart_totalcount);
 					TextView price = (TextView)findViewById(R.id.tv_mycart_totalprice);
 					TextView old = (TextView)findViewById(R.id.tv_mycart_oldprice);
 					Button confirm = (Button)findViewById(R.id.btn_mycart_confirm);
-					count .setText(String.format("共%d件商品", total.getGoods_amount()));//
-					price .setText(total.getRealPriceStr());//TODO integral
-					old .setText("市场价"+total.getMarket_price());
+					count .setText(String.format("共%d件商品", cart_total.getGoods_amount()));//
+					price .setText(cart_total.getRealPriceStr());//TODO integral
+					old .setText("市场价"+cart_total.getMarket_price());
 					//old 删除线 TODO
 					confirm.setOnClickListener(new View.OnClickListener() {
 						
 						@Override
 						public void onClick(View arg0) {
-							MyGate.goConfirmOrder(MyCartActivity.this, null);
+							if(cart_total.getGoods_amount()==0){
+								JackUtils.showToast(MyCartActivity.this, "购物车中没有商品");
+							}else{
+								MyGate.goConfirmOrder(MyCartActivity.this, null);
+							}
 							
 						}
 					});
@@ -163,8 +188,9 @@ public class MyCartActivity extends MyTitleActivity {
 						.findViewById(R.id.tv_itemcart_pname);
 				holder.tv_price = (TextView) view
 						.findViewById(R.id.tv_itemcart_price1);
-				holder.et_count = (EditText) view
-						.findViewById(R.id.et_itemcart_count);
+//				holder.et_count = (EditText) view
+//						.findViewById(R.id.et_itemcart_count);
+				holder.jack_wam = (JackEditWam)view.findViewById(R.id.jack_itemcart_wam);
 				holder.btn_del = (ImageView) view
 						.findViewById(R.id.btn_itemcart_delete);
 
@@ -183,7 +209,30 @@ public class MyCartActivity extends MyTitleActivity {
 						.justSetMeImage(itm.getGoods_thumb(), holder.img);
 				holder.tv_name.setText(itm.getGoods_name());
 				holder.tv_price.setText(itm.getGoods_price());// TODO integral
-				holder.et_count.setText("" + itm.getGoods_number());
+				holder.jack_wam.setNum(itm.getGoods_number());
+				holder.jack_wam.setOnAddListener(new JackEditWam.OnEditListener() {
+					
+					@Override
+					public void edit(JackEditWam jackEW) {
+						ActionPhpRequestImpl req = new UpdateCartReq(jackEW.getNum()+1, itm
+								.getRec_id()+"", me.getUser_id());
+						ActionBuilder.getInstance().request(req, rcvGetcart);
+						
+					}
+				});
+				holder.jack_wam.setOnMinusListener(new JackEditWam.OnEditListener() {
+					
+					
+
+					@Override
+					public void edit(JackEditWam jackEW) {
+						ActionPhpRequestImpl req = new UpdateCartReq(jackEW.getNum()-1, itm
+								.getRec_id()+"", me.getUser_id());
+						
+						ActionBuilder.getInstance().request(req, rcvGetcart);
+						
+					}
+				});
 				holder.btn_del.setOnClickListener(new View.OnClickListener() {
 
 					@Override
@@ -192,27 +241,12 @@ public class MyCartActivity extends MyTitleActivity {
 						int user_id = me.getUser_id();
 						ActionPhpRequestImpl req = new DelCartReq(itm
 								.getRec_id(), user_id);
-						MyCartActivity actContext = MyCartActivity.this;
-						ActionPhpReceiverImpl rcv = new JackShowToastReceiver(
-								actContext) {
-							@Override
-							public boolean response(String result)
-									throws JSONException {
-								if (!super.response(result)) {
-//									contentList.remove(position);
-//									notifyDataSetChanged();
-									getCart();
-									return false;
-								}
-								return true;
-							}
-						};//
 //						rcv = new NextActionRcv(rcv,
 //								new UpdateCartReq(user_id), new UpdateCartRcv(
 //										actContext, null));{//no cart need update
 //											
 //										}
-						ActionBuilder.getInstance().request(req, rcv);
+						ActionBuilder.getInstance().request(req, rcvGetcart);
 					}
 				});
 			}
@@ -224,7 +258,8 @@ public class MyCartActivity extends MyTitleActivity {
 	static class ViewHolder {
 		ImageView img;
 		TextView tv_name, tv_price;
-		EditText et_count;
+//		EditText et_count;
+		JackEditWam jack_wam;
 		ImageView btn_del;
 	}
 

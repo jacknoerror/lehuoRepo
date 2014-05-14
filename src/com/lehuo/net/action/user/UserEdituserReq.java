@@ -22,6 +22,12 @@ public class UserEdituserReq implements ActionPhpRequestImpl {
 		this.truename = truename;
 	}
 
+	public UserEdituserReq(int user_id, String birthday) {
+		super();
+		this.user_id = user_id;
+		this.birthday = birthday;
+	}
+
 	@Override
 	public String getPhpName() {
 		return NetConst.PHPNAME_USER;

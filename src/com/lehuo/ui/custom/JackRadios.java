@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.res.Resources.NotFoundException;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -54,7 +55,7 @@ public class JackRadios implements OnCheckedChangeListener {
 	RadioGroup rGroup;
 	View currentView;
 	
-	SparseArray<View> jlvMap;
+	SparseArray<View> viewMap;
 	
 	public JackRadios(FrameLayout frameContainer, RadioGroup rGroup2){
 		this.frameContainer = frameContainer;
@@ -70,18 +71,26 @@ public class JackRadios implements OnCheckedChangeListener {
 		if(null==frameContainer) return;
 		final int[] ids = getBtnRids();
 		rBtns = new RadioButton[ids.length];
-		jlvMap = new SparseArray<View>();
+		viewMap = new SparseArray<View>();
 		
 		for (int i = 0; i < rBtns.length; i++) {
 			/*View view = initView(i);
 			if(null!=view) jlvMap.put(getBtnId(i), view);*/
-			rBtns[i] = (RadioButton)rGroup.findViewById(ids[0]);
-			rBtns[i].setTextColor(context.getResources().getColorStateList(
-					R.color.selector_tab_textcolor_green));
+			rBtns[i] = (RadioButton)rGroup.findViewById(ids[i]);
+			editRadioBtn(rBtns[i], i);
 		}
 		
 		rGroup.setOnCheckedChangeListener(this);
 		rGroup.check(rBtns[0].getId());
+	}
+	/**
+	 * @param radioButton TODO
+	 * @param i
+	 * @throws NotFoundException
+	 */
+	protected void editRadioBtn(RadioButton radioButton, int i) throws NotFoundException {
+		radioButton.setTextColor(context.getResources().getColorStateList(
+				R.color.selector_tab_textcolor_green));
 	}
 
 	protected View initView(int i) {
@@ -165,7 +174,7 @@ public class JackRadios implements OnCheckedChangeListener {
 		default:
 			break;
 		}
-		if(null!=view)jlvMap.put(i, view);
+		if(null!=view)viewMap.put(i, view);
 		return view;
 	}
 	
@@ -178,8 +187,11 @@ public class JackRadios implements OnCheckedChangeListener {
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		Log.i(TAG, "checkId:"+checkedId);
 		if(null!=currentView)frameContainer.removeView(currentView);// TODO tobe test
-		View view = jlvMap.get(checkedId);
-		if(null==view) view = initView(checkedId);
+		View view = viewMap.get(checkedId);
+		if(null==view) {
+			view = initView(checkedId);
+			viewMap.put(checkedId, view);//0514
+		}
 		frameContainer.addView(view);
 		currentView = view;
 		onSelected();

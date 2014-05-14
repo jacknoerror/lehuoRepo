@@ -3,15 +3,24 @@
  */
 package com.lehuo.ui.tab.my;
 
+import org.json.JSONException;
+
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.lehuo.R;
 import com.lehuo.data.MyData;
+import com.lehuo.net.action.ActionBuilder;
+import com.lehuo.net.action.ActionPhpReceiverImpl;
+import com.lehuo.net.action.ActionPhpRequestImpl;
+import com.lehuo.net.action.JackShowToastReceiver;
+import com.lehuo.net.action.user.UserEdituserReq;
+import com.lehuo.ui.MyGate;
 import com.lehuo.ui.address.MyAddressActivity;
 import com.lehuo.ui.tab.ContentAbstractFragment;
 import com.lehuo.util.JackUtils;
@@ -26,6 +35,7 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 	TextView tv_name,tv_score,tv_phone;
 	TextView tv_address,tv_birthday,tv_coupon;
 	private User user;
+	private String birthdayString;
 	
 	@Override
 	public void onResume() {
@@ -59,7 +69,8 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 		tv_name.setText(user.getUser_name());
 		tv_score.setText("乐活积分>  "+user.getPay_points());
 		tv_phone.setText(user.getMobile_phone());
-		tv_birthday.setText("我的生日\t\t\t"+JackUtils.getDate());//TODO 
+		birthdayString = user.getBirthday();
+		tv_birthday.setText("我的生日\t\t\t"+birthdayString);//TODO 
 		
 	}
 	@Override
@@ -75,11 +86,46 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 			startActivity(intent);
 			break;
 		case R.id.tv_account2_birthday:
-			OnDateSetListener onDateSetListener = null;
-			new DatePickerDialog(getActivity(), onDateSetListener , 2011, 01, 01).show();
+			OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+				
+				@Override
+				public void onDateSet(DatePicker view, int year, int monthOfYear,
+						int dayOfMonth) {
+					String string = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
+					if(string.equals(birthdayString)) return;
+					birthdayString = string;
+					ActionPhpRequestImpl actReq = new UserEdituserReq(user.getUser_id(), birthdayString);
+					ActionPhpReceiverImpl actRcv = new JackShowToastReceiver(getActivity()){
+						@Override
+						public boolean response(String result)
+								throws JSONException {
+							
+							boolean response = super.response(result);
+							if(!response){
+								user.setBirthday(birthdayString);
+								tv_birthday.setText("我的生日\t\t\t"+birthdayString);
+							}
+							return response;
+						}
+					};
+					ActionBuilder.getInstance().request(actReq, actRcv);
+				}
+			};
+			//showdialog
+			String[] strs= new String[3];
+			int[] ints = new int[3];
+			try{
+				strs = birthdayString.split("-");
+				for(int i=0;i<3;i++){
+					ints[i] = Integer.parseInt(strs[i]);
+				}
+			}catch (Exception e) {
+				ints[0]=1970;ints[1]=01;ints[2]=01;
+			}
+			new DatePickerDialog(getActivity(), onDateSetListener , ints[0], ints[1]-1, ints[2]).show();
 			break;
 		case R.id.tv_account2_coupon:
-			
+			MyGate.goCoupon(getActivity());
 			break;
 
 		default:
@@ -87,5 +133,6 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 		}
 		
 	}
-
+	
+	
 }

@@ -23,6 +23,13 @@ public class Place extends JsonImport {
 	}
 
 
+	public Place(int region_id, String region_name) {
+		super();
+		this.region_id = region_id;
+		this.region_name = region_name;
+	}
+
+
 	public Place(JSONObject job) {
 		super(job);
 	}

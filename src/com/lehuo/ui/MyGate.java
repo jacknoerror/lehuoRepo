@@ -2,6 +2,7 @@ package com.lehuo.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 
 import com.lehuo.data.MyData;
 import com.lehuo.data.NetConst;
@@ -14,6 +15,7 @@ import com.lehuo.ui.product.CommentActivity;
 import com.lehuo.ui.product.ProductDetailActivity;
 import com.lehuo.ui.product.ProductListActivity;
 import com.lehuo.ui.tab.HubActivity;
+import com.lehuo.ui.tab.my.MyCouponActivity;
 import com.lehuo.ui.tab.order.ConfirmOrderActivity;
 import com.lehuo.util.JackUtils;
 import com.lehuo.vo.Category;
@@ -88,7 +90,7 @@ public class MyGate implements NetConst {
 			return;
 		}
 		MyData.data().setCurrentUser(user);
-		user.setIs_courier(true);// test
+//		user.setIs_courier(true);// test
 		Intent intent = new Intent();
 //		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		if (user.isCourier()) {
@@ -106,5 +108,9 @@ public class MyGate implements NetConst {
 		intent.putExtra(NetConst.EXTRAS_GOODS_ID, goods_id);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(intent);
+	}
+
+	public static void goCoupon(Context context) {
+		justGo(context, MyCouponActivity.class);
 	}
 }

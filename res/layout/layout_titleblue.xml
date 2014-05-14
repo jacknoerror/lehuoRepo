@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="@dimen/v_titleheight"
     android:background="@color/green_title"
     >
     <TextView 
@@ -12,7 +12,7 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/textsize_title"
         android:layout_centerInParent="true"
-        android:text="TEST"
+        android:text="@string/app_name"
         android:singleLine="true"
         android:layout_marginRight="@dimen/common_margin_bigger"
         android:layout_marginLeft="@dimen/common_margin_bigger"

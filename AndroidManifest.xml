@@ -53,6 +53,7 @@
         <activity android:name="com.lehuo.ui.courier.DeliverListActivity"></activity>
         <activity android:name="com.lehuo.ui.product.CommentActivity"></activity>
         <activity android:name="com.baidumap.GeoCoderActivity"></activity>
+        <activity android:name="com.lehuo.ui.tab.my.MyCouponActivity"></activity>
         
         <service
             android:name="com.lehuo.net.location.LocationService"

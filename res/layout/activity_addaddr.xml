@@ -2,16 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:orientation="vertical" >
 
     <include layout="@layout/merge_jacktitle" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp" 
-        android:layout_weight="1"
-        >
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,27 +20,29 @@
 
             <LinearLayout style="@style/SimpleBar" >
 
-                <TextView style="@style/NewAddressTitle" 
-                    android:text="收货人"
-                    />
+                <TextView
+                    style="@style/NewAddressTitle"
+                    android:text="收货人" />
 
-                <EditText 
+                <EditText
                     android:id="@+id/et_aa_name"
                     style="@style/NewAddressInput" />
             </LinearLayout>
 
-            <LinearLayout style="@style/SimpleBar" 
-                android:layout_marginBottom="@dimen/v_margin_activity"
-                >
+            <LinearLayout
+                style="@style/SimpleBar"
+                android:layout_marginBottom="@dimen/v_margin_activity" >
 
-                <TextView style="@style/NewAddressTitle" 
-                    android:text="手机号码"/>
+                <TextView
+                    style="@style/NewAddressTitle"
+                    android:text="手机号码" />
 
-                <EditText 
+                <EditText
                     android:id="@+id/et_aa_mobile"
                     style="@style/NewAddressInput" />
             </LinearLayout>
 
+            <!--
             <LinearLayout style="@style/SimpleBar" >
 
                 <TextView style="@style/NewAddressTitle" />
@@ -55,43 +56,45 @@
 
                 <EditText style="@style/NewAddressInput" />
             </LinearLayout>
+            -->
 
-            <LinearLayout style="@style/SimpleBar" 
-                android:layout_marginTop="@dimen/common_margin"
-                >
+            <include layout="@layout/merge_place" />
 
-                <TextView style="@style/NewAddressTitle" 
-                    android:text="详细地址"
+            <LinearLayout
+                style="@style/SimpleBar"
+                android:layout_marginTop="@dimen/common_margin" >
+
+                <TextView
+                    style="@style/NewAddressTitle"
                     android:layout_gravity="start"
-                    />
+                    android:text="详细地址" />
 
-                <EditText 
+                <EditText
                     android:id="@+id/et_aa_detail"
-                    style="@style/NewAddressInput" 
-                    android:lines="2"
-                    />
+                    style="@style/NewAddressInput"
+                    android:lines="2" />
             </LinearLayout>
 
-            <View style="@style/DividerWH" 
-                android:layout_marginTop="@dimen/v_margin_activity"
-                />
+            <View
+                style="@style/DividerWH"
+                android:layout_marginTop="@dimen/v_margin_activity" />
 
             <LinearLayout style="@style/MatchWidthOnly" >
-                <TextView 
+
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_margin"
+                    android:layout_weight="1"
                     android:text="是否设为默认地址"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/textsize_title_normal"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/common_margin"
-                    />
-                <CheckBox 
+                    android:textSize="@dimen/textsize_title_normal" />
+
+                <CheckBox
                     android:id="@+id/cb_addaddr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/common_margin"
-                    />
+                    android:layout_marginRight="@dimen/common_margin" />
             </LinearLayout>
 
             <View style="@style/DividerWH" />

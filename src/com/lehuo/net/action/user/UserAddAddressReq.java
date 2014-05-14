@@ -14,10 +14,13 @@ public class UserAddAddressReq implements ActionPhpRequestImpl {
 	int province,city,district;// 地区编号
 	String address;// 详细地址
 	String mobile;// 联系电话
-    
+	boolean is_default 
+;
+
 
 	public UserAddAddressReq(int user_id, String truename, int province,
-			int city, int district, String address, String mobile) {
+			int city, int district, String address, String mobile,
+			boolean is_default) {
 		super();
 		this.user_id = user_id;
 		this.truename = truename;
@@ -26,6 +29,7 @@ public class UserAddAddressReq implements ActionPhpRequestImpl {
 		this.district = district;
 		this.address = address;
 		this.mobile = mobile;
+		this.is_default = is_default;
 	}
 
 	@Override
@@ -52,6 +56,7 @@ public class UserAddAddressReq implements ActionPhpRequestImpl {
 		halfway.put(NetConst.PARAMS_DISTRICT, district+"");
 		halfway.put(PARAMS_ADDRESS, address);
 		halfway.put(NetConst.PARAMS_MOBILE, mobile+"");
+		halfway.put(NetConst.PARAMS_IS_DEFAULT, ""+(is_default?1:0));
 		return halfway;
 	}
 

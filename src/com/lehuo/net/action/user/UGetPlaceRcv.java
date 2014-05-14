@@ -15,6 +15,11 @@ import com.lehuo.entity.json.JsonImport;
 import com.lehuo.net.action.JackDefDefJiArrRcv;
 import com.lehuo.vo.Place;
 
+/**
+ * @author taotao
+ *
+ */
+@Deprecated
 public class UGetPlaceRcv extends JackDefDefJiArrRcv {
 
 	Spinner spinner;

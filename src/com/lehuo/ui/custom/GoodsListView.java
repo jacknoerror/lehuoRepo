@@ -29,6 +29,7 @@ import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.ui.MyGate;
 import com.lehuo.util.JackImageLoader;
+import com.lehuo.util.JackUtils;
 import com.lehuo.vo.Product;
 
 public class GoodsListView extends ListView implements
@@ -284,6 +285,7 @@ public class GoodsListView extends ListView implements
 			holder.tv_goodsname.setText(p.getGoods_name());
 			holder.tv_goodsdesc.setText(p.getGoods_desc());
 			holder.tv_priceold.setText(p.getMarket_price());//TODO delete line
+			JackUtils.textpaint_deleteLine(holder.tv_priceold);
 			holder.tv_pricenew.setText(p.getRealPriceStr());
 			holder.btn.setOnClickListener(viewInItemOnclickListener);
 			holder.btn.setTag(p.getGoods_id());

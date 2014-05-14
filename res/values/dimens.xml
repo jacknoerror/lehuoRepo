@@ -4,15 +4,18 @@
     <dimen name="common_margin_bigger">10dp</dimen>
     <dimen name="h_margin_activity">16dp</dimen>
     
-    <dimen name="v_titleheight">55dp</dimen>
+    
+    <dimen name="v_titleheight">54dp</dimen>
     <dimen name="v_margin_activity">15dp</dimen>
     <dimen name="v_height_bottombar">52dp</dimen>
     
+    <dimen name="side_grid">160dp</dimen>
     <dimen name="side_goodsicon">124dp</dimen>
     <dimen name="side_goodsicon_smaller">92dp</dimen>
     
     <dimen name="textsize_title">20sp</dimen>
     <dimen name="textsize_title_sub">18sp</dimen>
+    <dimen name="textsize_title_bigger">17sp</dimen>
     <dimen name="textsize_title_normal">16sp</dimen>
     <dimen name="textsize_content_normal">15sp</dimen>
     <dimen name="textsize_itemcontent">14sp</dimen>

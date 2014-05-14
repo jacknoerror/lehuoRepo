@@ -8,15 +8,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <include layout="@layout/merge_drawercontent"/>
+        <include layout="@layout/a_hub"/>
        
         <ListView 
             android:id="@+id/left_drawer"
-            android:layout_width="120dp"
+            android:layout_width="124dp"
             android:layout_height="match_parent"
             android:background="@android:color/black"
             android:divider="@android:color/black"
             android:layout_gravity = "left"
+            android:layout_marginTop = "@dimen/v_titleheight"
+            android:layout_marginBottom = "@dimen/v_height_bottombar"
+            android:scrollbars="none"
             ></ListView>
     </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>

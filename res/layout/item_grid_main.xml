@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:padding="@dimen/common_margin"
-    android:background="@android:color/transparent"
+    android:padding="2dp"
+    android:background="@color/bg_grey_bigcolor"
     >
     <LinearLayout 
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:id="@+id/img_item_grid_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             />
     </LinearLayout>
 

@@ -27,6 +27,7 @@
                     android:layout_height="wrap_content" 
                     android:layout_weight="2"
                     android:textColor="@android:color/white"
+                    android:textSize="@dimen/textsize_content_normal"
                     />
 
                 <TextView 
@@ -60,6 +61,7 @@
 
                 <TextView 
                     android:id="@+id/tv_mycart_totalprice"
+                    android:textSize="@dimen/textsize_content_normal"
                     style="@style/RedText" />
             </LinearLayout>
         </LinearLayout>

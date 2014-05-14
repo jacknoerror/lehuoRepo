@@ -53,6 +53,8 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 		if(null==user) return;
 		initTitleManager();
 		titleManager.setTitleName(getString(R.string.titlename_my));
+		titleManager.initTitleMenu();
+		titleManager.updateCart();
 		
 		tv_name=(TextView)mView.findViewById(R.id.tv_account1_username);
 		tv_score=(TextView)mView.findViewById(R.id.tv_account1_score);

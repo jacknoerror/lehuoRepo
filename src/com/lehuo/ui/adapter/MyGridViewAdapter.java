@@ -46,6 +46,7 @@ public class MyGridViewAdapter extends BaseAdapter {
 	public List<MyGridAbsJsonPic> contentList;
 	SparseArray<View> viewMap;
 	private Context context;
+	public int itemHeight;
 
 	/**
 	 * notice the class casts here
@@ -99,8 +100,9 @@ public class MyGridViewAdapter extends BaseAdapter {
 		if(null!=itm){
 			JackImageLoader.justSetMeImage(itm.getPicUrl(), holder.prizImg);
 			holder.prizImg.setLayoutParams(new LinearLayout.LayoutParams(JackUtils.dip2px(
-					context, 180), JackUtils.dip2px(context, 125)));
+					context, 180), JackUtils.dip2px(context, 160)));
 		}
+		itemHeight = view.getMeasuredHeight();
 		return view;
 	}
 

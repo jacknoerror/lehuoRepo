@@ -3,6 +3,8 @@ package com.lehuo.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,9 +16,9 @@ import com.lehuo.ui.product.MyCartActivity;
 
 /**
  * @author tao
- *
+ *should be no specific
  */
-public class TitleManager {
+public class TitleManager implements View.OnClickListener{
 	JackTitle jackTitle;
 	TextView tv_titlename,tv_right;
 	ImageView btn_titleback;
@@ -26,6 +28,7 @@ public class TitleManager {
 	
 	Activity activity;
 	View mView;
+	private ImageView btn_titlemenu;
 	
 	public TitleManager(Activity activity) {
 		super();
@@ -47,15 +50,15 @@ public class TitleManager {
 	}
 	public void initTitleBack(){
 		btn_titleback = (ImageView) titleView().findViewById(R.id.btn_title_back);
-		btn_titleback.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if(null!=activity)activity.finish();
-			}
-		});
+		btn_titleback.setOnClickListener(this);
 		btn_titleback.setVisibility(View.VISIBLE);
 	}
+	public void initTitleMenu(){
+		btn_titlemenu = (ImageView) titleView().findViewById(R.id.btn_title_menu);
+		btn_titlemenu.setOnClickListener(this);
+		btn_titlemenu.setVisibility(View.VISIBLE);
+	}
+	
 	public JackTitle titleView(){
 		if(null==jackTitle) jackTitle = (JackTitle)findView(R.id.jacktitle);
 		return jackTitle;
@@ -89,5 +92,22 @@ public class TitleManager {
 		cartTv.setVisibility(count==0?View.INVISIBLE:View.VISIBLE);
 		cartTv.setText(""+count);
 			
+	}
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btn_title_menu:
+			DrawerLayout drawer = MyData.data().getDrawer();
+			if(null!=drawer){
+				drawer.openDrawer(Gravity.LEFT);
+			}
+			break;
+		case R.id.btn_title_back:
+			if(null!=activity)activity.finish();
+			break;
+		default:
+			break;
+		}
+		
 	}
 }

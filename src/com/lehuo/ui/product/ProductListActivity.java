@@ -63,9 +63,9 @@ public class ProductListActivity extends MyTitleActivity implements
 		rBtns[2] = (RadioButton) this.findViewById(R.id.radio3);
 		rBtns[3] = (RadioButton) this.findViewById(R.id.radio4);
 		// rBtns[i].setId(ListItemImpl.ITEMTYPE_PRODUCT + i);//setId rbtn
-		TextView tempEmpty = new TextView(this);// TODO
+		TextView tempEmpty = (TextView)this.findViewById(R.id.empty_tv);
 		tempEmpty.setText("ÔÝÎÞ²úÆ·");
-		frameContainer.addView(tempEmpty);
+//		frameContainer.addView(tempEmpty);
 		for (int i = 0; i < rBtns.length; i++) {
 			rBtns[i].setTextColor(getResources().getColorStateList(
 					R.color.selector_tab_textcolor_green));

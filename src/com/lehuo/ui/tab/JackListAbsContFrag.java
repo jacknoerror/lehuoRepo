@@ -21,6 +21,8 @@ public abstract class JackListAbsContFrag extends ContentAbstractFragment {
 	public void initView() {
 		initTitleManager();
 		titleManager.setTitleName(getString(getType()==Type.ORDER_DONE?R.string.titlename_order:R.string.titlename_deliver));
+		titleManager.initTitleMenu();
+		titleManager.updateCart();
 		
 		mFrame = (FrameLayout)mView.findViewById(R.id.frame_order);
 		mListView = new MyScrollPageListView(getActivity(), getType());

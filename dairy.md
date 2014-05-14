@@ -1,16 +1,18 @@
 GONNA DO:
 pull to refresh.
+pic size.
 courier:1,2;
-district
-pic size
+district.
 
 ASK ABOUT:
 deliverList needShip.
 courier confirm pay req.
+birthday.
 many couriers.//u select
 addCommentReq.
 status.
-confirm dialog
-sendLoc addressname?
+confirm dialog.
+sendLoc addressname.
 diff between two maps
-birthday?
+cart price one
+

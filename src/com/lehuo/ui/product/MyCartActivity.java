@@ -118,15 +118,15 @@ public class MyCartActivity extends MyTitleActivity {
 					TextView price = (TextView)findViewById(R.id.tv_mycart_totalprice);
 					TextView old = (TextView)findViewById(R.id.tv_mycart_oldprice);
 					Button confirm = (Button)findViewById(R.id.btn_mycart_confirm);
-					count .setText(String.format("共%d件商品", cart_total.getGoods_amount()));//
+					count .setText(String.format("共%d件商品", cart_total.getReal_goods_count()));//
 					price .setText(cart_total.getRealPriceStr());//TODO integral
 					old .setText("市场价"+cart_total.getMarket_price());
-					//old 删除线 TODO
+					JackUtils.textpaint_deleteLine(old);
 					confirm.setOnClickListener(new View.OnClickListener() {
 						
 						@Override
 						public void onClick(View arg0) {
-							if(cart_total.getGoods_amount()==0){
+							if(cart_total.getReal_goods_count()==0){
 								JackUtils.showToast(MyCartActivity.this, "购物车中没有商品");
 							}else{
 								MyGate.goConfirmOrder(MyCartActivity.this, null);
@@ -208,7 +208,7 @@ public class MyCartActivity extends MyTitleActivity {
 				JackImageLoader
 						.justSetMeImage(itm.getGoods_thumb(), holder.img);
 				holder.tv_name.setText(itm.getGoods_name());
-				holder.tv_price.setText(itm.getGoods_price());// TODO integral
+				holder.tv_price.setText(itm.getRealPriceStr());// TODO integral
 				holder.jack_wam.setNum(itm.getGoods_number());
 				holder.jack_wam.setOnAddListener(new JackEditWam.OnEditListener() {
 					

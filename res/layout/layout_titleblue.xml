@@ -32,6 +32,14 @@
 	    android:contentDescription="@id/btn_title_back"
 	    android:visibility="invisible"
 	    />
+        <ImageView 
+            android:id="@+id/btn_title_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/titlebtn_menu"
+            android:contentDescription="@id/btn_title_menu"
+            android:visibility="invisible"
+            />
     </FrameLayout>
     <FrameLayout 
         android:layout_width="60dp"

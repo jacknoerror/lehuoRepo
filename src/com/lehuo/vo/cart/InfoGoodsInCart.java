@@ -4,8 +4,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.lehuo.entity.json.JsonImport;
+import com.lehuo.net.NetStrategies;
+import com.lehuo.vo.IntPrice;
+import com.lehuo.vo.IntegralPriceImpl;
 
-public class InfoGoodsInCart extends JsonImport {
+public class InfoGoodsInCart extends JsonImport implements IntegralPriceImpl{
 	/*
 	 * {"rec_id":"101","user_id":"28","session_id":"","goods_id":"2","goods_sn":
 	 * "ECS000002"
@@ -43,8 +46,12 @@ public class InfoGoodsInCart extends JsonImport {
 	private int parent_id;
 	private int rec_id;
 
+	private IntPrice integral_price;
 	
-	
+	public void setIntegral_price(IntPrice integral_price) {
+		this.integral_price = integral_price;
+	}
+
 	public int getCan_handsel() {
 		return can_handsel;
 	}
@@ -263,8 +270,24 @@ public class InfoGoodsInCart extends JsonImport {
 		if(job.has("parent_id")) parent_id = job.getInt("parent_id");
 		if(job.has("rec_id")) rec_id = job.getInt("rec_id");
 
+		
+		if(job.has("integral_price")) setIntegral_price(new IntPrice(job.getJSONObject("integral_price"))) ;
 
+	}
 
+	@Override
+	public IntPrice getIntegral_price() {
+		return integral_price;
+	}
+
+	@Override
+	public String getShop_price() {//TODO ?
+		return goods_price;
+	}
+
+	@Override
+	public String getRealPriceStr() {
+		return NetStrategies.getRealPrice(this);
 	}
 
 }

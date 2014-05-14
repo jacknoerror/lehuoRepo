@@ -10,6 +10,7 @@ import com.lehuo.vo.User;
 import com.lehuo.vo.UserAddress;
 import com.lehuo.vo.cart.DataCart;
 
+import android.support.v4.widget.DrawerLayout;
 import android.widget.TabHost;
 
 public class MyData {
@@ -74,6 +75,7 @@ public class MyData {
 	}
 	
 	List<UserAddress> addressList;
+	private DrawerLayout mDrawer;
 	public void setMyAddrs(List<UserAddress> addressList) {
 		this.addressList = addressList;
 		
@@ -92,6 +94,12 @@ public class MyData {
 			}
 		}
 		return dAddr;
+	}
+	public void setDrawer(DrawerLayout mDrawer) {
+		this.mDrawer = mDrawer;
+	}
+	public DrawerLayout getDrawer() {
+		return mDrawer;
 	}
 	
 }

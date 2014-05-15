@@ -48,8 +48,8 @@ public abstract class MspAdapter extends BaseAdapter {
 	}
 	
 	protected Context getContextInAdapter(){
-		Object tag = myScrollPageListView.getTag();
-		if(tag instanceof Context){
+		Object tag = null;
+		if(null!=myScrollPageListView&&(tag=myScrollPageListView.getTag()) instanceof Context){
 			contextInAdapter = (Context)tag;
 		}else{
 			this.contextInAdapter = MyApplication.app();

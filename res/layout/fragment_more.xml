@@ -12,6 +12,10 @@
 	    android:background="@drawable/bg_login"
 	    >
 	</LinearLayout>
+	<View 
+        style="@style/DividerWH"
+        android:background="@drawable/divider_h_grey"
+        />
     <TextView 
         android:id="@+id/tv_more2_about"
         style="@style/ClickBar"

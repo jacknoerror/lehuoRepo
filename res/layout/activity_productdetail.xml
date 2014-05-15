@@ -91,8 +91,9 @@
         android:id="@+id/radiogroup_productdetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/h_margin_activity"
+        android:layout_margin="@dimen/common_margin_bigger"
         android:orientation="horizontal"
+        android:background="@drawable/shape_btn_bg_green_stroke"
         >
         <RadioButton 
             android:id="@+id/radio1"

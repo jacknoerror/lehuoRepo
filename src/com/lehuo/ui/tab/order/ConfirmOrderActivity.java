@@ -4,9 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import com.lehuo.net.action.order.ConfirmOrderReq;
 import com.lehuo.ui.MyTitleActivity;
 import com.lehuo.ui.address.MyAddressActivity;
 import com.lehuo.ui.tab.HubActivity;
+import com.lehuo.util.JackUtils;
 import com.lehuo.vo.User;
 import com.lehuo.vo.checkoutorder.CheckTotal;
 import com.lehuo.vo.checkoutorder.Consignee;
@@ -37,9 +39,9 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 	
 	private User user;
 
-	View addressLayout, arrivePayLayout, aliPayLayout, couponLayout,
-			timezoneLayout;
-	TextView tv_a_name, tv_a_detail, tv_a_phone, tv_co_nocouponhint;
+	View addressLayout, arrivePayLayout, aliPayLayout, couponLayout
+			;
+	TextView tv_a_name, tv_a_detail, tv_a_phone, tv_co_nocouponhint,tv_timezone;
 	Button btn_commit;
 	ImageView arrivepaycheck;
 
@@ -55,8 +57,13 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 
 	private JSONArray dc_user_bonus;
 
+	private int mSingleChoiceID=-1;
+
+	private String[] timezoneArrays;
+
+	private String timezoneStr="";
+
 	private void updateUI() {
-		// TODO Auto-generated method stub
 		// address
 		if (null != dc_consignee) {
 			tv_a_name.setText(dc_consignee.getConsignee());
@@ -105,12 +112,12 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		arrivePayLayout = this.findViewById(R.id.checoutclickview_arrivepay);
 		aliPayLayout = this.findViewById(R.id.checoutclickview_alipay);
 		couponLayout = this.findViewById(R.id.checoutclickview_coupon);
-		timezoneLayout = this.findViewById(R.id.checoutclickview_timezone);
+		tv_timezone = (TextView)this.findViewById(R.id.checoutclickview_timezone);
 		addressLayout.setOnClickListener(this);
 		arrivePayLayout.setOnClickListener(this);
 		aliPayLayout.setOnClickListener(this);
 		couponLayout.setOnClickListener(this);
-		timezoneLayout.setOnClickListener(this);
+		tv_timezone.setOnClickListener(this);
 		tv_a_name = (TextView) this.findViewById(R.id.tv_co_a_name);
 		tv_a_detail = (TextView) this.findViewById(R.id.tv_co_a_detail);
 		tv_a_phone = (TextView) this.findViewById(R.id.tv_co_a_phone);
@@ -120,7 +127,6 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		btn_commit.setOnClickListener(this);
 		arrivepaycheck = (ImageView) this
 				.findViewById(R.id.img_co_arrivepaycheck);
-
 	}
 
 	/**
@@ -150,13 +156,14 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		case R.id.checoutclickview_coupon:
 			break;
 		case R.id.checoutclickview_timezone:
+			showSelectTimeDialog();
 			break;
 		case R.id.btn_co_commit:
 			ActionPhpRequestImpl req = new ConfirmOrderReq(
 					dc_consignee.getAddress_id(), 0, dc_total.getIntegral(),
 					// dc_payment.getPay_id(),
 					2,// 写死
-					user.getUser_id(), null);// TODO
+					user.getUser_id(), timezoneStr);// TODO
 												// bonus
 												// 0,timezone
 												// null
@@ -180,6 +187,40 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		default:
 			break;
 		}
+	}
+
+	private void showSelectTimeDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);   
+		 
+//		mSingleChoiceID = -1; 
+		 builder.setTitle("单项选择");  
+		    timezoneArrays = getResources().getStringArray(R.array.timezone);
+			builder.setSingleChoiceItems(timezoneArrays , 0, new DialogInterface.OnClickListener() {  
+		        public void onClick(DialogInterface dialog, int whichButton) {  
+		                mSingleChoiceID = whichButton;  
+//		                showDialog("你选择的id为" + whichButton + " , " + mItems[whichButton]);  
+//		                JackUtils.showToast(ConfirmOrderActivity.this, ""+mSingleChoiceID);
+		        }  
+		    });  
+		    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  
+		        public void onClick(DialogInterface dialog, int whichButton) {  
+		        	String string = "送货时段：\t\t\t";
+		            if(mSingleChoiceID > 0) {  
+//		            showDialog("你选择的是" + mSingleChoiceID);  
+		            	timezoneStr = timezoneArrays[mSingleChoiceID];
+		            }  else{
+		            	timezoneStr = "";
+		            }
+		            tv_timezone.setText(string+timezoneStr);
+		        }  
+		    });  
+		    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {  
+		        public void onClick(DialogInterface dialog, int whichButton) {  
+		 
+		        }  
+		    });  
+		   builder.create().show(); 
+		
 	}
 
 	@Override

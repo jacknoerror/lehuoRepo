@@ -2,28 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical" 
     android:background="@android:color/white"
-    android:orientation="vertical" >
-
-    <include layout="@layout/merge_jacktitle" />
-
-    <ListView
+    >
+    <include layout="@layout/merge_jacktitle"/>
+    <!-- <ListView 
         android:id="@+id/listview_common_activity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
-    </ListView>
-    <!--
-         <FrameLayout
+        android:layout_weight="1"
+        >
+        
+    </ListView> -->
+    <FrameLayout
         android:id="@+id/framelayout_cart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        />
-    -->
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/v_height_bottombar" />
-
+        >
+        <TextView 
+            android:id="@+id/empty_tv"
+            style="@style/Nodata_textview"
+            android:text="购物车是空的"
+            />
+    </FrameLayout>
+	<View 
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/v_height_bottombar"
+	    />
 </LinearLayout>

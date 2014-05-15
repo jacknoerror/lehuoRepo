@@ -31,6 +31,7 @@
 	    android:src="@drawable/backbtnbg"
 	    android:contentDescription="@id/btn_title_back"
 	    android:visibility="invisible"
+	    android:layout_gravity="center|left"
 	    />
         <ImageView 
             android:id="@+id/btn_title_menu"

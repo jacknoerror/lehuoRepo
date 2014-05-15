@@ -74,7 +74,6 @@
     <style name="Img_inItem">
         <item name="android:layout_width">@dimen/side_goodsicon</item>
         <item name="android:layout_height">@dimen/side_goodsicon</item>
-        <item name="android:src">@drawable/ic_launcher</item>
         <item name="android:adjustViewBounds">true</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:layout_margin">@dimen/common_margin</item>

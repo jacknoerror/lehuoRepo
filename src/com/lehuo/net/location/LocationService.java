@@ -185,9 +185,9 @@ public class LocationService extends Service implements LocationListener,
 		if (providerName != null) {
 			Location location = lm.getLastKnownLocation(providerName);
 			// 因为返回的是上次定位信息 所以很有可能返回为null
+			lm.requestLocationUpdates(providerName, 0, 0, listener);
 			if (location == null) {
 				Log.e(TAG, "failed to get last know loc");
-				lm.requestLocationUpdates(providerName, 0, 0, listener);
 				return;
 			}
 			Log.i("8023", "-------" + location);

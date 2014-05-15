@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+    <string-array name="timezone">
+        <item v="-1">任何时段</item>
+        <item v="0">7时 - 8时</item>
+        <item v="1">8时 - 9时</item>
+        <item v="2">9时 - 10时</item>
+        <item v="3">10时 - 11时</item>
+        <item v="4">11时 - 12时</item>
+        <item v="5">12时 - 13时</item>
+        <item v="6">13时 - 14时</item>
+        <item v="7">14时 - 15时</item>
+        <item v="8">15时 - 16时</item>
+        <item v="9">16时 - 17时</item>
+        <item v="10">17时 - 18时</item>
+        <item v="11">18时 - 19时</item>
+    </string-array>
 </resources>

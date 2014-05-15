@@ -47,8 +47,10 @@ public class MspFactory implements MspFactoryImpl {
 			adapter = new ListAdapterCourier();
 			break;
 		case COUPON:
-		
 			adapter = new ListAdapterCoupon();
+			break;
+		case CART:
+//			adapter = new 
 			break;
 		default:
 			break;
@@ -69,6 +71,9 @@ public class MspFactory implements MspFactoryImpl {
 		return mp;
 	}
 
+	/* set if have pages
+	 * @see com.lehuo.ui.custom.list.MspFactoryImpl#getMjiInstance()
+	 */
 	@Override
 	public MspJsonItem getMjiInstance() {
 		MspJsonItem mji = null;
@@ -86,6 +91,9 @@ public class MspFactory implements MspFactoryImpl {
 		return mji;
 	}
 
+	/* set if have pages
+	 * @see com.lehuo.ui.custom.list.MspFactoryImpl#getDefaultOnPageChangeListener()
+	 */
 	@Override
 	public OnGetPageListener getDefaultOnPageChangeListener() {
 		OnGetPageListener listener = null;
@@ -132,6 +140,9 @@ public class MspFactory implements MspFactoryImpl {
 		return listener;
 	}
 
+	/* set if have pages
+	 * @see com.lehuo.ui.custom.list.MspFactoryImpl#getPageName()
+	 */
 	@Override
 	public String getPageName() {
 		String name = "";

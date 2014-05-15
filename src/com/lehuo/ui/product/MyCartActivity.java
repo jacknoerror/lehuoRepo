@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,6 +39,11 @@ import com.lehuo.ui.MyTitleActivity;
 import com.lehuo.ui.adapter.MyGridViewAdapter;
 import com.lehuo.ui.adapter.MyGridViewAdapter.MyGridAbsJsonPic;
 import com.lehuo.ui.custom.JackEditWam;
+import com.lehuo.ui.custom.list.ListItemImpl;
+import com.lehuo.ui.custom.list.MspAdapter;
+import com.lehuo.ui.custom.list.MyScrollPageListView;
+import com.lehuo.ui.custom.list.ListItemImpl.Type;
+import com.lehuo.ui.custom.list.MspAdapter.ViewHolderImpl;
 import com.lehuo.util.JackImageLoader;
 import com.lehuo.util.JackUtils;
 import com.lehuo.vo.User;
@@ -50,14 +56,16 @@ import com.lehuo.vo.cart.InfoTotal;
  * @author tao
  * 
  */
-public class MyCartActivity extends MyTitleActivity {
+public class MyCartActivity extends MyTitleActivity implements MyScrollPageListView.OnGetPageListener{
 
-	ListView mList;
+	// ListView mList;
+	MyScrollPageListView mList;
 
-	MyCartAdapter myCartAdapter;
+	ListAdapterCart myCartAdapter;
+	FrameLayout frame;
 
 	private User me;
-	
+
 	public ActionPhpReceiverImpl rcvGetcart;
 	InfoTotal cart_total;
 
@@ -69,41 +77,49 @@ public class MyCartActivity extends MyTitleActivity {
 	@Override
 	public void initView() {
 		titleManager.setTitleName(getString(R.string.titlename_mycart));
-//		titleManager.updateCart();
+		titleManager.initTitleBack();
+		// titleManager.updateCart();
 		me = MyData.data().getMe();
 		if (null == me)
 			return;
+		frame = (FrameLayout) this.findViewById(R.id.framelayout_cart);
+		// mList = (MyScrollPageListView)
+		// this.findViewById(R.id.listview_common_activity);
+		mList = new MyScrollPageListView(this, Type.GOODS);
+		TextView emptyView = (TextView)this.findViewById(R.id.empty_tv);
+		mList.setEmptyView(emptyView);
+		frame.addView(mList);
 
-		mList = (ListView) this.findViewById(R.id.listview_common_activity);
-		
-		rcvGetcart = new JackShowToastReceiver(
-				this) {
+		rcvGetcart = new JackShowToastReceiver(this) {
 			@Override
-			public boolean response(String result)
-					throws JSONException {
+			public boolean response(String result) throws JSONException {
 				if (!super.response(result)) {
-					getCart();
+					mList.setup();
 					return false;
 				}
 				return true;
 			}
 		};
-
-		getCart();
+		mList.setOnGetPageListener(this);
+		mList.setup();
+		mList.setAdapter(new ListAdapterCart());
+		
 	}
 
-	private void getCart() {
+	@Override
+	public void page(MyScrollPageListView qListView, int pageNo) {
 		ActionPhpRequestImpl req = new GetCartReq(me.getUser_id());//
 		ActionPhpReceiverImpl rcv = new GetCartRcv(this) {
-			
 
 			@Override
 			public boolean respJob(JSONObject job) throws JSONException {
-				DataCart cart=null;
-				if (!super.respJob(job)&&null!=(cart = MyData.data().getCurrentCart())) {
+				DataCart cart = null;
+				if (!super.respJob(job)
+						&& null != (cart = MyData.data().getCurrentCart())) {
 					CartInfo ci = cart.getCart();
 					if (null != ci) {
-						initList(ci);
+//						initList(ci);
+						mList.updateList((List)ci.getGoods_list());
 						initTotal(ci);
 						return false;
 					}
@@ -113,154 +129,143 @@ public class MyCartActivity extends MyTitleActivity {
 
 			private void initTotal(CartInfo ci) {
 				cart_total = ci.getTotal();
-				if(null!=cart_total){
-					TextView count = (TextView)findViewById(R.id.tv_mycart_totalcount);
-					TextView price = (TextView)findViewById(R.id.tv_mycart_totalprice);
-					TextView old = (TextView)findViewById(R.id.tv_mycart_oldprice);
-					Button confirm = (Button)findViewById(R.id.btn_mycart_confirm);
-					count .setText(String.format("共%d件商品", cart_total.getReal_goods_count()));//
-					price .setText(cart_total.getRealPriceStr());//TODO integral
-					old .setText("市场价"+cart_total.getMarket_price());
+				if (null != cart_total) {
+					TextView count = (TextView) findViewById(R.id.tv_mycart_totalcount);
+					TextView price = (TextView) findViewById(R.id.tv_mycart_totalprice);
+					TextView old = (TextView) findViewById(R.id.tv_mycart_oldprice);
+					Button confirm = (Button) findViewById(R.id.btn_mycart_confirm);
+					count.setText(String.format("共%d件商品",
+							cart_total.getReal_goods_count()));//
+					price.setText(cart_total.getRealPriceStr());// TODO integral
+					old.setText("市场价" + cart_total.getMarket_price());
 					JackUtils.textpaint_deleteLine(old);
 					confirm.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View arg0) {
-							if(cart_total.getReal_goods_count()==0){
-								JackUtils.showToast(MyCartActivity.this, "购物车中没有商品");
-							}else{
+							if (cart_total.getReal_goods_count() == 0) {
+								JackUtils.showToast(MyCartActivity.this,
+										"购物车中没有商品");
+							} else {
 								MyGate.goConfirmOrder(MyCartActivity.this, null);
 							}
-							
+
 						}
 					});
+					MyData.data().setCartCount(cart_total.getReal_goods_count());
 				}
 			}
 
 			private void initList(CartInfo ci) {
-				myCartAdapter = new MyCartAdapter(ci
-						.getGoods_list());
-				mList.setAdapter(myCartAdapter);
+				/*
+				 * myCartAdapter = new MyCartAdapter(ci .getGoods_list());
+				 * mList.setAdapter(myCartAdapter);
+				 */
+				
+				
 			}
 		};
 		ActionBuilder.getInstance().request(req, rcv);
+		try {
+			qListView.response("");
+		} catch (JSONException e) {
+		}
 	}
 
-	class MyCartAdapter extends BaseAdapter {
+	public class ListAdapterCart extends MspAdapter {
 
-		List<InfoGoodsInCart> contentList;
-		SparseArray<View> viewMap;
-
-		public MyCartAdapter(List<InfoGoodsInCart> contentList) {
+		public ListAdapterCart() {
 			super();
-			this.contentList = contentList;
-			viewMap = new SparseArray<View>();
+		}
+
+		public ListAdapterCart(List contentList) {
+			super(contentList);
 		}
 
 		@Override
-		public int getCount() {
-			return contentList.size();
+		public ViewHolderImpl getHolderInstance() {
+			return new ViewHolder();
 		}
 
-		@Override
-		public Object getItem(int i) {
-			return contentList.get(i);
-		}
+		class ViewHolder extends ViewHolderImpl {
+			ImageView img;
+			TextView tv_name, tv_price;
+			// EditText et_count;
+			JackEditWam jack_wam;
+			ImageView btn_del;
 
-		@Override
-		public long getItemId(int arg0) {
-			return arg0;
-		}
+			@Override
+			public void init() {
+				img = (ImageView) getHolderView().findViewById(
+						R.id.img_itemcart_ic);
+				tv_name = (TextView) getHolderView().findViewById(
+						R.id.tv_itemcart_pname);
+				tv_price = (TextView) getHolderView().findViewById(
+						R.id.tv_itemcart_price1);
+				// et_count = (EditText)getHolderView()
+				// .findViewById(R.id.et_itemcart_count);
+				jack_wam = (JackEditWam) getHolderView().findViewById(
+						R.id.jack_itemcart_wam);
+				btn_del = (ImageView) getHolderView().findViewById(
+						R.id.btn_itemcart_delete);
 
-		@Override
-		public View getView(final int position, View arg1, ViewGroup arg2) {
-			View view = viewMap.get(position);
-			ViewHolder holder;
-
-			if (view == null) {
-				view = LayoutInflater.from(MyCartActivity.this).inflate(
-						R.layout.item_cart, null);//
-
-				holder = new ViewHolder();
-				holder.img = (ImageView) view
-						.findViewById(R.id.img_itemcart_ic);
-				holder.tv_name = (TextView) view
-						.findViewById(R.id.tv_itemcart_pname);
-				holder.tv_price = (TextView) view
-						.findViewById(R.id.tv_itemcart_price1);
-//				holder.et_count = (EditText) view
-//						.findViewById(R.id.et_itemcart_count);
-				holder.jack_wam = (JackEditWam)view.findViewById(R.id.jack_itemcart_wam);
-				holder.btn_del = (ImageView) view
-						.findViewById(R.id.btn_itemcart_delete);
-
-				viewMap.put(position, view);
-
-				view.setTag(holder);
-			} else {
-				view = viewMap.get(position);
-				holder = (ViewHolder) view.getTag();
 			}
 
-			// 哟啊不要换地方？
-			final InfoGoodsInCart itm = contentList.get(position);
-			if (null != itm) {
-				JackImageLoader
-						.justSetMeImage(itm.getGoods_thumb(), holder.img);
-				holder.tv_name.setText(itm.getGoods_name());
-				holder.tv_price.setText(itm.getRealPriceStr());// TODO integral
-				holder.jack_wam.setNum(itm.getGoods_number());
-				holder.jack_wam.setOnAddListener(new JackEditWam.OnEditListener() {
-					
-					@Override
-					public void edit(JackEditWam jackEW) {
-						ActionPhpRequestImpl req = new UpdateCartReq(jackEW.getNum()+1, itm
-								.getRec_id()+"", me.getUser_id());
-						ActionBuilder.getInstance().request(req, rcvGetcart);
-						
-					}
-				});
-				holder.jack_wam.setOnMinusListener(new JackEditWam.OnEditListener() {
-					
-					
+			@Override
+			public void setup(int position) {
+				final InfoGoodsInCart itm = (InfoGoodsInCart) getItem(position);
+				if (null != itm) {
+					JackImageLoader.justSetMeImage(itm.getGoods_thumb(), img);
+					tv_name.setText(itm.getGoods_name());
+					tv_price.setText(itm.getRealPriceStr());// TODO integral
+					jack_wam.setNum(itm.getGoods_number());
+					jack_wam.setOnAddListener(new JackEditWam.OnEditListener() {
 
-					@Override
-					public void edit(JackEditWam jackEW) {
-						ActionPhpRequestImpl req = new UpdateCartReq(jackEW.getNum()-1, itm
-								.getRec_id()+"", me.getUser_id());
-						
-						ActionBuilder.getInstance().request(req, rcvGetcart);
-						
-					}
-				});
-				holder.btn_del.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void edit(JackEditWam jackEW) {
+							ActionPhpRequestImpl req = new UpdateCartReq(jackEW
+									.getNum() + 1, itm.getRec_id() + "", me
+									.getUser_id());
+							ActionBuilder.getInstance()
+									.request(req, rcvGetcart);
 
-					@Override
-					public void onClick(View v) {
-						// 删除
-						int user_id = me.getUser_id();
-						ActionPhpRequestImpl req = new DelCartReq(itm
-								.getRec_id(), user_id);
-//						rcv = new NextActionRcv(rcv,
-//								new UpdateCartReq(user_id), new UpdateCartRcv(
-//										actContext, null));{//no cart need update
-//											
-//										}
-						ActionBuilder.getInstance().request(req, rcvGetcart);
-					}
-				});
+						}
+					});
+					jack_wam.setOnMinusListener(new JackEditWam.OnEditListener() {
+
+						@Override
+						public void edit(JackEditWam jackEW) {
+							ActionPhpRequestImpl req = new UpdateCartReq(jackEW
+									.getNum() - 1, itm.getRec_id() + "", me
+									.getUser_id());
+
+							ActionBuilder.getInstance()
+									.request(req, rcvGetcart);
+
+						}
+					});
+					btn_del.setOnClickListener(new View.OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							// 删除
+							int user_id = me.getUser_id();
+							ActionPhpRequestImpl req = new DelCartReq(itm
+									.getRec_id(), user_id);
+							ActionBuilder.getInstance()
+									.request(req, rcvGetcart);
+						}
+					});
+
+				}
 			}
-			return view;
+
+			@Override
+			public int getLayoutId() {
+				return R.layout.item_cart;
+			}
 		}
-
 	}
 
-	static class ViewHolder {
-		ImageView img;
-		TextView tv_name, tv_price;
-//		EditText et_count;
-		JackEditWam jack_wam;
-		ImageView btn_del;
-	}
 
 }

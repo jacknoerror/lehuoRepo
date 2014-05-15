@@ -86,8 +86,8 @@ public class NetStrategiesTest extends AndroidTestCase {
 			ari = new UGetDistrictReq(394);
 			break;
 		case 12://login
-			ari = new LoginReq("15858173770", JackUtils.getMD5("111222"));
-//			ari = new LoginReq("15906669497", JackUtils.getMD5("123456"));
+//			ari = new LoginReq("15858173770", JackUtils.getMD5("111222"));
+			ari = new LoginReq("15906669497", JackUtils.getMD5("123456"));
 			break;
 		case 13://getcart
 			ari = new GetCartReq(28);
@@ -134,7 +134,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 	public void acttionTest() throws SocketTimeoutException, UnknownHostException, IOException{
 		String result="";
 		
-		result  = actionChoser(1);
+		result  = actionChoser(12);
 			
 		Log.i(TAG, "result=>"+result);
 		assertNotSame(result, "");

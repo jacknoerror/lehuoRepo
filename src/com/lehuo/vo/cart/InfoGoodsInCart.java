@@ -5,10 +5,11 @@ import org.json.JSONObject;
 
 import com.lehuo.entity.json.JsonImport;
 import com.lehuo.net.NetStrategies;
+import com.lehuo.ui.custom.list.ListItemImpl;
 import com.lehuo.vo.IntPrice;
 import com.lehuo.vo.IntegralPriceImpl;
 
-public class InfoGoodsInCart extends JsonImport implements IntegralPriceImpl{
+public class InfoGoodsInCart extends JsonImport implements IntegralPriceImpl,ListItemImpl{
 	/*
 	 * {"rec_id":"101","user_id":"28","session_id":"","goods_id":"2","goods_sn":
 	 * "ECS000002"

@@ -30,6 +30,7 @@ public class GetCatRcv implements ActionPhpReceiverImpl {
 			// fetch data
 			JSONArray jar = job.getJSONArray(RESULT_OBJ);
 			List<Category>categoryList = MyData.data().getAllCate();
+			categoryList.clear();
 			for (int i = 0; i < jar.length(); i++) {
 				JSONObject catJob = jar.getJSONObject(i);
 				Category cate = new Category(catJob);

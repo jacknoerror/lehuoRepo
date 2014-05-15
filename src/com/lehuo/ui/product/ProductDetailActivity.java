@@ -48,6 +48,13 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 	JackRadios jRa;
 	
 	TextView tv_pn,tv_pd,tv_pold,tv_pnew;
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(null!=titleManager) titleManager.updateCart();
+	}
+	
 	@Override
 	public int getLayoutRid() {
 		return R.layout.activity_productdetail;
@@ -59,7 +66,7 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 		mProduct = MyData.data().fetchProduct();
 		if(null==mProduct||null==mUser) return;
 		titleManager.setTitleName(mProduct.getGoods_name());
-		titleManager.updateCart();
+//		titleManager.updateCart(); // onresume
 		
 		Button btn_buy;
 		tv_pn = (TextView)this.findViewById(R.id.tv_productdetail_productname);

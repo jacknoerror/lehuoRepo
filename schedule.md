@@ -9,10 +9,10 @@ checkout.
 leftDrawer.
 address.
 scroll main.
+list refresh.
+more.
 map diff
 service
 select coupon
 scoreProduct
-list refresh
 timezone
-more

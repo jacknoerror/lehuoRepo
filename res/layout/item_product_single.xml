@@ -14,7 +14,7 @@
             android:id="@+id/img_itemprod"
             android:layout_width="@dimen/side_goodsicon"
             android:layout_height="@dimen/side_goodsicon"
-            android:src="@drawable/ic_launcher" />
+             />
 
         <TextView
             android:id="@+id/tv_itemprodname"

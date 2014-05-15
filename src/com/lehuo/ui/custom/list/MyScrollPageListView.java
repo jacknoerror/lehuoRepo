@@ -25,12 +25,15 @@ import android.view.ViewGroup;
 import android.view.View.MeasureSpec;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class MyScrollPageListView extends ListView implements
 		AbsListView.OnScrollListener, ActionPhpReceiverImpl {
+	private static final String HINT_DONE = "";
+
 	private static final String HINT_PULLTOREFRESH = "下拉刷新";
 
 	final String TAG = getClass().getSimpleName();
@@ -72,7 +75,8 @@ public class MyScrollPageListView extends ListView implements
 
 		factory = new MspFactory(mType);
 		mAdapter = factory.getNewAdapter();
-		mAdapter.setListView(this);
+		if (null != mAdapter)
+			mAdapter.setListView(this);
 
 		setOnGetPageListener(factory.getDefaultOnPageChangeListener());
 
@@ -84,15 +88,23 @@ public class MyScrollPageListView extends ListView implements
 		addHeaderView();
 		measureView(mHeaderLinearLayout);
 		mHeaderHeight = mHeaderLinearLayout.getMeasuredHeight();
-		
+
+//		setFooterDividersEnabled(false);
+		setHeaderDividersEnabled(false);
+	}
+
+	@Override
+	public void setAdapter(ListAdapter adapter) {
+		super.setAdapter(adapter);
+		if (adapter instanceof MspAdapter)
+			mAdapter = (MspAdapter) adapter;
 	}
 
 	public void updateList(List<ListItemImpl> list) {
 		if (null == getAdapter() && null != mAdapter)
 			setAdapter(mAdapter);
 		// 放在此处，在更新数据的时候再设置adapter
-		if (mAdapter == null) {
-		} else {
+		if (mAdapter != null) {
 			List<ListItemImpl> lvList = ((MspAdapter) mAdapter).getList();
 			if (lvList != list) {
 				lvList.clear();
@@ -115,6 +127,7 @@ public class MyScrollPageListView extends ListView implements
 	public void setup() {
 		isSetup = true;
 
+		addMoreView();// 开始时加入 ，不需要时消除 ， 注意位置，小心报错
 		if (gpListener != null) {// 开始发请求
 			requestingPage = 1;// 0227
 			gpListener.page(this, 1);
@@ -122,7 +135,6 @@ public class MyScrollPageListView extends ListView implements
 				everythingList.clear();// reset
 		}
 
-		addMoreView();// 开始时加入 ，不需要时消除 ， 注意位置，小心报错
 	}
 
 	/**
@@ -185,6 +197,8 @@ public class MyScrollPageListView extends ListView implements
 	}
 
 	private void nextPage() {
+		if (null == currentPage)
+			return;// 不需要翻页
 		int requestpage = currentPage.curPageNo + 1;
 		if (null == gpListener || requestingPage == requestpage
 				|| !currentPage.hasNext)
@@ -214,14 +228,16 @@ public class MyScrollPageListView extends ListView implements
 		}
 
 		currentPage = new MspPage(factory);
-		currentPage.initJackJson(new JSONObject(result));
-		if (currentPage.resultSign) {
-			currentPage.curPageNo = requestingPage;
-			everythingList.addAll(currentPage.getDataList());
-			updateList(everythingList);
+		if (!result.isEmpty()) {// 确保有pages
+			currentPage.initJackJson(new JSONObject(result));
+			if (currentPage.resultSign) {
+				currentPage.curPageNo = requestingPage;
+				everythingList.addAll(currentPage.getDataList());
+				updateList(everythingList);
+			}
 		}
 
-		if (!currentPage.hasNext) {
+		if (null == currentPage || !currentPage.hasNext) {
 			removeMoreView();
 			// Log.i(TAG, "no Next");
 		} else {
@@ -249,6 +265,8 @@ public class MyScrollPageListView extends ListView implements
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
+		if(null!=mHeaderLinearLayout)Log.i(TAG, "b:"+mHeaderLinearLayout.getBottom()+"-"+mHeaderHeight);
+		iS_TOTAL_TOO_FEW = visibleItemCount==totalItemCount;
 		// header
 		if (mCurrentScrollState == SCROLL_STATE_TOUCH_SCROLL
 				&& firstVisibleItem == 0
@@ -257,6 +275,7 @@ public class MyScrollPageListView extends ListView implements
 			// 进入且仅进入下拉刷新状态
 			if (mPullRefreshState == NONE_PULL_REFRESH) {
 				mPullRefreshState = ENTER_PULL_REFRESH;
+				
 			}
 		} else if (mCurrentScrollState == SCROLL_STATE_TOUCH_SCROLL
 				&& firstVisibleItem == 0
@@ -293,28 +312,29 @@ public class MyScrollPageListView extends ListView implements
 			}
 		}
 
-//		if (null == makeItLongView) {
-//			makeItLongView = new View(getContext());
-//			makeItLongView.setLayoutParams(new LayoutParams(0, JackUtils
-//					.dip2px(getContext(), 240)));
-//		}
-//		Log.i(TAG,				visibleItemCount + "-" + totalItemCount + "+"						+ (mAdapter.getCount()));
-//		// 屏幕没有占满时的意外处理
-//		if (visibleItemCount-getFooterViewsCount() == mAdapter.getCount()) {
-//			removeHeaderView(mHeaderLinearLayout);
-//			if (makeItLongView.getVisibility() != View.VISIBLE) {
-//
-//				makeItLongView = new View(getContext());
-//				makeItLongView.setLayoutParams(new LayoutParams(0, JackUtils
-//						.dip2px(getContext(), 240)));
-//				addFooterView(makeItLongView);
-//			}
-//		} else {
-//			if (null != makeItLongView) {
-//				removeFooterView(makeItLongView);
-//			}
-//			// appearenceView.setVisibility(View.GONE);
-//		}
+		// if (null == makeItLongView) {
+		// makeItLongView = new View(getContext());
+		// makeItLongView.setLayoutParams(new LayoutParams(0, JackUtils
+		// .dip2px(getContext(), 240)));
+		// }
+		// Log.i(TAG, visibleItemCount + "-" + totalItemCount + "+" +
+		// (mAdapter.getCount()));
+		// // 屏幕没有占满时的意外处理
+		// if (visibleItemCount-getFooterViewsCount() == mAdapter.getCount()) {
+		// removeHeaderView(mHeaderLinearLayout);
+		// if (makeItLongView.getVisibility() != View.VISIBLE) {
+		//
+		// makeItLongView = new View(getContext());
+		// makeItLongView.setLayoutParams(new LayoutParams(0, JackUtils
+		// .dip2px(getContext(), 240)));
+		// addFooterView(makeItLongView);
+		// }
+		// } else {
+		// if (null != makeItLongView) {
+		// removeFooterView(makeItLongView);
+		// }
+		// // appearenceView.setVisibility(View.GONE);
+		// }
 
 		// footer
 		if (mAdapter == null || mAdapter.getCount() == 0)
@@ -344,15 +364,25 @@ public class MyScrollPageListView extends ListView implements
 			mDownY = ev.getY();
 			break;
 		case MotionEvent.ACTION_MOVE:
-			// 移动时手指的位置
+//			Log.i(TAG, "ACTION_MOVE:mPullRefreshState:"+mPullRefreshState);
+//			Log.i(TAG, "mCurrentScrollState:"+mCurrentScrollState);
 			mMoveY = ev.getY();
+			
+			int padTop = (int)( (mMoveY - mDownY) / 3);// 1/3距离折扣
+				// 移动时手指的位置
+			Log.i(TAG, "mPullRefreshState"+mPullRefreshState);
 			if (mPullRefreshState == OVER_PULL_REFRESH) {
-				// 注意下面的mDownY在onScroll的第二个else中被改变了
-				mHeaderLinearLayout.setPadding(
-						mHeaderLinearLayout.getPaddingLeft(),
-						(int) ((mMoveY - mDownY) / 3), // 1/3距离折扣
-						mHeaderLinearLayout.getPaddingRight(),
-						mHeaderLinearLayout.getPaddingBottom());
+				setHeaderTopPadding(padTop);
+				mHeaderTextView.setText(HINT_PULLTOREFRESH);
+			}
+			//
+			if(iS_TOTAL_TOO_FEW&&mCurrentScrollState==1){//0515 
+				setHeaderTopPadding(padTop);
+				if(mPullRefreshState == NONE_PULL_REFRESH){//每回基本运行一次
+					mPullRefreshState = OVER_PULL_REFRESH;
+					mHeaderTextView.setText(HINT_PULLTOREFRESH);
+				}
+				mHeaderTextView.setText(HINT_PULLTOREFRESH);
 			}
 			break;
 		case MotionEvent.ACTION_UP:
@@ -390,6 +420,18 @@ public class MyScrollPageListView extends ListView implements
 		return super.onTouchEvent(ev);
 	}
 
+	/**
+	 * @param padTop
+	 */
+	private void setHeaderTopPadding(int padTop) {
+		// 注意下面的mDownY在onScroll的第二个else中被改变了
+		mHeaderLinearLayout.setPadding(
+				mHeaderLinearLayout.getPaddingLeft(),
+				padTop,
+				mHeaderLinearLayout.getPaddingRight(),
+				mHeaderLinearLayout.getPaddingBottom());
+	}
+
 	// 因为涉及到handler数据处理，为方便我们定义如下常量
 	private final static int REFRESH_BACKING = 0; // 反弹中
 	private final static int REFRESH_BACED = 1; // 达到刷新界限，反弹结束后
@@ -401,11 +443,12 @@ public class MyScrollPageListView extends ListView implements
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case REFRESH_BACKING:
-				mHeaderLinearLayout.setPadding(
+				/*mHeaderLinearLayout.setPadding(
 						mHeaderLinearLayout.getPaddingLeft(),
 						(int) (mHeaderLinearLayout.getPaddingTop() * 0.75f),
 						mHeaderLinearLayout.getPaddingRight(),
-						mHeaderLinearLayout.getPaddingBottom());
+						mHeaderLinearLayout.getPaddingBottom());*/
+				setHeaderTopPadding((int) (mHeaderLinearLayout.getPaddingTop() * 0.75f));
 				break;
 			case REFRESH_BACED:
 				mHeaderTextView.setText("正在加载...");
@@ -415,16 +458,7 @@ public class MyScrollPageListView extends ListView implements
 				 * mHeaderReleaseDownImageView.setVisibility(View.GONE);
 				 */
 				mPullRefreshState = EXIT_PULL_REFRESH;
-				/*
-				 * new Thread() {// replace this
-				 * 
-				 * @Override public void run() {
-				 * SystemClock.sleep(2000);//处理后台加载数据 Message msg =
-				 * mHandler.obtainMessage(); msg.what = REFRESH_DONE;
-				 * //通知主线程加载数据完成 mHandler.sendMessage(msg); }; }.start();
-				 */
-				// if(null!=gpListener)
-				// gpListener.page(MyScrollPageListView.this,1);
+				//do refreshing work here
 				setup();
 				break;
 			case REFRESH_RETURN:
@@ -435,16 +469,17 @@ public class MyScrollPageListView extends ListView implements
 				 * mHeaderPullDownImageView.setVisibility(View.VISIBLE);
 				 * mHeaderReleaseDownImageView.setVisibility(View.GONE);
 				 */
-				mHeaderLinearLayout.setPadding(
+				/*mHeaderLinearLayout.setPadding(
 						mHeaderLinearLayout.getPaddingLeft(), 0,
 						mHeaderLinearLayout.getPaddingRight(),
-						mHeaderLinearLayout.getPaddingBottom());
+						mHeaderLinearLayout.getPaddingBottom());*/
+				setHeaderTopPadding(iS_TOTAL_TOO_FEW?-mHeaderHeight:0);//过少时消去头部
 				mPullRefreshState = NONE_PULL_REFRESH;
 				setSelection(1);
 				break;
 			case REFRESH_DONE:
 				// 刷新结束后，恢复原始默认状态
-				mHeaderTextView.setText(HINT_PULLTOREFRESH);
+				mHeaderTextView.setText(HINT_DONE);
 				mHeaderProgressBar.setVisibility(View.INVISIBLE);
 				/*
 				 * mHeaderPullDownImageView.setVisibility(View.VISIBLE);
@@ -453,10 +488,11 @@ public class MyScrollPageListView extends ListView implements
 				 * app_list_header_refresh_last_update,
 				 * mSimpleDateFormat.format(new Date())));
 				 */
-				mHeaderLinearLayout.setPadding(
+				/*mHeaderLinearLayout.setPadding(
 						mHeaderLinearLayout.getPaddingLeft(), 0,
 						mHeaderLinearLayout.getPaddingRight(),
-						mHeaderLinearLayout.getPaddingBottom());
+						mHeaderLinearLayout.getPaddingBottom());*/
+				setHeaderTopPadding(iS_TOTAL_TOO_FEW?-mHeaderHeight:0);
 				mPullRefreshState = NONE_PULL_REFRESH;
 				setSelection(1);
 				break;
@@ -467,4 +503,6 @@ public class MyScrollPageListView extends ListView implements
 	};
 
 	private View makeItLongView;
+
+	private boolean iS_TOTAL_TOO_FEW;
 }

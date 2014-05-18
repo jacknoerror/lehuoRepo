@@ -80,7 +80,9 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 		Intent intent = null;
 		switch (arg0.getId()) {
 		case R.id.tv_account1_score:
-			
+			intent = new Intent();
+			intent.setClass(getActivity(), ScoreMarcketActivity.class);
+			startActivity(intent);
 			break;
 		case R.id.tv_account2_address:
 			intent = new Intent();

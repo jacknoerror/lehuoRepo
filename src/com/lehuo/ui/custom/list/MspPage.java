@@ -15,7 +15,7 @@ public class MspPage extends JsonImport {
 	public int curPageNo;
 
 	boolean resultSign;
-	boolean hasNext;
+	public boolean hasNext;
 	JSONArray infoArr;
 
 	private MspFactoryImpl factory;
@@ -61,7 +61,6 @@ public class MspPage extends JsonImport {
 				pp.initJackJson(infoArr.getJSONObject(i));
 				LiiList.add(pp);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}//
 			

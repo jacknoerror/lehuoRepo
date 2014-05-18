@@ -265,7 +265,7 @@ public class MyScrollPageListView extends ListView implements
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		if(null!=mHeaderLinearLayout)Log.i(TAG, "b:"+mHeaderLinearLayout.getBottom()+"-"+mHeaderHeight);
+//		if(null!=mHeaderLinearLayout)Log.i(TAG, "b:"+mHeaderLinearLayout.getBottom()+"-"+mHeaderHeight);
 		iS_TOTAL_TOO_FEW = visibleItemCount==totalItemCount;
 		// header
 		if (mCurrentScrollState == SCROLL_STATE_TOUCH_SCROLL
@@ -370,7 +370,7 @@ public class MyScrollPageListView extends ListView implements
 			
 			int padTop = (int)( (mMoveY - mDownY) / 3);// 1/3距离折扣
 				// 移动时手指的位置
-			Log.i(TAG, "mPullRefreshState"+mPullRefreshState);
+//			Log.i(TAG, "mPullRefreshState"+mPullRefreshState);
 			if (mPullRefreshState == OVER_PULL_REFRESH) {
 				setHeaderTopPadding(padTop);
 				mHeaderTextView.setText(HINT_PULLTOREFRESH);

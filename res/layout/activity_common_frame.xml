@@ -26,8 +26,8 @@
             android:text="购物车是空的"
             />
     </FrameLayout>
-	<View 
+	<!-- <View 
 	    android:layout_width="match_parent"
 	    android:layout_height="@dimen/v_height_bottombar"
-	    />
+	    /> -->
 </LinearLayout>

@@ -33,13 +33,12 @@
     </style>
 
     <style name="ClickBar" parent="MatchWidthOnly">
-        <item name="android:layout_margin">@dimen/common_margin</item>
-        <item name="android:paddingTop">@dimen/common_margin</item>
-        <item name="android:paddingBottom">@dimen/common_margin</item>
+        <item name="android:padding">@dimen/v_margin_activity</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">@color/grey_text</item>
+        <item name="android:textColor">@color/transparent_dark</item>
         <item name="android:textSize">@dimen/textsize_title_normal</item>
         <item name="android:drawableRight">@drawable/arrow</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
     <style name="DividerWH">

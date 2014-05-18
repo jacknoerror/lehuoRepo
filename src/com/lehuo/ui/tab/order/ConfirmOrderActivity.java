@@ -119,6 +119,7 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		couponLayout.setOnClickListener(this);
 		tv_timezone.setOnClickListener(this);
 		tv_a_name = (TextView) this.findViewById(R.id.tv_co_a_name);
+		JackUtils.textpaint_bold(tv_a_name);
 		tv_a_detail = (TextView) this.findViewById(R.id.tv_co_a_detail);
 		tv_a_phone = (TextView) this.findViewById(R.id.tv_co_a_phone);
 		tv_co_nocouponhint = (TextView) this

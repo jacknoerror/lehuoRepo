@@ -33,8 +33,12 @@ public class GetProductListReq implements ActionPhpRequestImpl {
 		this.sc = sc;
 	}
 
+	/**
+	 * »ý·Ö³¬ÊÐ
+	 * @param page_number
+	 */
 	public GetProductListReq(int page_number){
-		this.record_number = 5;//
+		this.record_number = 10;//
 		this.page_number = page_number;
 		this.catid = null;
 		this.sort = "";

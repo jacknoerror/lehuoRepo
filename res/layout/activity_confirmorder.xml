@@ -22,7 +22,8 @@
         <RelativeLayout
             android:id="@+id/checoutclickview_address"
             style="@style/MatchWidthOnly"
-            android:padding="@dimen/common_margin" >
+            android:background="@android:color/white"
+    android:padding="@dimen/common_margin_bigger" >
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -38,36 +39,44 @@
                     <TextView
                         android:id="@+id/tv_co_a_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" 
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/common_margin_bigger"
                         android:textColor="@android:color/black"
-                        android:layout_marginRight="@dimen/common_margin"
-                        />
+                        android:textSize="@dimen/textsize_title_normal" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/red_text"
-                        android:textColor="@android:color/white" 
                         android:text="默认地址"
-                        />
+                        android:textColor="@android:color/white"
+                        android:padding="2dp"
+                         />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_co_a_detail"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content" 
+                    android:textColor="@color/transparent_dark"
+                    />
 
                 <TextView
                     android:id="@+id/tv_co_a_phone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/transparent_dark" />
+
             </LinearLayout>
 
             <ImageView
                 style="@style/WrapAll"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/arrow" />
+                android:src="@drawable/arrow" 
+                android:textColor="@color/transparent_dark"
+            android:paddingTop="@dimen/common_margin"
+                />
         </RelativeLayout>
 
         <View style="@style/DividerWH" />
@@ -78,23 +87,28 @@
 
         <View style="@style/DividerWH" />
 
-        <RelativeLayout 
+        <RelativeLayout
             android:id="@+id/checoutclickview_arrivepay"
             style="@style/MatchWidthOnly"
-            android:layout_margin="@dimen/common_margin"
+            android:layout_margin="@dimen/common_margin" 
             >
-        <TextView
-            style="@style/MatchWidthOnly"
-            android:textColor="@color/grey_text"
-            android:textSize="@dimen/textsize_title_normal"
-            android:text="货到付款" />
-            <ImageView 
+
+            <TextView
+                style="@style/MatchWidthOnly"
+                android:text="货到付款"
+                android:textColor="@color/transparent_dark"
+                android:textSize="@dimen/textsize_title_normal" 
+                android:padding="@dimen/common_margin_bigger"
+                />
+
+            <ImageView
                 android:id="@+id/img_co_arrivepaycheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/selector_check"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/common_margin"
+                android:src="@drawable/selector_check" 
+                android:layout_centerVertical="true"
                 />
         </RelativeLayout>
 

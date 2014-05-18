@@ -12,11 +12,13 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -91,10 +93,21 @@ public class MyAddressActivity extends MyTitleActivity {
 	private void initList(View.OnClickListener l) {
 		//list≥ı ºªØ
 		mListView = (ListView) this.findViewById(R.id.listview_common_activity);
+			//list header footer
+		View footerTranparent = new View(this);
+		footerTranparent.setLayoutParams(new AbsListView.LayoutParams(1, JackUtils.dip2px(this, 15)));
+		View headerTransparent = new View(this);
+		headerTransparent.setLayoutParams(new AbsListView.LayoutParams(1, JackUtils.dip2px(this, 15)));
 		View footerView = LayoutInflater.from(this).inflate(
 				R.layout.footer_addaddr, null);
 		footerView.setOnClickListener(l);
+		mListView.addFooterView(footerTranparent);
 		mListView.addFooterView(footerView);
+		mListView.addHeaderView(headerTransparent);
+			//list divider
+		mListView.setDivider(getResources().getDrawable(R.drawable.divider_h_grey));
+		mListView.setDividerHeight(1);
+			//onclick
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -218,6 +231,7 @@ public class MyAddressActivity extends MyTitleActivity {
 						.findViewById(R.id.img_myaddr_check);
 				holder.tv_name = (TextView) view
 						.findViewById(R.id.tv_myaddr_name);
+				JackUtils.textpaint_bold(holder.tv_name);
 				holder.tv_detail = (TextView) view
 						.findViewById(R.id.tv_myaddr_detail);
 				holder.tv_phone = (TextView) view

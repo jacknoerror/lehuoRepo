@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    >
 
-    <View style="@style/DividerWH" />
-
+<!--     <View style="@style/DividerWH" />
+ -->
     <TextView
         style="@style/ClickBar"
-        android:text="添加新地址" />
+        android:text="添加新地址" 
+        
+        />
 
-    <View style="@style/DividerWH" />
+    <!-- <View style="@style/DividerWH" /> -->
 
 </LinearLayout>

@@ -65,7 +65,7 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 		mUser = MyData.data().getMe();
 		mProduct = MyData.data().fetchProduct();
 		if(null==mProduct||null==mUser) return;
-		titleManager.setTitleName(mProduct.getGoods_name());
+		titleManager.setTitleName("²úÆ·ÏêÇé");
 //		titleManager.updateCart(); // onresume
 		
 		Button btn_buy;
@@ -148,7 +148,9 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 			layout.addView(img);
 			viewList.add(layout);
 			imgList.add(img);
-			
+			img.setLayoutParams(new LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.MATCH_PARENT,
+					LinearLayout.LayoutParams.MATCH_PARENT));
 			// spot
 			FrameLayout layoutWithImg = new FrameLayout(this);
 			layoutWithImg.setPadding(5, 5, 5, 5);

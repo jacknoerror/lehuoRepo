@@ -15,6 +15,7 @@ import com.lehuo.net.action.order.GetOrderListReq;
 import com.lehuo.ui.adapter.msp.ListAdapterCoupon;
 import com.lehuo.ui.adapter.msp.ListAdapterCourier;
 import com.lehuo.ui.adapter.msp.ListAdapterDeliver;
+import com.lehuo.ui.adapter.msp.ListAdapterGoods;
 import com.lehuo.ui.adapter.msp.ListAdapterOrder;
 import com.lehuo.ui.adapter.msp.ListAdapterOrder.OrderViewHolder;
 import com.lehuo.ui.custom.list.ListItemImpl.Type;
@@ -22,6 +23,7 @@ import com.lehuo.ui.custom.list.MspAdapter.ViewHolderImpl;
 import com.lehuo.ui.custom.list.MyScrollPageListView.OnGetPageListener;
 import com.lehuo.util.TestDataTracker;
 import com.lehuo.vo.OrderInfo;
+import com.lehuo.vo.Product;
 import com.lehuo.vo.User;
 import com.lehuo.vo.deliver.OrderInCourier;
 
@@ -51,6 +53,9 @@ public class MspFactory implements MspFactoryImpl {
 			break;
 		case CART:
 //			adapter = new 
+			break;
+		case GOODS:
+			adapter = new ListAdapterGoods();
 			break;
 		default:
 			break;
@@ -84,6 +89,9 @@ public class MspFactory implements MspFactoryImpl {
 			break;
 		case ORDER_COURIER:
 			mji = new OrderInCourier();
+			break;
+		case GOODS:
+			mji = new Product();
 			break;
 		default:
 			break;
@@ -133,6 +141,9 @@ public class MspFactory implements MspFactoryImpl {
 
 				}
 			};
+			break;
+		case GOODS:
+			//TODO already add , test it
 			break;
 		default:
 			break;

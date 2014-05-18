@@ -6,12 +6,13 @@ import org.json.JSONObject;
 
 import com.lehuo.entity.json.JsonImport;
 import com.lehuo.net.NetStrategies;
+import com.lehuo.ui.custom.list.MspJsonItem;
 /**
  * 产品goods。有简单和详细之分，都是这个类
  * @author taotao
  *
  */
-public class Product extends JsonImport implements IntegralPriceImpl{
+public class Product extends MspJsonItem implements IntegralPriceImpl{
 
 	private String promote_end_date;
 	private int click_count;

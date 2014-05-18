@@ -2,126 +2,137 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
     android:background="@android:color/white"
-    >
-    <include layout="@layout/merge_jacktitle"/>
-    <RelativeLayout 
-               android:layout_width="match_parent"
-               android:layout_height="100dp"
-               >
-               
-	           <android.support.v4.view.ViewPager
-	               android:id="@+id/viewpager_"
-	               android:layout_width="match_parent"
-	               android:layout_height="wrap_content"
-	               >
-	               
-	           </android.support.v4.view.ViewPager>
-	           <LinearLayout 
-	               android:id="@+id/layout_spots"
-	               android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:orientation="horizontal"
-	               android:layout_alignParentRight="true"
-	               android:layout_alignParentBottom="true"
-	               android:layout_marginRight="@dimen/common_margin"
-	               android:layout_marginBottom="@dimen/common_margin"
-	               ></LinearLayout>
-           </RelativeLayout>
-	<LinearLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_margin="@dimen/h_margin_activity"
-	    android:background="@color/bg_grey_bigcolor"
-	    android:orientation="vertical"
-	    android:padding="@dimen/common_margin"
-	    >
-	    <TextView 
-	        android:id="@+id/tv_productdetail_productname"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textColor="@android:color/black"
-	        android:textSize="@dimen/textsize_title_normal"
-	        android:text="productname"
-	        />
-	    <TextView 
-	        android:id="@+id/tv_productdetail_productdesc"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="productdescproductdescproductdescproductdescproductdesc"
-	        />
-	</LinearLayout>
-	<LinearLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_margin="@dimen/h_margin_activity"
-	    android:orientation="horizontal"
-	    >
-	    <LinearLayout 
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:orientation="vertical"
-	        android:gravity="center_vertical"
-	        >
-	        <TextView 
-	            android:id="@+id/tv_productdetail_priceold"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:textSize="@dimen/textsize_title_sub"
-	            android:text="123"
-	            />
-	        <TextView 
-	            android:id="@+id/tv_productdetail_pricenew"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:textColor="@color/red_text"
-	            android:textSize="@dimen/textsize_title_sub"
-	            android:text="456"
-	            />
-	    </LinearLayout>
-	    <Button 
-	        android:id="@+id/btn_productdetail_buynow"
-	        style="@style/BtnOrange"
-	        android:layout_gravity="center_vertical"
-	        />
-	</LinearLayout>
-    <RadioGroup 
-        android:id="@+id/radiogroup_productdetail"
+    android:orientation="vertical" >
+
+    <include layout="@layout/merge_jacktitle" />
+
+    <com.lehuo.ui.custom.ScrollViewExtend
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/common_margin_bigger"
-        android:orientation="horizontal"
-        android:background="@drawable/shape_btn_bg_green_stroke"
-        >
-        <RadioButton 
-            android:id="@+id/radio1"
-            style="@style/RadioButton_category"
-            android:text="详情"
-            />
-        <RadioButton 
-            android:id="@+id/radio2"
-            style="@style/RadioButton_category"
-            android:text="规格"
-            />
-        <RadioButton 
-            android:id="@+id/radio3"
-            style="@style/RadioButton_category"
-            android:text="认证"
-            />
-        <RadioButton 
-            android:id="@+id/radio4"
-            style="@style/RadioButton_category"
-            android:text="评论"
-            />
-    </RadioGroup>
-    <FrameLayout 
-        android:id="@+id/frame_productdetail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/h_margin_activity"
-        >
-        
-    </FrameLayout>
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/side_grid" >
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager_"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                </android.support.v4.view.ViewPager>
+
+                <LinearLayout
+                    android:id="@+id/layout_spots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="@dimen/common_margin"
+                    android:layout_marginRight="@dimen/common_margin"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/h_margin_activity"
+                android:background="@color/bg_grey_bigcolor"
+                android:orientation="vertical"
+                android:padding="@dimen/common_margin" >
+
+                <TextView
+                    android:id="@+id/tv_productdetail_productname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="productname"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/textsize_title_normal" />
+
+                <TextView
+                    android:id="@+id/tv_productdetail_productdesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="productdescproductdescproductdescproductdescproductdesc" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/h_margin_activity"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/tv_productdetail_priceold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="123"
+                        android:textSize="@dimen/textsize_title_sub" />
+
+                    <TextView
+                        android:id="@+id/tv_productdetail_pricenew"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="456"
+                        android:textColor="@color/red_text"
+                        android:textSize="@dimen/textsize_title_sub" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_productdetail_buynow"
+                    style="@style/BtnOrange"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/radiogroup_productdetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/common_margin_bigger"
+                android:background="@drawable/shape_btn_bg_green_stroke"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radio1"
+                    style="@style/RadioButton_category"
+                    android:text="详情" />
+
+                <RadioButton
+                    android:id="@+id/radio2"
+                    style="@style/RadioButton_category"
+                    android:text="规格" />
+
+                <RadioButton
+                    android:id="@+id/radio3"
+                    style="@style/RadioButton_category"
+                    android:text="认证" />
+
+                <RadioButton
+                    android:id="@+id/radio4"
+                    style="@style/RadioButton_category"
+                    android:text="评论" />
+            </RadioGroup>
+
+            <FrameLayout
+                android:id="@+id/frame_productdetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/h_margin_activity" >
+            </FrameLayout>
+        </LinearLayout>
+    </com.lehuo.ui.custom.ScrollViewExtend>
+
 </LinearLayout>

@@ -14,6 +14,7 @@ import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.ui.adapter.MyGridViewAdapter;
 import com.lehuo.vo.Brand;
+import com.lehuo.vo.LehuoPic;
 
 public class GetBrandRcv implements ActionPhpReceiverImpl {
 
@@ -35,8 +36,13 @@ public class GetBrandRcv implements ActionPhpReceiverImpl {
 		if(null!=job){
 			Brand b = new Brand(job);
 			if(null!=gv) {
-				gv.setAdapter(new MyGridViewAdapter(context, b.getCertList()));
+				List<LehuoPic> certList = b.getCertList();
+				gv.setAdapter(new MyGridViewAdapter(context, certList));
 				gv.setNumColumns(2);
+				String[] pathString = new String[certList.size()];
+				for(LehuoPic lp : certList){
+					
+				}
 				return false;
 			}
 		}

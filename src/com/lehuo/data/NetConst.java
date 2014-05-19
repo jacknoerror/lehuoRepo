@@ -77,6 +77,9 @@ public interface NetConst {
 	public static final String RESULT_OBJ = "data";
 
 	public static final String EXTRAS_PHONE = "phone";
+	public static final String EXTRAS_SHOWPIC_PATHS ="pics";
+	public static final String EXTRAS_SHOWPIC_PAGE	 ="page";
+	
 
 	public static final String ACTION_ORDERLIST = "orderlist";
 

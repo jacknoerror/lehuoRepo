@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">乐活</string>
+    <string name="titlename_more">了解更多</string>
     <string name="titlename_my">我的账户</string>
     <string name="titlename_deliverlist">送货订单</string>
     <string name="titlename_order">订单</string>

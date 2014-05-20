@@ -10,6 +10,7 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -34,14 +35,10 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 
 	TextView tv_name,tv_score,tv_phone;
 	TextView tv_address,tv_birthday,tv_coupon;
+	Button btn_logout;
 	private User user;
 	private String birthdayString;
 	
-	@Override
-	public void onResume() {
-		super.onResume();
-		titleManager.updateCart();
-	}
 	@Override
 	public int getLayoutRid() {
 		return R.layout.fragment_my;
@@ -62,23 +59,29 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 		tv_address=(TextView)mView.findViewById(R.id.tv_account2_address);
 		tv_birthday=(TextView)mView.findViewById(R.id.tv_account2_birthday);
 		tv_coupon=(TextView)mView.findViewById(R.id.tv_account2_coupon);
+		btn_logout=(Button)mView.findViewById(R.id.btn_logout);
 		
 		tv_score.setOnClickListener(this);
 		tv_address.setOnClickListener(this);
 		tv_birthday.setOnClickListener(this);
 		tv_coupon.setOnClickListener(this);
+		btn_logout.setOnClickListener(this);
 		
 		tv_name.setText(user.getUser_name());
 		tv_score.setText("乐活积分>  "+user.getPay_points());
 		tv_phone.setText(user.getMobile_phone());
 		birthdayString = user.getBirthday();
-		tv_birthday.setText("我的生日\t\t\t"+birthdayString);//TODO 
+		tv_birthday.setText("我的生日\t\t\t"+birthdayString);  
 		
 	}
 	@Override
 	public void onClick(View arg0) {
 		Intent intent = null;
 		switch (arg0.getId()) {
+		case R.id.btn_logout:
+			MyData.data().destroy();
+			getActivity().finish();
+			break;
 		case R.id.tv_account1_score:
 			intent = new Intent();
 			intent.setClass(getActivity(), ScoreMarcketActivity.class);

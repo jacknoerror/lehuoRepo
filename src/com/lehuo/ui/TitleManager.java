@@ -29,6 +29,7 @@ public class TitleManager implements View.OnClickListener{
 	Activity activity;
 	View mView;
 	private ImageView btn_titlemenu;
+	private ImageView img_logo;
 	
 	public TitleManager(Activity activity) {
 		super();
@@ -47,6 +48,10 @@ public class TitleManager implements View.OnClickListener{
 		tv_right.setText(text);
 		tv_right.setOnClickListener(listener);
 		tv_right.setVisibility(View.VISIBLE);
+	}
+	public void initTitleLogo(){
+		img_logo = (ImageView) titleView().findViewById(R.id.img_title_logo);
+		img_logo.setVisibility(View.VISIBLE);
 	}
 	public void initTitleBack(){
 		btn_titleback = (ImageView) titleView().findViewById(R.id.btn_title_back);

@@ -67,7 +67,8 @@ public class TabFragMain extends ContentAbstractFragment implements
 	@Override
 	public void initView() {
 		initTitleManager();
-		titleManager.setTitleName("Ê×Ò³");
+//		titleManager.setTitleName("Ê×Ò³");
+		titleManager.initTitleLogo();
 		titleManager.initTitleMenu();
 		// titleManager.updateCart();
 		ActionBuilder.getInstance().request(
@@ -191,7 +192,7 @@ public class TabFragMain extends ContentAbstractFragment implements
 		});
 		mGridView.setLayoutParams(new LinearLayout.LayoutParams(
 				(int) Const.SCREEN_WIDTH,
-				JackUtils.dip2px(getActivity(), 150) * (categoryList2.size()/2+1)));
+				JackUtils.dip2px(getActivity(), 175) * (categoryList2.size()/2)));//pic height 160
 	}
 
 	private void setSpotSelected(int index) {

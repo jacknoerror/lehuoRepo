@@ -83,6 +83,7 @@
         android:background="#a111"
         />
     <Button 
+        android:id="@+id/btn_logout"
         style="@style/BtnRed"
         android:text="退出当前账户"
         />

@@ -8,11 +8,17 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
+import com.lehuo.data.Const;
 import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.ui.adapter.MyGridViewAdapter;
+import com.lehuo.util.JackUtils;
 import com.lehuo.vo.Brand;
 import com.lehuo.vo.LehuoPic;
 
@@ -39,6 +45,18 @@ public class GetBrandRcv implements ActionPhpReceiverImpl {
 				List<LehuoPic> certList = b.getCertList();
 				gv.setAdapter(new MyGridViewAdapter(context, certList));
 				gv.setNumColumns(2);
+				//make it ok in scroll
+				gv.setOnTouchListener(new View.OnTouchListener() {
+
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						return MotionEvent.ACTION_MOVE == event.getAction();
+					}
+				});
+				gv.setLayoutParams(new FrameLayout.LayoutParams(
+						(int) Const.SCREEN_WIDTH,
+						JackUtils.dip2px(context, 160) * (certList.size()/2)));
+				//go viewpagerActivity
 				String[] pathString = new String[certList.size()];
 				for(LehuoPic lp : certList){
 					

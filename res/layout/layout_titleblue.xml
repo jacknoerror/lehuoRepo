@@ -2,67 +2,74 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/v_titleheight"
-    android:background="@color/green_title"
-    >
-    <TextView 
+    android:background="@color/green_title" >
+
+    <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/textsize_title"
         android:layout_centerInParent="true"
-        android:text="@string/app_name"
-        android:singleLine="true"
-        android:layout_marginRight="@dimen/common_margin_bigger"
         android:layout_marginLeft="@dimen/common_margin_bigger"
-        />
-    <FrameLayout 
+        android:layout_marginRight="@dimen/common_margin_bigger"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/textsize_title" />
+
+    <ImageView
+        android:id="@+id/img_title_logo"
         android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_centerVertical="true"
-	    android:layout_alignParentLeft="true"
-	    android:layout_marginLeft="@dimen/common_margin"
-        >
-        <ImageView 
-	    android:id="@+id/btn_title_back"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:src="@drawable/backbtnbg"
-	    android:contentDescription="@id/btn_title_back"
-	    android:visibility="invisible"
-	    android:layout_gravity="center|left"
-	    />
-        <ImageView 
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/common_margin"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/title_logo"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/common_margin" >
+
+        <ImageView
+            android:id="@+id/btn_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="@dimen/common_margin"
+            android:contentDescription="@id/btn_title_back"
+            android:src="@drawable/backbtnbg"
+            android:visibility="invisible" />
+
+        <ImageView
             android:id="@+id/btn_title_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/titlebtn_menu"
             android:contentDescription="@id/btn_title_menu"
-            android:visibility="invisible"
-            />
+            android:src="@drawable/titlebtn_menu"
+            android:visibility="invisible" />
     </FrameLayout>
-    <FrameLayout 
+
+    <FrameLayout
         android:layout_width="60dp"
-	    android:layout_height="match_parent"
-	    android:layout_centerVertical="true"
-	    android:layout_alignParentRight="true"
-	    android:layout_marginRight="@dimen/common_margin"
-        >
-        <TextView 
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/common_margin" >
+
+        <TextView
             android:id="@+id/tv_title_right"
             android:layout_width="wrap_content"
-	    	android:layout_height="match_parent"
-	    	android:text="完成"
-	    	android:textColor="@android:color/white"
-	    	android:textSize="@dimen/textsize_title_sub"
-	    	 android:visibility="invisible"
-	    	 android:gravity="center|right"
-            />
-        <include 
-            layout="@layout/merge_cart" 
-      
-            />
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:text="完成"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textsize_title_sub"
+            android:visibility="invisible" />
+
+        <include layout="@layout/merge_cart" />
     </FrameLayout>
-	
+
 </RelativeLayout>

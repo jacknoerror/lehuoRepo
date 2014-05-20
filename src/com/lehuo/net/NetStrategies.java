@@ -188,6 +188,7 @@ public class NetStrategies implements NetConst{
 		if(ipi.getIntegral()>0&&null!=ip){
 			result = //"¥"+integral_price2.getShop_price()+"元"+"+"+
 					String.format("¥%d元＋%d积分", ip.getShop_price(),ip.getIntegral_need());
+			if(ip.getShop_price()==0) result = result.substring(result.indexOf('＋')+1);
 		}
 		return result;
 	}

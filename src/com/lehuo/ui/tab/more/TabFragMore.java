@@ -24,6 +24,7 @@ public class TabFragMore extends ContentAbstractFragment {
 	@Override
 	public void initView() {
 		initTitleManager();
+		titleManager.setTitleName(getString(R.string.titlename_more));
 		titleManager.initTitleMenu();
 		titleManager.updateCart();
 	}

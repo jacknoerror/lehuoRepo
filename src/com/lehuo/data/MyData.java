@@ -102,4 +102,7 @@ public class MyData {
 		return mDrawer;
 	}
 	
+	public void destroy(){
+		data = null;
+	}
 }

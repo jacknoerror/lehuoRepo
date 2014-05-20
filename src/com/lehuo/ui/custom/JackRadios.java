@@ -13,6 +13,7 @@ import android.content.res.Resources.NotFoundException;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -128,6 +129,7 @@ public class JackRadios implements OnCheckedChangeListener {
 			actReq = new GetBrandReq(p.getBrand_id());
 			actRcv = new GetBrandRcv(context,mGrid);
 			ActionBuilder.getInstance().request(actReq, actRcv);
+			
 			view = mGrid;
 			break;
 		case R.id.radio4:

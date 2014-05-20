@@ -123,7 +123,7 @@ public class HttpRequestTask extends AsyncTask<String, Integer, String>{
 		super.onPreExecute();
 		Context context = receiver.getReceiverContext();
 		if(context!=null){
-			pDialog = JackUtils.showProgressDialog(context, "");
+			pDialog = JackUtils.showProgressDialog(context, "‘ÿ»Î÷–");//0520
 		}
 	}
 

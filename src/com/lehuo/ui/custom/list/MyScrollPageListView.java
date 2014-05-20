@@ -376,7 +376,7 @@ public class MyScrollPageListView extends ListView implements
 				mHeaderTextView.setText(HINT_PULLTOREFRESH);
 			}
 			//
-			if(iS_TOTAL_TOO_FEW&&mCurrentScrollState==1){//0515 
+			if(iS_TOTAL_TOO_FEW&&mCurrentScrollState==1&&mMoveY>mDownY){//0515 
 				setHeaderTopPadding(padTop);
 				if(mPullRefreshState == NONE_PULL_REFRESH){//每回基本运行一次
 					mPullRefreshState = OVER_PULL_REFRESH;

@@ -17,6 +17,12 @@ public abstract class ContentAbstractFragment extends JackAbsFragment {
 		imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),InputMethodManager.SHOW_FORCED);
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(null!=titleManager) titleManager.updateCart();
+	}
+	
 	/**
 	 * 
 	 */

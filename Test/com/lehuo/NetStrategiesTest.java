@@ -126,7 +126,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 	}
 	
 	/**
-	 * login:12
+	 * login:12;GetAllReq:1
 	 * @throws SocketTimeoutException
 	 * @throws UnknownHostException
 	 * @throws IOException

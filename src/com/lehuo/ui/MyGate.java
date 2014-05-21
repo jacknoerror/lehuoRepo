@@ -2,11 +2,11 @@ package com.lehuo.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 
 import com.lehuo.data.MyData;
 import com.lehuo.data.NetConst;
 import com.lehuo.ui.address.AddAddressActivity;
+import com.lehuo.ui.common.ViewpagerActivity;
 import com.lehuo.ui.courier.DeliverListActivity;
 import com.lehuo.ui.login.PersonInfoCreateActivity;
 import com.lehuo.ui.login.RegistCodeActivity;
@@ -113,4 +113,15 @@ public class MyGate implements NetConst {
 	public static void goCoupon(Context context) {
 		justGo(context, MyCouponActivity.class);
 	}
+
+	public static void goViewPager(Context context, String[] ppPaths,int position) {
+		if(null==context) return;
+//		int picIndex = mViewPager.getCurrentItem();
+    	Intent intent = new Intent();
+    	intent.setClass(context, ViewpagerActivity.class);
+    	intent.putExtra(NetConst.EXTRAS_SHOWPIC_PAGE, position);//
+    	intent.putExtra(NetConst.EXTRAS_SHOWPIC_PATHS, ppPaths);//1022
+    	context.startActivity(intent);
+	}
+
 }

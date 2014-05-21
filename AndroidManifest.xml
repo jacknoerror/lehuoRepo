@@ -54,6 +54,7 @@
         <activity android:name="com.lehuo.ui.product.CommentActivity"></activity>
         <activity android:name="com.lehuo.ui.tab.my.MyCouponActivity"></activity>
         <activity android:name="com.lehuo.ui.tab.my.ScoreMarcketActivity"></activity>
+        <activity android:name="com.lehuo.ui.common.ViewpagerActivity"></activity>
         <activity android:name="com.baidumap.GeoCoderActivity"
             android:screenOrientation="portrait"></activity>
         

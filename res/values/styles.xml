@@ -85,7 +85,7 @@
 
     <style name="BtnRed" parent="MatchWidthOnly">
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">#f22</item>
+        <item name="android:background">@drawable/btn_logout</item>
         <item name="android:layout_margin">@dimen/h_margin_activity</item>
         <item name="android:textSize">@dimen/textsize_title_normal</item>
         <item name="android:padding">@dimen/common_margin_bigger</item>

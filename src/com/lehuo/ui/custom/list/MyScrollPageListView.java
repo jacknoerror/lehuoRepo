@@ -91,6 +91,7 @@ public class MyScrollPageListView extends ListView implements
 
 //		setFooterDividersEnabled(false);
 		setHeaderDividersEnabled(false);
+		setSelector(R.drawable.selector_common_grey); 
 	}
 
 	@Override

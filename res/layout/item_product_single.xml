@@ -47,7 +47,7 @@
                 android:id="@+id/tv_itemprodnum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right|center"
+                android:gravity="right|top"
                 android:text="X1" 
                 android:layout_weight="1"
                 />

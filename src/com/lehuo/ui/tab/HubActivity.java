@@ -99,8 +99,7 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 				return response;
 			}
 		};
-//		ActionBuilder.getInstance().request(actReq2, actrcv);
-		TestDataTracker.simulateConnection(actrcv, actReq2.getApiName());//TODO delete this
+		ActionBuilder.getInstance().request(actReq2, actrcv);
 	}
 
 	private void updateUI() {

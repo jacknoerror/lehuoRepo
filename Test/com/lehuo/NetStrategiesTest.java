@@ -39,7 +39,6 @@ public class NetStrategiesTest extends AndroidTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		// TODO Auto-generated method stub
 		super.setUp();
 	}
 	
@@ -134,7 +133,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 	public void acttionTest() throws SocketTimeoutException, UnknownHostException, IOException{
 		String result="";
 		
-		result  = actionChoser(1);
+		result  = actionChoser(12);
 			
 		Log.i(TAG, "result=>"+result);
 		assertNotSame(result, "");

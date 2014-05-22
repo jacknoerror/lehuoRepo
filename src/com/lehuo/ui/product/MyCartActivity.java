@@ -156,7 +156,7 @@ public class MyCartActivity extends MyTitleActivity implements MyScrollPageListV
 
 						}
 					});
-					MyData.data().setCartCount(cart_total.getReal_goods_count());
+//					MyData.data().setCartCount(cart_total.getReal_goods_count());//not the right count
 				}
 			}
 

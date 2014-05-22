@@ -64,11 +64,6 @@ public class TabFragMain extends ContentAbstractFragment implements
 		return R.layout.fragment_mainpage;
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		if(null!=titleManager) titleManager.updateCart();//? y ul
-	}
 	
 	@Override
 	public void initView() {
@@ -76,10 +71,7 @@ public class TabFragMain extends ContentAbstractFragment implements
 //		titleManager.setTitleName("Ê×Ò³");
 		titleManager.initTitleLogo();
 		titleManager.initTitleMenu();
-		// titleManager.updateCart();
-		ActionBuilder.getInstance().request(
-				new UpdateCartReq(MyData.data().getMe().getUser_id()),
-				new UpdateCartRcv(getActivity(), titleManager));
+		//move request for cart to onresume 0522
 
 		// mDrawer = (DrawerLayout) mView.findViewById(R.id.drawer_main);
 		// mDrawer.setDrawerShadow(R.drawable.shadow, GravityCompat.START);

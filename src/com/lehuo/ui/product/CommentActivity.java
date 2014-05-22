@@ -34,6 +34,7 @@ public class CommentActivity extends MyTitleActivity {
 	@Override
 	public void initView() {
 		titleManager.setTitleName("评论产品");
+		titleManager.initTitleBack();
 		titleManager.setRightText("提交", new View.OnClickListener() {
 			
 			@Override

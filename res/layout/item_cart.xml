@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:orientation="horizontal" 
+    android:background="@android:color/white"
+    >
     <!-- style? -->
     <ImageView 
 	        android:id="@+id/img_itemcart_ic"
@@ -23,6 +25,8 @@
             android:paddingTop="@dimen/common_margin"
             android:paddingBottom="@dimen/common_margin"
             android:textColor="@android:color/black"
+            android:maxLines="2"
+            android:ellipsize="end"
             />
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -45,20 +49,6 @@
                 android:layout_weight="1"
                 />
         </LinearLayout>
-       <!--  <RelativeLayout 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            >
-            <EditText 
-                android:id="@+id/et_itemcart_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:layout_centerInParent="true"
-                />
-        </RelativeLayout> -->
         <com.lehuo.ui.custom.JackEditWam
             android:id="@+id/jack_itemcart_wam"
             android:layout_width="wrap_content"

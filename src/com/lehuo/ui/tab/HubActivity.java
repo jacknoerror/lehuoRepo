@@ -57,8 +57,8 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 	final TabPack[] hubs = new TabPack[]{
 			new TabPack(R.drawable.selector_tab_home, "首页", TabFragMain.class),
 			new TabPack(R.drawable.selector_tab_order, "订单", TabFragOrder.class),
-			new TabPack(R.drawable.selector_tab_track, "配送", TabFragDeliver.class),
-			new TabPack(R.drawable.selector_tab_center, "我的账户", TabFragMy.class),
+			new TabPack(R.drawable.selector_tab_track, "送货跟踪", TabFragDeliver.class),
+			new TabPack(R.drawable.selector_tab_center, "账户", TabFragMy.class),
 			new TabPack(R.drawable.selector_tab_more, "更多", TabFragMore.class)
 	};
 	

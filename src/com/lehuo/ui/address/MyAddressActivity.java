@@ -77,6 +77,7 @@ public class MyAddressActivity extends MyTitleActivity {
 		titleManager.setTitleName(getResources().getString(
 				R.string.titlename_myaddr));
 		titleManager.setRightText("гл", goaaListener);
+		titleManager.initTitleBack();
 
 		user = MyData.data().getMe();
 		if (null == user)

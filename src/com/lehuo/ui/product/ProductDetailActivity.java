@@ -26,6 +26,7 @@ import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.ActionPhpReceiverImpl;
 import com.lehuo.net.action.ActionPhpRequestImpl;
 import com.lehuo.net.action.goods.GetProductDetailReq;
+import com.lehuo.ui.MyGate;
 import com.lehuo.ui.MyTitleActivity;
 import com.lehuo.ui.adapter.MyPagerAdapater;
 import com.lehuo.ui.custom.JackRadios;
@@ -48,6 +49,7 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 	JackRadios jRa;
 	
 	TextView tv_pn,tv_pd,tv_pold,tv_pnew;
+	private String[] pathArrs;
 	
 	@Override
 	protected void onResume() {
@@ -65,7 +67,8 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 		mUser = MyData.data().getMe();
 		mProduct = MyData.data().fetchProduct();
 		if(null==mProduct||null==mUser) return;
-		titleManager.setTitleName("产品详情");
+		titleManager.setTitleName("宝贝详情");
+		titleManager.initTitleBack();
 //		titleManager.updateCart(); // onresume
 		
 		Button btn_buy;
@@ -123,7 +126,6 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 	 */
 	private void initPagers() {
 		mViewPager = (ViewPager)this.findViewById(R.id.viewpager_);
-		
 		List<View> viewList = new ArrayList<View>();
 		imgList = new ArrayList<ImageView>();
 		spotList = new ArrayList<ImageView>();
@@ -131,6 +133,7 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 				.findViewById(R.id.layout_spots);
 		//数据
 		JSONArray jar = mProduct.getGallery();
+		pathArrs = new String[jar.length()];
 		for (int i = 0; i < jar.length(); i++) {//TODO test data
 			LehuoPic gp=null;
 			try {
@@ -141,10 +144,22 @@ public class ProductDetailActivity extends MyTitleActivity implements OnPageChan
 			}
 			
 			LinearLayout layout = new LinearLayout(this);
+			layout.setOnClickListener(new View.OnClickListener() {//按图片响应 
+				
+				@Override
+				public void onClick(View v) {
+					int index = mViewPager.getCurrentItem();
+					if(null==imgList||imgList.size()<=index) return;
+					MyGate.goViewPager(ProductDetailActivity.this, pathArrs, index);
+					
+				}
+			});
 			ImageView img = new ImageView(this);
 			img.setScaleType(ScaleType.CENTER_CROP);
 //			img.setImageResource(R.drawable.ic_launcher);
-			JackImageLoader.justSetMeImage(gp.getImg_url(), img);//
+			String img_url = gp.getImg_url();
+			pathArrs[i] = img_url;
+			JackImageLoader.justSetMeImage(img_url, img);//
 			layout.addView(img);
 			viewList.add(layout);
 			imgList.add(img);

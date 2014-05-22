@@ -44,6 +44,7 @@ import com.lehuo.ui.custom.list.MspAdapter;
 import com.lehuo.ui.custom.list.MyScrollPageListView;
 import com.lehuo.ui.custom.list.ListItemImpl.Type;
 import com.lehuo.ui.custom.list.MspAdapter.ViewHolderImpl;
+import com.lehuo.util.JackButtonColorFilter;
 import com.lehuo.util.JackImageLoader;
 import com.lehuo.util.JackUtils;
 import com.lehuo.vo.User;
@@ -134,10 +135,13 @@ public class MyCartActivity extends MyTitleActivity implements MyScrollPageListV
 					TextView price = (TextView) findViewById(R.id.tv_mycart_totalprice);
 					TextView old = (TextView) findViewById(R.id.tv_mycart_oldprice);
 					Button confirm = (Button) findViewById(R.id.btn_mycart_confirm);
+					JackButtonColorFilter.setButtonFocusChanged(confirm);
 					count.setText(String.format("共%d件商品",
 							cart_total.getReal_goods_count()));//
 					price.setText(cart_total.getRealPriceStr());// TODO integral
-					old.setText("市场价" + cart_total.getMarket_price());
+					JackUtils.textpaint_bold(old);
+					JackUtils.textpaint_bold(price);
+					old.setText("市场价￥" + cart_total.getMarket_price());
 					JackUtils.textpaint_deleteLine(old);
 					confirm.setOnClickListener(new View.OnClickListener() {
 

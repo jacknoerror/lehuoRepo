@@ -7,7 +7,7 @@
         android:textSize="@dimen/textsize_title_bigger"
         android:background="@drawable/bg_main_left"
         
-        android:paddingLeft="@dimen/h_margin_activity"
+        android:paddingLeft="22dp"
         android:paddingTop="@dimen/common_margin_bigger"
         android:paddingBottom="@dimen/common_margin_bigger"
         >

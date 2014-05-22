@@ -26,7 +26,9 @@
 
                 <EditText
                     android:id="@+id/et_aa_name"
-                    style="@style/NewAddressInput" />
+                    style="@style/NewAddressInput" 
+                    android:hint="@string/hintedit_aa_name"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -39,7 +41,9 @@
 
                 <EditText
                     android:id="@+id/et_aa_mobile"
-                    style="@style/NewAddressInput" />
+                    style="@style/NewAddressInput" 
+                    android:hint="@string/hintedit_aa_phone"
+                    />
             </LinearLayout>
 
             <!--
@@ -72,14 +76,19 @@
                 <EditText
                     android:id="@+id/et_aa_detail"
                     style="@style/NewAddressInput"
-                    android:lines="2" />
+                    android:hint="@string/hintedit_aa_addr"
+                    android:gravity="start"
+                    android:lines="3" />
             </LinearLayout>
 
             <View
                 style="@style/DividerWH"
                 android:layout_marginTop="@dimen/v_margin_activity" />
 
-            <LinearLayout style="@style/MatchWidthOnly" >
+            <LinearLayout style="@style/MatchWidthOnly" 
+                android:padding="@dimen/common_margin"
+                android:background="@android:color/white"
+                >
 
                 <TextView
                     android:layout_width="0dp"
@@ -94,6 +103,7 @@
                     android:id="@+id/cb_addaddr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:button="@drawable/selector_btn_offline"
                     android:layout_marginRight="@dimen/common_margin" />
             </LinearLayout>
 

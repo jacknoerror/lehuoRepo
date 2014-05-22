@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lehuo.R;
+import com.lehuo.util.JackUtils;
 
 
 public class JackEditWam extends RelativeLayout {
@@ -65,7 +66,11 @@ public class JackEditWam extends RelativeLayout {
 		setNum(getNum()+1);
 	}
 	public void minus(){
-		setNum(getNum()-1);
+		if(getNum()>1){
+			setNum(getNum()-1);
+		}else{
+//			JackUtils.showDialog(, hintContent, positiveListener)
+		}
 	}
 	public void setOnAddListener(OnEditListener onEditListener){
 		this.onAddListener = onEditListener;

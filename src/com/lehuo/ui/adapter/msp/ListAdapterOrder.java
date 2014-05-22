@@ -16,6 +16,7 @@ import com.lehuo.ui.custom.list.MspAdapter;
 import com.lehuo.util.JackImageLoader;
 import com.lehuo.vo.InfoGoodsInOrder;
 import com.lehuo.vo.OrderInfo;
+import com.lehuo.vo.Product;
 
 public class ListAdapterOrder extends MspAdapter {
 
@@ -41,8 +42,8 @@ public class ListAdapterOrder extends MspAdapter {
 		public void setup(int position) {
 			OrderInfo oi = (OrderInfo)getItem(position);
 			tv_sn.setText(oi.getOrder_sn());
-			tv_price.setText(oi.getTotal_fee());//
-			tv_count.setText(""+oi.getNums());
+			tv_price.setText("总价："+oi.getTotal_fee());//
+			tv_count.setText("数量："+oi.getNums());
 			//TODO deliver
 			//
 			if(upLayout.getChildCount()==0){
@@ -69,15 +70,24 @@ public class ListAdapterOrder extends MspAdapter {
 			name.setText(jgio.getGoods_name());
 			price.setText(jgio.getGoods_price());
 			count.setText("x"+jgio.getGoods_number());
-			//TODO comment
+			// comment
 			TextView goComment = (TextView)view.findViewById(R.id.tv_itemprodcomment);
 			goComment.setVisibility(View.VISIBLE);
 			goComment.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					MyGate.goComment(getContextInAdapter(),jgio.getGoods_id());
+				}
+			});
+			view.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Product product = new Product();
+					product.setGoods_id(jgio.getGoods_id());
+					MyGate.GoProduct(getContextInAdapter(), product);
+					
 				}
 			});
 			//holder?clear?

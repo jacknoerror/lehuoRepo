@@ -6,15 +6,15 @@ import android.os.SystemClock;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.lehuo.data.MyData;
-import com.lehuo.ui.product.ProductListActivity;
-import com.lehuo.ui.tab.order.ConfirmOrderActivity;
+import com.lehuo.ui.product.ProductDetailActivity;
 import com.lehuo.vo.Category;
+import com.lehuo.vo.Product;
 import com.lehuo.vo.User;
 
-public class ProductListActivityTest extends ActivityInstrumentationTestCase2<ProductListActivity> {
+public class ProductDetailActivityTest extends ActivityInstrumentationTestCase2<ProductDetailActivity> {
 
-	public ProductListActivityTest(){
-		super(ProductListActivity.class);
+	public ProductDetailActivityTest(){
+		super(ProductDetailActivity.class);
 	}
 	
 	@Override
@@ -28,11 +28,10 @@ public class ProductListActivityTest extends ActivityInstrumentationTestCase2<Pr
 //		i.putExtra(NetConst.EXTRA_PHONE, "15888889999");
 		User user = new User();
 		user.setUser_id(28);
-		Category cat = new Category();
-		cat.setCat_id(2);
-		cat.setCat_name("²âÊÔ");
+		Product product = new Product();
+		product.setGoods_id(3);
 		MyData.data().setCurrentUser(user);
-		MyData.data().storeCategory(cat);
+		MyData.data().storeProduct(product);
 		super.setActivityIntent(i);
 	}
 	@Override

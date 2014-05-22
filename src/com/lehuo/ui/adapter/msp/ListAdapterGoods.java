@@ -40,7 +40,7 @@ public class ListAdapterGoods extends MspAdapter {
 				JackImageLoader.justSetMeImage(p.getGoods_img(), icon);
 				tv_goodsname.setText(p.getGoods_name());
 				tv_goodsdesc.setText(p.getGoods_desc());
-				tv_priceold.setText(p.getMarket_price()); 
+				tv_priceold.setText("Ô­¼Û£º£¤"+p.getMarket_price()); 
 				JackUtils.textpaint_deleteLine(tv_priceold);
 				tv_pricenew.setText(p.getRealPriceStr());
 				btn.setTag(p.getGoods_id());

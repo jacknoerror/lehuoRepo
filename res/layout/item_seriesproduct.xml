@@ -47,7 +47,7 @@
                     android:id="@+id/tv_item_sprod_priceold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="italic"
+                    
                     />
                 <TextView 
                     android:id="@+id/tv_item_sprod_pricenew"

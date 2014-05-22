@@ -53,7 +53,7 @@ public class ListAdapterDeliver extends MspAdapter {
 			final OrderInfo oi = (OrderInfo) getItem(position);
 			tv_sn.setText(oi.getOrder_sn());
 			tv_price.setText("总价：" + oi.getTotal_fee());//
-			tv_count.setText("数量：" + oi.getNums());
+			tv_count.setText("数量：x" + oi.getNums());
 			// deliver
 			tv_checkmap.setVisibility(View.VISIBLE);
 			tv_checkmap.setOnClickListener(new View.OnClickListener() {

@@ -65,6 +65,12 @@ public class TabFragMain extends ContentAbstractFragment implements
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		if(null!=titleManager) titleManager.updateCart();//? y ul
+	}
+	
+	@Override
 	public void initView() {
 		initTitleManager();
 //		titleManager.setTitleName("Ê×Ò³");

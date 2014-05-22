@@ -21,7 +21,7 @@ public class GetProductListReq implements ActionPhpRequestImpl {
 	Integer catid ;//分类ID （默认没有，则获取全部数据）
 	String sort ;//排序字段 （可选值有：price价钱,sales 销量,recommed 推荐排序.默认情况下安装商品最新添加和修改时间排序）
 	String sc ;//排序方式 升序或者降序（该参数只有sort 值是price是才生效 可选值：ASC,DESC）
-
+	int integral;//0不要；1要 积分
 	
 	public GetProductListReq(int record_number, int page_number, int catid,
 			String sort, String sc) {
@@ -31,6 +31,7 @@ public class GetProductListReq implements ActionPhpRequestImpl {
 		this.catid = catid;
 		this.sort = sort;
 		this.sc = sc;
+		integral = 0;//无积分
 	}
 
 	/**
@@ -43,6 +44,7 @@ public class GetProductListReq implements ActionPhpRequestImpl {
 		this.catid = null;
 		this.sort = "";
 		this.sc = "";
+		integral = 1;
 	}
 	
 	@Override
@@ -67,6 +69,7 @@ public class GetProductListReq implements ActionPhpRequestImpl {
 		halfway.put(NetConst.PARAMS_CATID, catid+"");
 		halfway.put(NetConst.PARAMS_SORT, sort);
 		halfway.put(NetConst.PARAMS_SC, sc);
+		halfway.put(NetConst.PARAMS_INTEGRAL, integral+"");
 		return halfway;
 	}
 

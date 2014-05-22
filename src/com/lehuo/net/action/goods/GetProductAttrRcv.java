@@ -31,9 +31,9 @@ public class GetProductAttrRcv extends JackDefJarRcv {
 							jar.getJSONObject(i));
 					// if(i!=0) mLayout.addView(divider);
 					TextView tempTv = new TextView(context);
-					int p = JackUtils.dip2px(context, 3);
-					tempTv.setPadding(p, p, p, p);
-					tempTv.setText(pa.getAttr_name() + ":\t" + pa.getAttr_value());
+					int p = JackUtils.dip2px(context, 5);
+					tempTv.setPadding(p, p*3, p, p*3);
+					tempTv.setText(pa.getAttr_name() + ":\t\t\t\t\t" + pa.getAttr_value());
 					View v = NetStrategies.getSimpleDivider(context);
 					if (i != 0)
 						mLayout.addView(v);

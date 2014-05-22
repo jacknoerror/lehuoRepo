@@ -3,16 +3,16 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <!--  -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="18" />
@@ -22,42 +22,59 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Black.NoTitleBar" 
-        >
-        <uses-library  android:name ="android.test.runner"/>
-        <activity 
+        android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <uses-library android:name="android.test.runner" />
+
+        <activity
             android:name="com.lehuo.ui.login.LoginActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden">
-              <intent-filter>
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
+        <activity
             android:name="com.lehuo.ui.tab.HubActivity"
-            android:screenOrientation="portrait"
-            >
-           
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.lehuo.ui.product.ProductListActivity"></activity>
-        <activity android:name="com.lehuo.ui.product.ProductDetailActivity"></activity>
-        <activity android:name="com.lehuo.ui.login.PersonInfoCreateActivity">
-            
+        <activity android:name="com.lehuo.ui.product.ProductListActivity" >
         </activity>
-        <activity android:name="com.lehuo.ui.login.RegistCodeActivity"></activity>
-        <activity android:name="com.lehuo.ui.login.RegistPhoneActivity"></activity>
-        <activity android:name="com.lehuo.ui.product.MyCartActivity"></activity>
-        <activity android:name="com.lehuo.ui.tab.order.ConfirmOrderActivity"></activity>
-        <activity android:name="com.lehuo.ui.address.MyAddressActivity"></activity>
-        <activity android:name="com.lehuo.ui.address.AddAddressActivity"></activity>
-        <activity android:name="com.lehuo.ui.courier.DeliverListActivity"></activity>
-        <activity android:name="com.lehuo.ui.product.CommentActivity"></activity>
-        <activity android:name="com.lehuo.ui.tab.my.MyCouponActivity"></activity>
-        <activity android:name="com.lehuo.ui.tab.my.ScoreMarcketActivity"></activity>
-        <activity android:name="com.lehuo.ui.common.ViewpagerActivity"></activity>
-        <activity android:name="com.baidumap.GeoCoderActivity"
-            android:screenOrientation="portrait"></activity>
-        
+        <activity android:name="com.lehuo.ui.product.ProductDetailActivity" >
+        </activity>
+        <activity android:name="com.lehuo.ui.login.PersonInfoCreateActivity" >
+        </activity>
+        <activity
+            android:name="com.lehuo.ui.login.RegistCodeActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity android:name="com.lehuo.ui.login.RegistPhoneActivity" >
+        </activity>
+        <activity android:name="com.lehuo.ui.product.MyCartActivity" >
+        </activity>
+        <activity android:name="com.lehuo.ui.tab.order.ConfirmOrderActivity" >
+        </activity>
+        <activity android:name="com.lehuo.ui.address.MyAddressActivity" >
+        </activity>
+        <activity android:name="com.lehuo.ui.address.AddAddressActivity" >
+        </activity>
+        <activity android:name="com.lehuo.ui.courier.DeliverListActivity" >
+        </activity>
+        <activity
+            android:name="com.lehuo.ui.product.CommentActivity"
+            android:windowSoftInputMode="stateAlwaysVisible" >
+        </activity>
+        <activity android:name="com.lehuo.ui.tab.my.MyCouponActivity" >
+        </activity>
+        <activity android:name="com.lehuo.ui.tab.my.ScoreMarcketActivity" >
+        </activity>
+        <activity android:name="com.lehuo.ui.common.ViewpagerActivity" >
+        </activity>
+        <activity
+            android:name="com.baidumap.GeoCoderActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
         <service
             android:name="com.lehuo.net.location.LocationService"
             android:enabled="true"
@@ -66,9 +83,11 @@
                 <action android:name="com.lehuo.Location" />
             </intent-filter>
         </service>
-        
     </application>
-	<instrumentation android:name="android.test.InstrumentationTestRunner" 
-        android:targetPackage="com.lehuo" android:label="Testing" />
-    
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:label="Testing"
+        android:targetPackage="com.lehuo" />
+
 </manifest>

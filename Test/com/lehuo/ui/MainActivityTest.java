@@ -3,6 +3,7 @@ package com.lehuo.ui;
 
 import com.lehuo.data.MyData;
 import com.lehuo.ui.tab.HubActivity;
+import com.lehuo.vo.User;
 
 import android.content.Intent;
 import android.os.SystemClock;
@@ -22,6 +23,7 @@ public class MainActivityTest extends InstrumentationTestCase {
 		//获取被测对象context
 		app = (HubActivity) getInstrumentation().startActivitySync(intent);
 	}
+	
 	
 	@Override
 	protected void tearDown() throws Exception {

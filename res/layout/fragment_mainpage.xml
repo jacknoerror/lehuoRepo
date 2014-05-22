@@ -46,6 +46,7 @@
                 android:numColumns="2"
                 android:scrollbars="none"
                 android:verticalSpacing="5dp"
+                android:listSelector="@drawable/selector_common_grey"
                  >
             </GridView>
         </LinearLayout>

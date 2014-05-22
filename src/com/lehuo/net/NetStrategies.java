@@ -176,7 +176,8 @@ public class NetStrategies implements NetConst{
 			}else{//返回正确但是obj为空
 			}
 		}else{
-			JackUtils.showToast(MyApplication.app(),job.optString(NetConst.RESULT_ERROR_MSG));
+			String errmsg = job.optString(NetConst.RESULT_ERROR_MSG);
+			if(!errmsg.isEmpty())JackUtils.showToast(MyApplication.app(),errmsg);
 		}
 		return false;
 	}

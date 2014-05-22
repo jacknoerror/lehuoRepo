@@ -61,7 +61,7 @@ public class GetBrandRcv implements ActionPhpReceiverImpl {
 				});
 				int size = certList.size();
 				gv.setLayoutParams(new FrameLayout.LayoutParams(
-						(int) Const.SCREEN_WIDTH,
+						(int) Const.SCREEN_WIDTH-JackUtils.dip2px(context, 12),
 						JackUtils.dip2px(context, 160) * (size/2)));
 				pathStrings = new String[size];
 				for(int i=0;i<size;i++){

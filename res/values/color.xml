@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="green_title">#009933</color>
-    <color name="light_cyan">#F6F8FA</color>
+    <color name="light_cyan">#FCFBF6</color>
     <color name="red_text">#CC0000</color>
     <color name="grey_text">#aaa</color>
     <color name="transparent_dark">#a000</color>
+    <color name="transparent_light">#4000</color>
     <color name="bg_grey_bigcolor">#f1f0f5</color>
     <color name="orange_text">#fe5636</color>
     <color name="red_cart">#F73802</color>
+    <color name="brown_bg">#DCCCB5</color>
 </resources>

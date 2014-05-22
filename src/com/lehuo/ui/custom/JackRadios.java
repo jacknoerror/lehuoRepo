@@ -156,7 +156,7 @@ public class JackRadios implements OnCheckedChangeListener {
 								tv_date.setText(pc.getAdd_time());
 								for(int i=0;i<pc.getRank();i++){
 									ImageView star = new ImageView(context);
-									star.setImageResource(android.R.drawable.star_big_on);
+									star.setImageResource(R.drawable.game_star);
 									layout_star.addView(star);
 								}
 								fml.addView(cv);

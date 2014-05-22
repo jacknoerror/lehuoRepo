@@ -124,7 +124,7 @@ public class ProductListActivity extends MyTitleActivity implements
 			});
 		}
 		rGroup.setOnCheckedChangeListener(this);
-		rGroup.check(rBtns[0].getId());
+		rGroup.check(rBtns[2].getId());
 	}
 
 	@Override

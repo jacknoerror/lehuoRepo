@@ -24,6 +24,7 @@ import com.lehuo.net.action.user.UserEdituserReq;
 import com.lehuo.ui.MyGate;
 import com.lehuo.ui.address.MyAddressActivity;
 import com.lehuo.ui.tab.ContentAbstractFragment;
+import com.lehuo.util.JackButtonColorFilter;
 import com.lehuo.util.JackUtils;
 import com.lehuo.vo.User;
 
@@ -60,6 +61,7 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 		tv_birthday=(TextView)mView.findViewById(R.id.tv_account2_birthday);
 		tv_coupon=(TextView)mView.findViewById(R.id.tv_account2_coupon);
 		btn_logout=(Button)mView.findViewById(R.id.btn_logout);
+		JackButtonColorFilter.setButtonFocusChanged(btn_logout);
 		
 		tv_score.setOnClickListener(this);
 		tv_address.setOnClickListener(this);

@@ -8,9 +8,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/common_margin" 
+            android:padding="@dimen/common_margin_bigger" 
             android:layout_alignParentBottom="true"
-            android:background="@color/transparent_dark"
+            android:background="@color/transparent_light"
             >
 
             <LinearLayout
@@ -33,15 +33,20 @@
                 <TextView 
                     android:id="@+id/tv_mycart_oldprice"
                     style="@style/RedText" 
+                    android:textColor="@color/red_cart"
                     android:layout_weight="3"
                     />
 
                 <Button
                     android:id="@+id/btn_mycart_confirm"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" 
-                    android:text="确认结算"
+                    android:layout_height="32dp" 
+                    android:text="结算"
                     android:layout_weight="1"
+                    android:background="@drawable/btn_cart"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textsize_content_normal"
+                    android:gravity="center"
                     />
             </LinearLayout>
 
@@ -57,11 +62,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" 
                     android:textColor="@android:color/white"
-                    android:text="支付总计："/>
+                    android:text="支付总计："
+                    android:visibility="gone"
+                    />
 
                 <TextView 
                     android:id="@+id/tv_mycart_totalprice"
-                    android:textSize="@dimen/textsize_content_normal"
+                    android:textSize="@dimen/textsize_title_bigger"
+                    android:textColor="@color/red_cart"
+                    android:textStyle="bold"
                     style="@style/RedText" />
             </LinearLayout>
         </LinearLayout>

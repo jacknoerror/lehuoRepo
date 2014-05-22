@@ -32,6 +32,7 @@ public class ScoreMarcketActivity extends MyTitleActivity implements
 
 	@Override
 	public void initView() {
+		titleManager.setTitleName(getString(R.string.titlename_scoremarcket));
 		titleManager.initTitleBack();
 		titleManager.updateCart();
 

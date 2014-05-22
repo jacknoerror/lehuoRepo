@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@color/light_cyan"
+    >
 
     <include layout="@layout/merge_jacktitle" />
 
@@ -99,6 +100,7 @@
                 android:textColor="@color/transparent_dark"
                 android:textSize="@dimen/textsize_title_normal" 
                 android:padding="@dimen/common_margin_bigger"
+                android:background="@android:color/white"
                 />
 
             <ImageView

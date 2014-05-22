@@ -38,8 +38,8 @@ public class MyApplication extends Application {
 	public boolean m_bKeyRight = true;
     public BMapManager mBMapManager = null;
     
-//    public static final String strKey = "lspWjcpYnCBGmGTDUnhNfBRT";//pc
-    public static final String strKey = "9GprKFWrXYKCpQo71pLHUKal";//mac
+    public static final String strKey = "lspWjcpYnCBGmGTDUnhNfBRT";//pc
+//    public static final String strKey = "9GprKFWrXYKCpQo71pLHUKal";//mac
     
     public void initEngineManager(Context context) {
         if (mBMapManager == null) {

@@ -22,7 +22,10 @@
         android:hint="..."
         android:inputType="phone"
         android:background="@drawable/login_name"
-        android:layout_margin="@dimen/h_margin_activity"
+        android:layout_marginTop="@dimen/h_margin_activity"
+        android:layout_marginBottom="@dimen/h_margin_activity"
+        android:layout_marginLeft="@dimen/common_margin_super"
+        android:layout_marginRight="@dimen/common_margin_super"
         />
     <EditText 
         android:id="@+id/et_password"
@@ -31,7 +34,10 @@
         android:hint="..."
         android:inputType="textPassword"
         android:background="@drawable/login_password"
-        android:layout_margin="@dimen/h_margin_activity"
+        android:layout_marginTop="@dimen/h_margin_activity"
+        android:layout_marginBottom="@dimen/h_margin_activity"
+        android:layout_marginLeft="@dimen/common_margin_super"
+        android:layout_marginRight="@dimen/common_margin_super"
         />
     
     <RelativeLayout 

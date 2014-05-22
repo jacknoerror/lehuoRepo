@@ -104,6 +104,8 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 	public void initView() {
 		titleManager.setTitleName(getResources().getString(
 				R.string.titlename_confirmorder));
+		titleManager.initTitleBack();
+		titleManager.setRightText("Ã·Ωª∂©µ•", this);
 		user = MyData.data().getMe();
 		if (null == user)
 			return;
@@ -160,34 +162,42 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 			showSelectTimeDialog();
 			break;
 		case R.id.btn_co_commit:
-			ActionPhpRequestImpl req = new ConfirmOrderReq(
-					dc_consignee.getAddress_id(), 0, dc_total.getIntegral(),
-					// dc_payment.getPay_id(),
-					2,// –¥À¿
-					user.getUser_id(), timezoneStr);// TODO
-												// bonus
-												// 0,timezone
-												// null
-			ActionPhpReceiverImpl rcv = new JackShowToastReceiver(this) {
-				public boolean response(String result) throws JSONException {
-					boolean response;
-					if (!(response = super.response(result))) {
-						// TODO
-						Intent intent = new Intent();
-						intent.setClass(ConfirmOrderActivity.this,
-								HubActivity.class);
-						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						intent.putExtra(NetConst.EXTRAS_HUB, 2);//
-						startActivity(intent);
-					}
-					return response;
-				};
-			};
-			ActionBuilder.getInstance().request(req, rcv);
+			commit();
 			break;
 		default:
+			commit();
 			break;
 		}
+	}
+
+	/**
+	 * 
+	 */
+	private void commit() {
+		ActionPhpRequestImpl req = new ConfirmOrderReq(
+				dc_consignee.getAddress_id(), 0, dc_total.getIntegral(),
+				// dc_payment.getPay_id(),
+				2,// –¥À¿
+				user.getUser_id(), timezoneStr);// TODO
+											// bonus
+											// 0,timezone
+											// null
+		ActionPhpReceiverImpl rcv = new JackShowToastReceiver(this) {
+			public boolean response(String result) throws JSONException {
+				boolean response;
+				if (!(response = super.response(result))) {
+					// TODO
+					Intent intent = new Intent();
+					intent.setClass(ConfirmOrderActivity.this,
+							HubActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					intent.putExtra(NetConst.EXTRAS_HUB, 2);//
+					startActivity(intent);
+				}
+				return response;
+			};
+		};
+		ActionBuilder.getInstance().request(req, rcv);
 	}
 
 	private void showSelectTimeDialog() {

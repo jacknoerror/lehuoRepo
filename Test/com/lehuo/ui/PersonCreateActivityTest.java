@@ -48,9 +48,9 @@ public class PersonCreateActivityTest extends ActivityInstrumentationTestCase2<P
 	}
 	
 	public void testPCTest() {
-//		fail("Not yet implemented");
 //		assertEquals(2, );
 		assertNotNull(getActivity().spinnerPrv);
+		SystemClock.sleep(1000*60);
 	}
 	
 	/*public void shareTest(){

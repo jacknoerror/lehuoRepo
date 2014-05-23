@@ -25,6 +25,17 @@
             style="@style/Nodata_textview"
             android:text="购物车是空的"
             />
+        <FrameLayout 
+            android:id="@+id/empty_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="200dp"
+            android:visibility="invisible"
+            >
+            <include 
+            layout = "@layout/merge_nodataimg"
+            />
+        </FrameLayout>
     </FrameLayout>
 	<!-- <View 
 	    android:layout_width="match_parent"

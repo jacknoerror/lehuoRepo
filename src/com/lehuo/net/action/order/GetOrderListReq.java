@@ -25,7 +25,7 @@ public class GetOrderListReq implements ActionPhpRequestImpl {
 		super();
 		this.complete = complete;
 		this.page = page;
-		this.size = 5;
+		this.size = 10;
 		this.user_id = user_id;
 	}
 

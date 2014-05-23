@@ -19,25 +19,29 @@
         android:id="@+id/et_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="..."
+        android:hint="请输入您的用户名"
         android:inputType="phone"
-        android:background="@drawable/login_name"
+        android:background="@drawable/login_edit_bg"
+        android:drawableLeft="@drawable/login_edit_name"
         android:layout_marginTop="@dimen/h_margin_activity"
         android:layout_marginBottom="@dimen/h_margin_activity"
         android:layout_marginLeft="@dimen/common_margin_super"
         android:layout_marginRight="@dimen/common_margin_super"
+        android:drawablePadding="3dp"
         />
     <EditText 
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="..."
+        android:hint="请输入您的密码"
         android:inputType="textPassword"
-        android:background="@drawable/login_password"
+        android:background="@drawable/login_edit_bg"
+        android:drawableLeft="@drawable/login_edit_key"
         android:layout_marginTop="@dimen/h_margin_activity"
         android:layout_marginBottom="@dimen/h_margin_activity"
         android:layout_marginLeft="@dimen/common_margin_super"
         android:layout_marginRight="@dimen/common_margin_super"
+        android:drawablePadding="3dp"
         />
     
     <RelativeLayout 

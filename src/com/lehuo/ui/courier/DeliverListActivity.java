@@ -42,7 +42,7 @@ public class DeliverListActivity extends MyTitleActivity {
 	public void initView() {
 		titleManager.setTitleName(getString(R.string.titlename_deliverlist));
 		titleManager.initTitleBack();
-		titleManager.setRightText("ÅäËÍ", new View.OnClickListener() {
+		titleManager.setRightText("¿ªÊ¼ÅäËÍ", new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {

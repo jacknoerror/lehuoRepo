@@ -69,20 +69,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@drawable/shape_btn_bg_green_stroke"
+        android:layout_margin="@dimen/common_margin"
         >
         <RadioButton 
             android:id="@+id/radio_man"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MAN"
+            android:text="男"
+            style="@style/RadioButton_category"
             />
         <RadioButton 
             android:id="@+id/radio_woman"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="WOMAN"/>
+            android:text="女"
+            style="@style/RadioButton_category"
+            />
     </RadioGroup>
     <View 
         style="@style/DividerWH"

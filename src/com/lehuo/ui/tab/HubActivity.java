@@ -66,7 +66,6 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 	JackFragmentTabChangedHelper jftcl;
 
 	private DrawerLayout mDrawer;
-
 	private ListView mDrawerList;
 
 	private String[] mPlanetTitles;

@@ -49,6 +49,10 @@ public class RegistPhoneActivity extends MyTitleActivity implements ActionPhpRec
 		
 	}
 	private void getcheck() {
+		if(getPhone().isEmpty()) {
+			et_phone.setError("²»ÄÜÎª¿Õ");
+			return;
+		}
 //		phone = et_phone.getText().toString();
 		ActionPhpRequestImpl actReq = new SendCodeForRegistReq(getPhone());
 		ActionBuilder.getInstance().request(actReq, this);

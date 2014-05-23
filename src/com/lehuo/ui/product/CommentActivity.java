@@ -25,6 +25,7 @@ public class CommentActivity extends MyTitleActivity {
 
 	EditText edit;
 	protected int goods_id;
+	private int order_id;
 	
 	@Override
 	public int getLayoutRid() {
@@ -42,14 +43,15 @@ public class CommentActivity extends MyTitleActivity {
 				String cmmt = edit.getText().toString();
 				
 				User me = MyData.data().getMe();
-				if(null==me||goods_id==0) return;
-				ActionPhpRequestImpl actReq = new AddCommentReq(me.getUser_id(), goods_id, cmmt);//TODO
+				if(null==me||goods_id==0||order_id==0) return;
+				ActionPhpRequestImpl actReq = new AddCommentReq(me.getUser_id(), goods_id, cmmt,order_id);
 				ActionPhpReceiverImpl actRcv = new JackFinishActivityReceiver(CommentActivity.this);
 				ActionBuilder.getInstance().request(actReq, actRcv);
 				
 			}
 		});
 		goods_id = getIntent().getIntExtra(NetConst.EXTRAS_GOODS_ID, 0);
+		order_id = getIntent().getIntExtra(NetConst.EXTRAS_ORDER_ID, 0);
 		edit = (EditText) this.findViewById(R.id.et_comment);
 
 	}

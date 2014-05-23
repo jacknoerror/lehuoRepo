@@ -39,10 +39,8 @@ public class DeliverListActivityTest extends ActivityInstrumentationTestCase2<De
 	}
 	
 	public void testPCTest() {
-//		fail("Not yet implemented");
-//		assertEquals(2, );
 		assertNotNull(getActivity());
-		SystemClock.sleep(25000);
+		SystemClock.sleep(1000*30);
 	}
 	
 }

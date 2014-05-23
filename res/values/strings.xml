@@ -16,6 +16,7 @@
     <string name="hintedit_aa_name">请填写收货人姓名</string>
     <string name="hintedit_aa_phone">请填写手机号码</string>
     <string name="hintedit_aa_addr">请填写详细地址</string>
+    <string name="hintedit_checkcode">请输入验证码</string>
 
     
     

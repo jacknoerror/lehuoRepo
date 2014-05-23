@@ -23,6 +23,7 @@ import com.lehuo.net.action.JackFinishActivityReceiver;
 import com.lehuo.net.action.user.UserAddAddressReq;
 import com.lehuo.net.action.user.UserSelectAddressReq;
 import com.lehuo.ui.MyTitleActivity;
+import com.lehuo.ui.adapter.MySpinnerArrayAdapter;
 import com.lehuo.ui.login.MySpinnerAdapter;
 import com.lehuo.util.JackUtils;
 import com.lehuo.vo.Place;
@@ -111,12 +112,14 @@ public class AddAddressActivity extends MyTitleActivity implements
 		spinnerCt.setOnItemSelectedListener(this);
 		spinnerDist.setOnItemSelectedListener(this);
 		
-		spinnerPrv.setAdapter(new MySpinnerAdapter(LocalDistrictGetter.getInstance().getPlaceList(0)));
+//		spinnerPrv.setAdapter(new MySpinnerAdapter(LocalDistrictGetter.getInstance().getPlaceList(0)));
+		spinnerPrv.setAdapter(new MySpinnerArrayAdapter(this,LocalDistrictGetter.getInstance().getPlaceList(0)));
 	}
 
 	private int getItemId(Spinner sp) {// one alternate is recording when
 										// selected
-		return ((Place) sp.getSelectedItem()).getRegion_id();
+		return  (int) sp.getAdapter().getItemId(sp.getSelectedItemPosition());
+//		return ((Place) sp.getSelectedItem()).getRegion_id();
 	}
 
 	@Override
@@ -127,11 +130,15 @@ public class AddAddressActivity extends MyTitleActivity implements
 			return;// 第一个选项不做响应
 		switch (arg0.getId()) {
 		case R.id.spinner_cuser_province:
-			spinnerCt.setAdapter(new MySpinnerAdapter(LocalDistrictGetter
+//			spinnerCt.setAdapter(new MySpinnerAdapter(LocalDistrictGetter
+//					.getInstance().getPlaceList((int) arg3)));
+			spinnerCt.setAdapter(new MySpinnerArrayAdapter(this,LocalDistrictGetter
 					.getInstance().getPlaceList((int) arg3)));
 			break;
 		case R.id.spinner_cuser_city:
-			spinnerDist.setAdapter(new MySpinnerAdapter(LocalDistrictGetter
+//			spinnerDist.setAdapter(new MySpinnerAdapter(LocalDistrictGetter
+//					.getInstance().getPlaceList((int) arg3)));
+			spinnerDist.setAdapter(new MySpinnerArrayAdapter(this,LocalDistrictGetter
 					.getInstance().getPlaceList((int) arg3)));
 			break;
 		case R.id.spinner_cuser_district:

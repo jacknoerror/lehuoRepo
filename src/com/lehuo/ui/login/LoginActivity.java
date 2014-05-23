@@ -75,8 +75,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 		
 		ActionPhpRequestImpl req = new LoginReq(mobile, pwd);
 		ActionPhpReceiverImpl rcv= new LoginRcv(this);
-//		ActionBuilder.getInstance().request(req, rcv);
-		TestDataTracker.simulateConnection(rcv, req.getApiName());//test
+		ActionBuilder.getInstance().request(req, rcv);
+//		TestDataTracker.simulateConnection(rcv, req.getApiName());//test
 		
 	}
 	

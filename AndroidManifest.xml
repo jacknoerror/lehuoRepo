@@ -48,7 +48,8 @@
             android:name="com.lehuo.ui.login.RegistCodeActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
-        <activity android:name="com.lehuo.ui.login.RegistPhoneActivity" >
+        <activity android:name="com.lehuo.ui.login.RegistPhoneActivity" 
+            android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity android:name="com.lehuo.ui.product.MyCartActivity" >
         </activity>

@@ -62,7 +62,7 @@ public class ListAdapterCourier extends MspAdapter {
 				tv_status1.setSelected(false);
 			}else{
 				tv_status1.setSelected(true);
-				pay_status = "确认收货";
+				pay_status = "确认收款";
 				tv_status1.setOnClickListener(new View.OnClickListener() {
 					
 					@Override
@@ -77,19 +77,37 @@ public class ListAdapterCourier extends MspAdapter {
 			tv_payment.setText(itm.getPay_method());
 			tv_price.setText(itm.getTotal_fee());
 			tv_count.setText("x"+itm.getNums());
-			tv_status2.setText(itm.getShipping_status());//TODO 配送状态 
+//			tv_status2.setText(itm.getShipping_status());//TODO 配送状态 
+			String s2 = "状态获取失败";
+			int d = itm.getCourier_status();
+			switch (d) {
+			case 0:
+				s2 = "未开始配送";
+				break;
+			case 1:
+				s2 = "正在配送中";
+				break;
+			case 2:
+				s2 = "配送已完成";
+				break;
+			default:
+				break;
+			}
+			tv_status2.setText(s2);
 			JSONArray jar = itm.getGoods();
-			for(int i=0;i<jar.length();i++){
-				if(midLayout.getChildCount()>0) break;
-				InfoGoodsInOrder g;
-				try {
-					g = new InfoGoodsInOrder(jar.getJSONObject(i));
-				} catch (JSONException e) {
-					e.printStackTrace();
-					continue;
-				}
-				addProdView(midLayout, g);
+			if(midLayout.getChildCount()==0) {
 				
+				for(int i=0;i<jar.length();i++){
+					InfoGoodsInOrder g;
+					try {
+						g = new InfoGoodsInOrder(jar.getJSONObject(i));
+					} catch (JSONException e) {
+						e.printStackTrace();
+						continue;
+					}
+					addProdView(midLayout, g);
+					
+				}
 			}
 			
 		}

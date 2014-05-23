@@ -6,18 +6,18 @@ import org.json.JSONObject;
 import com.lehuo.entity.json.JsonImport;
 
 public class InfoGoodsInOrder extends JsonImport {
-	
-	  private String goods_price;
-	  private String goods_attr;
-	 private int goods_number;
-	 private int is_commented;
-	 private int goods_id;
-	  private String goods_name;
-	  private String goods_thumb;
-	 private int order_id;
-	 private int integral;
-	 private int rec_id;
-	
+
+	private String goods_price;
+	private String goods_attr;
+	private int goods_number;
+	private int is_commented;
+	private int goods_id;
+	private String goods_name;
+	private String goods_thumb;
+	private int order_id;
+	private int integral;
+	private int rec_id;
+
 	public InfoGoodsInOrder() {
 		super();
 	}
@@ -48,6 +48,10 @@ public class InfoGoodsInOrder extends JsonImport {
 
 	public final void setGoods_number(int goods_number) {
 		this.goods_number = goods_number;
+	}
+
+	public final boolean isCommented() {
+		return is_commented >0;
 	}
 
 	public final int getIs_commented() {
@@ -108,16 +112,26 @@ public class InfoGoodsInOrder extends JsonImport {
 
 	@Override
 	public void initJackJson(JSONObject job) throws JSONException {
-		if(job.has("goods_price")) goods_price = job.getString("goods_price");
-		if(job.has("goods_attr")) goods_attr = job.getString("goods_attr");
-		if(job.has("goods_number")) goods_number = job.getInt("goods_number");
-		if(job.has("is_commented")) is_commented = job.getInt("is_commented");
-		if(job.has("goods_id")) goods_id = job.getInt("goods_id");
-		if(job.has("goods_name")) goods_name = job.getString("goods_name");
-		if(job.has("goods_thumb")) goods_thumb = job.getString("goods_thumb");
-		if(job.has("order_id")) order_id = job.getInt("order_id");
-		if(job.has("integral")) integral = job.getInt("integral");
-		if(job.has("rec_id")) rec_id = job.getInt("rec_id");
+		if (job.has("goods_price"))
+			goods_price = job.getString("goods_price");
+		if (job.has("goods_attr"))
+			goods_attr = job.getString("goods_attr");
+		if (job.has("goods_number"))
+			goods_number = job.getInt("goods_number");
+		if (job.has("is_commented"))
+			is_commented = job.getInt("is_commented");
+		if (job.has("goods_id"))
+			goods_id = job.getInt("goods_id");
+		if (job.has("goods_name"))
+			goods_name = job.getString("goods_name");
+		if (job.has("goods_thumb"))
+			goods_thumb = job.getString("goods_thumb");
+		if (job.has("order_id"))
+			order_id = job.getInt("order_id");
+		if (job.has("integral"))
+			integral = job.getInt("integral");
+		if (job.has("rec_id"))
+			rec_id = job.getInt("rec_id");
 
 	}
 

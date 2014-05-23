@@ -43,6 +43,7 @@
                     android:id="@+id/et_aa_mobile"
                     style="@style/NewAddressInput" 
                     android:hint="@string/hintedit_aa_phone"
+                    android:inputType="phone"
                     />
             </LinearLayout>
 
@@ -104,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@drawable/selector_btn_offline"
-                    android:layout_marginRight="@dimen/common_margin" />
+                    android:layout_marginRight="@dimen/common_margin_bigger" />
             </LinearLayout>
 
             <View style="@style/DividerWH" />

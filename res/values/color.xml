@@ -2,7 +2,7 @@
 <resources>
     <color name="green_title">#009933</color>
     <color name="light_cyan">#FCFBF6</color>
-    <color name="red_text">#CC0000</color>
+    <color name="red_text">#FF0011</color>
     <color name="grey_text">#aaa</color>
     <color name="transparent_dark">#a000</color>
     <color name="transparent_light">#4000</color>

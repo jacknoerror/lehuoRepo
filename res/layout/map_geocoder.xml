@@ -65,7 +65,7 @@
             android:id="@+id/layout_map_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="22dp"
+            android:layout_margin="32dp"
             android:orientation="horizontal"
             android:visibility="gone"
             android:layout_alignParentBottom="true"
@@ -74,7 +74,7 @@
                 android:id="@+id/img_map_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_info_details"
+                android:src="@drawable/map_man"
                 />
             <View 
                 android:layout_width="0dp"
@@ -87,7 +87,7 @@
                 android:id="@+id/img_map_call"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_call"
+                android:src="@drawable/map_phone"
                 />
             
         </LinearLayout>

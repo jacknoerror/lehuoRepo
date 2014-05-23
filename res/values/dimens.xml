@@ -2,7 +2,7 @@
 <resources>
     <dimen name="common_margin">5dp</dimen>
     <dimen name="common_margin_bigger">10dp</dimen>
-    <dimen name="common_margin_super">80dp</dimen>
+    <dimen name="common_margin_super">25dp</dimen>
     <dimen name="h_margin_activity">16dp</dimen>
     
     

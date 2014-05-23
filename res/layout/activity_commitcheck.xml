@@ -37,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:hint="@string/hintedit_checkcode"
             />
         <TextView 
             android:id="@+id/tv_cmmtchck_wait"
@@ -44,6 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:visibility="invisible"
+            android:textColor="#DBA400"
+            android:layout_marginLeft="@dimen/common_margin_bigger"
             />
     </LinearLayout>
     <Button 

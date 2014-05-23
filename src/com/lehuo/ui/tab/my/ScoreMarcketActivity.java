@@ -6,9 +6,12 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.lehuo.R;
+import com.lehuo.data.MyData;
 import com.lehuo.net.NetStrategies;
 import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.goods.GetProductListReq;
+import com.lehuo.net.action.order.UpdateCartRcv;
+import com.lehuo.net.action.order.UpdateCartReq;
 import com.lehuo.ui.MyGate;
 import com.lehuo.ui.MyTitleActivity;
 import com.lehuo.ui.custom.list.ListItemImpl.Type;
@@ -29,12 +32,20 @@ public class ScoreMarcketActivity extends MyTitleActivity implements
 	public int getLayoutRid() {
 		return R.layout.activity_common_frame;
 	}
-
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (null != titleManager) {
+			ActionBuilder.getInstance().request(
+					new UpdateCartReq(MyData.data().getMe().getUser_id()),
+					new UpdateCartRcv(this, titleManager));
+		}
+	}
 	@Override
 	public void initView() {
 		titleManager.setTitleName(getString(R.string.titlename_scoremarcket));
 		titleManager.initTitleBack();
-		titleManager.updateCart();
+//		titleManager.updateCart();
 
 		mListView = new MyScrollPageListView(this, Type.GOODS);
 		TextView emptyText = (TextView) findViewById(R.id.empty_tv);

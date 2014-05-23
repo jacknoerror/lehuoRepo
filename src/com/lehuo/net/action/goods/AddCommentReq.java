@@ -17,13 +17,16 @@ public class AddCommentReq implements ActionPhpRequestImpl {
 	int goods_id;
 	String content;
 	
+	int order_id;
 	
 	
-	public AddCommentReq(int user_id, int goods_id, String content) {
+
+	public AddCommentReq(int user_id, int goods_id, String content, int order_id) {
 		super();
 		this.user_id = user_id;
 		this.goods_id = goods_id;
 		this.content = content;
+		this.order_id = order_id;
 	}
 
 	@Override
@@ -47,6 +50,7 @@ public class AddCommentReq implements ActionPhpRequestImpl {
 		halfway.put(PARAMS_USER_ID,""+user_id);
 		halfway.put(PARAMS_GOODS_ID,""+goods_id);
 		halfway.put(NetConst.PARAMS_CONTENT,content);
+		halfway.put(NetConst.PARAMS_ORDER_ID,order_id+"");
 
 		return halfway;
 	}

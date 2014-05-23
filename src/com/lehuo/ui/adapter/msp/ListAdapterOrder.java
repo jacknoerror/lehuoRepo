@@ -3,6 +3,7 @@ package com.lehuo.ui.adapter.msp;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,9 +43,9 @@ public class ListAdapterOrder extends MspAdapter {
 		public void setup(int position) {
 			OrderInfo oi = (OrderInfo)getItem(position);
 			tv_sn.setText(oi.getOrder_sn());
-			tv_price.setText("总价："+oi.getTotal_fee());//
+//			tv_price.setText("总价："+oi.getTotal_fee());//
+			tv_price.setText(Html.fromHtml(String.format("%s<font color=\"#ff0000\">%s</font>", "总价：",oi.getTotal_fee())));
 			tv_count.setText("数量："+oi.getNums());
-			//TODO deliver
 			//
 			if(upLayout.getChildCount()==0){
 				JSONArray jar = oi.getGoods();
@@ -73,13 +74,17 @@ public class ListAdapterOrder extends MspAdapter {
 			// comment
 			TextView goComment = (TextView)view.findViewById(R.id.tv_itemprodcomment);
 			goComment.setVisibility(View.VISIBLE);
-			goComment.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					MyGate.goComment(getContextInAdapter(),jgio.getGoods_id());
-				}
-			});
+			if(!jgio.isCommented()){
+				goComment.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						MyGate.goComment(getContextInAdapter(),jgio.getGoods_id(),jgio.getOrder_id());
+					}
+				});
+			}else{
+				goComment.setText("已评论");
+			}
 			view.setOnClickListener(new View.OnClickListener() {
 				
 				@Override

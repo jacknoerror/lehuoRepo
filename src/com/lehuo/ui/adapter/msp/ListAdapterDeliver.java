@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.content.Intent;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,8 @@ public class ListAdapterDeliver extends MspAdapter {
 		public void setup(int position) {
 			final OrderInfo oi = (OrderInfo) getItem(position);
 			tv_sn.setText(oi.getOrder_sn());
-			tv_price.setText("总价：" + oi.getTotal_fee());//
+//			tv_price.setText("总价：" + oi.getTotal_fee());//
+			tv_price.setText(Html.fromHtml(String.format("%s<font color=\"#ff0000\">%s</font>", "总价：",oi.getTotal_fee())));
 			tv_count.setText("数量：x" + oi.getNums());
 			// deliver
 			tv_checkmap.setVisibility(View.VISIBLE);

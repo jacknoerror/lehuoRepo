@@ -15,18 +15,46 @@ import com.lehuo.util.JackUtils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class RegistCodeActivity extends MyTitleActivity implements ActionPhpReceiverImpl {
+	private int timerSec;
 
 	String phone;
 	
 	TextView tv_mobile,tv_waiting;
 	EditText et_input;
 	Button btn_done;
+	
+	Handler mHandler = new Handler(){
+		
+		@Override
+		public void handleMessage(android.os.Message msg) {
+			
+			if(null==tv_waiting) return;
+			switch (msg.what) {
+			case 0:
+				tv_waiting.setText(String.format("%d秒后可重发验证码", timerSec--));
+				break;
+			case 1:
+				tv_waiting.setVisibility(View.VISIBLE);
+				break;
+			case 2:
+				tv_waiting.setVisibility(View.INVISIBLE);
+				break;
+			default:
+				break;
+			}
+				
+			
+		};
+		
+	};
 	
 	@Override
 	public int getLayoutRid() {
@@ -55,6 +83,23 @@ public class RegistCodeActivity extends MyTitleActivity implements ActionPhpRece
 		});
 		
 		tv_mobile.setText(phone);
+		
+		new Thread(){//TODO
+
+			@Override
+			public void run() {
+				if(null==mHandler) return;
+				timerSec=30;
+				mHandler.sendEmptyMessage(1);
+				while (timerSec>=0) {
+					mHandler.sendEmptyMessage(0);
+					SystemClock.sleep(1000);
+				}
+				mHandler.sendEmptyMessage(2);
+			};
+			
+			
+		}.start();
 	}
 	private void commit(){
 		String code = et_input.getText().toString();
@@ -78,5 +123,11 @@ public class RegistCodeActivity extends MyTitleActivity implements ActionPhpRece
 	@Override
 	public Context getReceiverContext() {
 		return this;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		timerSec = -1;
 	}
 }

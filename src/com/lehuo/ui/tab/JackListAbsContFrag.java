@@ -5,6 +5,7 @@ import android.widget.FrameLayout;
 import com.lehuo.R;
 import com.lehuo.ui.custom.list.MyScrollPageListView;
 import com.lehuo.ui.custom.list.ListItemImpl.Type;
+import com.lehuo.util.JackUtils;
 
 public abstract class JackListAbsContFrag extends ContentAbstractFragment {
 
@@ -28,7 +29,7 @@ public abstract class JackListAbsContFrag extends ContentAbstractFragment {
 		mListView = new MyScrollPageListView(getActivity(), getType());
 		mFrame.addView(mListView);
 		mListView.setDivider(getResources().getDrawable(android.R.color.transparent));
-		mListView.setDividerHeight(20);
+		mListView.setDividerHeight(JackUtils.dip2px(getActivity(), 15));
 	}
 	public abstract Type getType();
 	

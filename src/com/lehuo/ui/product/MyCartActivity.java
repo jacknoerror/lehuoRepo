@@ -8,6 +8,8 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,9 +89,10 @@ public class MyCartActivity extends MyTitleActivity implements MyScrollPageListV
 		// mList = (MyScrollPageListView)
 		// this.findViewById(R.id.listview_common_activity);
 		mList = new MyScrollPageListView(this, Type.GOODS);
-		TextView emptyView = (TextView)this.findViewById(R.id.empty_tv);
-		mList.setEmptyView(emptyView);
+//		TextView emptyView = (TextView)this.findViewById(R.id.empty_tv);
 		frame.addView(mList);
+		View emptyView =  this.findViewById(R.id.empty_img);
+		mList.setEmptyView(emptyView);
 
 		rcvGetcart = new JackShowToastReceiver(this) {
 			@Override
@@ -112,6 +115,11 @@ public class MyCartActivity extends MyTitleActivity implements MyScrollPageListV
 		ActionPhpRequestImpl req = new GetCartReq(me.getUser_id());//
 		ActionPhpReceiverImpl rcv = new GetCartRcv(this) {
 
+			@Override
+			public Context getReceiverContext() {
+				return mList.isSetup()?null:super.getReceiverContext();
+			}
+			
 			@Override
 			public boolean respJob(JSONObject job) throws JSONException {
 				DataCart cart = null;
@@ -248,18 +256,22 @@ public class MyCartActivity extends MyTitleActivity implements MyScrollPageListV
 
 						}
 					});
-					btn_del.setOnClickListener(new View.OnClickListener() {
+					View.OnClickListener onClickToASkIfDeleteItem = new View.OnClickListener() {
 
 						@Override
 						public void onClick(View v) {
-							// 删除
-							int user_id = me.getUser_id();
-							ActionPhpRequestImpl req = new DelCartReq(itm
-									.getRec_id(), user_id);
-							ActionBuilder.getInstance()
-									.request(req, rcvGetcart);
+							JackUtils.showDialog(MyCartActivity.this, "您确定要删除这间商品吗？", new DialogInterface.OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									doDelete(itm);
+									dialog.dismiss();
+								}
+							});
+							
 						}
-					});
+					};
+					btn_del.setOnClickListener(onClickToASkIfDeleteItem);
 
 				}
 			}
@@ -267,6 +279,18 @@ public class MyCartActivity extends MyTitleActivity implements MyScrollPageListV
 			@Override
 			public int getLayoutId() {
 				return R.layout.item_cart;
+			}
+
+			/**
+			 * @param itm
+			 */
+			private void doDelete(final InfoGoodsInCart itm) {
+				// 删除
+				int user_id = me.getUser_id();
+				ActionPhpRequestImpl req = new DelCartReq(itm
+						.getRec_id(), user_id);
+				ActionBuilder.getInstance()
+						.request(req, rcvGetcart);
 			}
 		}
 	}

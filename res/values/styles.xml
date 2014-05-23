@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -26,7 +26,9 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-
+<style name="Phone" parent="MatchWidthOnly">
+    <item name="android:background">@drawable/phone_bg</item>
+</style>
     <style name="SimpleBar" parent="MatchWidthOnly">
         <item name="android:layout_marginBottom">@dimen/common_margin</item>
         <item name="android:orientation">horizontal</item>
@@ -91,7 +93,7 @@
         <item name="android:padding">@dimen/common_margin_bigger</item>
     </style>
 
-<!-- bolde ?-->
+    <!-- bolde ? -->
     <style name="ContentTitle" parent="WrapAll">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">@dimen/textsize_title_bigger</item>
@@ -99,6 +101,7 @@
         <item name="android:layout_marginTop">@dimen/common_margin</item>
         <item name="android:layout_marginBottom">@dimen/common_margin</item>
     </style>
+
     <style name="NewAddressTitle">
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -132,6 +135,11 @@
         <item name="android:textColor">@color/green_title</item>
         <item name="android:padding">@dimen/common_margin</item>
         <item name="android:background">@drawable/shape_btn_bg_green_stroke</item>
+    </style>
+
+    <style name="Spinner_place" parent="WrapAll">
+        <item name="android:background">@drawable/myspinner_bg</item>
+        <item name="android:layout_margin">@dimen/common_margin</item>
     </style>
 
 </resources>

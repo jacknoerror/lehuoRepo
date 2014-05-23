@@ -101,11 +101,12 @@ public class MyGate implements NetConst {
 		context.startActivity(intent);
 	}
 
-	public static void goComment(Context context, int goods_id) {
+	public static void goComment(Context context, int goods_id, int order_id) {
 		if(null==context) return;
 		Intent intent = new Intent();
 		intent.setClass(context, CommentActivity.class);
 		intent.putExtra(NetConst.EXTRAS_GOODS_ID, goods_id);
+		intent.putExtra(NetConst.EXTRAS_ORDER_ID, order_id);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(intent);
 	}

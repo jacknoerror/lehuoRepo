@@ -22,7 +22,11 @@
             android:gravity="center_vertical"
             android:text="土豆"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/textsize_title_normal" />
+            android:textSize="@dimen/textsize_title_normal"
+            android:paddingRight="@dimen/common_margin_super"
+            android:maxLines="2"
+            android:ellipsize="end"
+             />
 
         <LinearLayout
             style="@style/WrapAll"

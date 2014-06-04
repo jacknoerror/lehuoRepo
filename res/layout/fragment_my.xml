@@ -7,6 +7,7 @@
     >
     <include layout="@layout/merge_jacktitle"/> 
 	<LinearLayout 
+	    android:id="@id/layout_belowtitle"
 	    android:layout_width="match_parent"
 	    android:layout_height="150dp"
 	    android:orientation="horizontal"

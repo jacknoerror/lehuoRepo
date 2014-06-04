@@ -87,17 +87,12 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 			
 			@Override
 			public void onDrawerStateChanged(int arg0) {
-				// TODO Auto-generated method stub
 				/*
 				 * if (drawerLayout.isDrawerOpen(rela)) {
                         middlelayout.layout(left.getRight(), 0, left.getRight() + display.getWidth(), display.getHeight());
                         //  middlelayout  --->抽屉中间布局   left --->抽屉左边布局
                 }
 				 */
-				Fragment frag = jftcl.getCurrent();
-				if(frag instanceof ContentAbstractFragment){
-					Log.i("HubActivity-onDrawerStateChanged", "ao:"+arg0+"_lr:"+mDrawerList.getRight()+"_is:"+mDrawer.isDrawerOpen(Gravity.LEFT));
-				}
 			}
 			
 			@Override

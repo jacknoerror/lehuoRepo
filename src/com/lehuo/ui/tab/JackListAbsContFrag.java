@@ -25,7 +25,7 @@ public abstract class JackListAbsContFrag extends ContentAbstractFragment {
 		titleManager.initTitleMenu();
 		titleManager.updateCart();
 		
-		mFrame = (FrameLayout)mView.findViewById(R.id.frame_order);
+		mFrame = (FrameLayout)mView.findViewById(R.id.layout_belowtitle);
 		mListView = new MyScrollPageListView(getActivity(), getType());
 		mFrame.addView(mListView);
 		mListView.setDivider(getResources().getDrawable(android.R.color.transparent));

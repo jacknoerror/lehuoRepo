@@ -1,8 +1,11 @@
 package com.lehuo.ui.tab;
 
 import android.content.Context;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.lehuo.R;
+import com.lehuo.data.Const;
 import com.lehuo.data.MyData;
 import com.lehuo.net.action.ActionBuilder;
 import com.lehuo.net.action.order.UpdateCartRcv;
@@ -10,6 +13,7 @@ import com.lehuo.net.action.order.UpdateCartReq;
 import com.lehuo.ui.JackAbsFragment;
 import com.lehuo.ui.TitleManager;
 import com.lehuo.ui.custom.JackTitle;
+import com.lehuo.util.JackUtils;
 
 public abstract class ContentAbstractFragment extends JackAbsFragment {
 	protected final String TAG = getClass().getSimpleName();
@@ -45,9 +49,10 @@ public abstract class ContentAbstractFragment extends JackAbsFragment {
 	 * @param arg1
 	 */
 	public void moveLikeAJagger(float arg1){
-		if(null==mView) return;
-		mView.layout((int)(540*arg1), 0, (int)(540*arg1+1080), mView.getHeight());
-		JackTitle titleView = titleManager.titleView();
-		titleView.layout(-(int)(540*arg1), 0, (int)(-540*arg1+1080), titleView.getHeight());
+		View view  ;
+		if(null==mView||null==(view = mView.findViewById(R.id.layout_belowtitle))) return;
+		final float drawerListWidth =getResources().getDimension(R.dimen.h_width_drawerlist);
+		final float headerHeight =getResources().getDimension(R.dimen.v_titleheight);
+		view.layout((int)(drawerListWidth*arg1), (int)headerHeight, (int)(drawerListWidth*arg1+Const.SCREEN_WIDTH), (int) (view.getHeight()+headerHeight));
 	}
 }

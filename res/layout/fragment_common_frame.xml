@@ -8,7 +8,7 @@
     <include layout="@layout/merge_jacktitle"
         />
     <FrameLayout 
-        android:id="@+id/frame_order"
+        android:id="@id/layout_belowtitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_cyan"

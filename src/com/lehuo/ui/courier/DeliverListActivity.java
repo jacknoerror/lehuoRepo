@@ -68,7 +68,7 @@ public class DeliverListActivity extends MyTitleActivity {
 			}
 		});
 		
-		mFrame = (FrameLayout)this.findViewById(R.id.frame_order);
+		mFrame = (FrameLayout)this.findViewById(R.id.layout_belowtitle);
 		mListView = new MyScrollPageListView(this, getType());
 		mListView.setTag(this);//0513
 		mFrame.addView(mListView);

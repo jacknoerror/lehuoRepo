@@ -7,6 +7,7 @@
     <include layout="@layout/merge_jacktitle" />
 
     <ScrollView
+        android:id="@id/layout_belowtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 

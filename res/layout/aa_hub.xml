@@ -12,7 +12,7 @@
        
         <ListView 
             android:id="@+id/left_drawer"
-            android:layout_width="164dp"
+            android:layout_width="@dimen/h_width_drawerlist"
             android:layout_height="match_parent"
             android:background="@android:color/black"
             android:divider="@android:color/black"

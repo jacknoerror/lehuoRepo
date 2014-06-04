@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -81,6 +82,41 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 		mDrawer = (DrawerLayout) this.findViewById(R.id.drawer_main);
 		mDrawer.setDrawerShadow(R.drawable.shadow, GravityCompat.START);
 		MyData.data().setDrawer(mDrawer);
+		
+		mDrawer.setDrawerListener(new DrawerLayout.DrawerListener() {
+			
+			@Override
+			public void onDrawerStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+				/*
+				 * if (drawerLayout.isDrawerOpen(rela)) {
+                        middlelayout.layout(left.getRight(), 0, left.getRight() + display.getWidth(), display.getHeight());
+                        //  middlelayout  --->抽屉中间布局   left --->抽屉左边布局
+                }
+				 */
+				Fragment frag = jftcl.getCurrent();
+				if(frag instanceof ContentAbstractFragment){
+					Log.i("HubActivity-onDrawerStateChanged", "ao:"+arg0+"_lr:"+mDrawerList.getRight()+"_is:"+mDrawer.isDrawerOpen(Gravity.LEFT));
+				}
+			}
+			
+			@Override
+			public void onDrawerSlide(View arg0, float arg1) {
+				Fragment frag = jftcl.getCurrent();
+				if(frag instanceof ContentAbstractFragment){
+					((ContentAbstractFragment) frag).moveLikeAJagger(arg1);
+				}
+//				Log.i("HubActivity-onDrawerSlide", "ai:"+arg1);
+			}
+			
+			@Override
+			public void onDrawerOpened(View arg0) {
+			}
+			
+			@Override
+			public void onDrawerClosed(View arg0) {
+			}
+		});
 		
 		requestCats();
 //		

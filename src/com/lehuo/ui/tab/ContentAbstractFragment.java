@@ -9,6 +9,7 @@ import com.lehuo.net.action.order.UpdateCartRcv;
 import com.lehuo.net.action.order.UpdateCartReq;
 import com.lehuo.ui.JackAbsFragment;
 import com.lehuo.ui.TitleManager;
+import com.lehuo.ui.custom.JackTitle;
 
 public abstract class ContentAbstractFragment extends JackAbsFragment {
 	protected final String TAG = getClass().getSimpleName();
@@ -39,19 +40,14 @@ public abstract class ContentAbstractFragment extends JackAbsFragment {
 		titleManager = new TitleManager(mView);
 	}
 
-	/*
-	 * protected void setTitleImg(int rid){ if(null==titleImg) titleImg =
-	 * (ImageView)mView.findViewById(R.id.img_title); if(null!=titleImg) {
-	 * titleImg.setImageResource(rid); } }
+	/**
+	 *  middlelayout.layout(left.getRight(), 0, left.getRight() + display.getWidth(), display.getHeight());
+	 * @param arg1
 	 */
-	/*
-	 * protected void initBackBtn(){ if(null==backBtn) backBtn =
-	 * (ImageView)mView.findViewById(R.id.btn_title_back); if(null!=backBtn) {
-	 * backBtn.setVisibility(View.VISIBLE); backBtn.setOnClickListener(new
-	 * View.OnClickListener() {
-	 * 
-	 * @Override public void onClick(View v) { TabHost th =
-	 * MyData.data().getTabHost(); if(null!=th){ th.setCurrentTab(0); } //TODO }
-	 * }); } }
-	 */
+	public void moveLikeAJagger(float arg1){
+		if(null==mView) return;
+		mView.layout((int)(540*arg1), 0, (int)(540*arg1+1080), mView.getHeight());
+		JackTitle titleView = titleManager.titleView();
+		titleView.layout(-(int)(540*arg1), 0, (int)(-540*arg1+1080), titleView.getHeight());
+	}
 }

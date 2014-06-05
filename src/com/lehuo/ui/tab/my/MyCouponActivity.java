@@ -27,6 +27,10 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+/**
+ *只是查看 不需要点击
+ * @author tao
+ */
 public class MyCouponActivity extends MyTitleActivity {
 	
 	
@@ -36,12 +40,14 @@ public class MyCouponActivity extends MyTitleActivity {
 	private GetBonusRcv getbonusrcv;
 
 	List<ListItemImpl> aList,uList,eList;
+	private RadioGroup mRadioGroup;
 	
 	/**
 	 * 
 	 */
 	private void initJackRadios() {
-		jRa = new JackRadios((FrameLayout) this.findViewById(R.id.frame_lists),(RadioGroup) this.findViewById(R.id.group_common)){
+		mRadioGroup = (RadioGroup) this.findViewById(R.id.group_common);
+		jRa = new JackRadios((FrameLayout) this.findViewById(R.id.frame_lists),mRadioGroup){
 			@Override
 			protected int[] getBtnRids() {
 				return new int[]{R.id.radio1,R.id.radio2,R.id.radio3};
@@ -52,30 +58,15 @@ public class MyCouponActivity extends MyTitleActivity {
 				MyScrollPageListView lv = new MyScrollPageListView(MyCouponActivity.this, Type.COUPON);
 				lv.setDivider(null);
 				lv.setFooterDividersEnabled(false);
+				lv.setOnGetPageListener(new MyScrollPageListView.OnGetPageListener() {
+					
+					@Override
+					public void page(final MyScrollPageListView qListView, int pageNo) {
+						requestData();//XXX when no gplistener, but need pull-to-refresh
+					}
+				});
 //				lv.setTag(MyCouponActivity.this);
-				switch (i) {
-				case R.id.radio1:
-					lv.updateList(aList);
-					lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-						@Override
-						public void onItemClick(AdapterView<?> parent,
-								View view, int position, long id) {
-							// TODO Auto-generated method stub
-							
-						}
-					});
-					break;
-				case R.id.radio2:
-					lv.updateList(uList);
-					break;
-				case R.id.radio3:
-					lv.updateList(eList);
-					break;
-
-				default:
-					break;
-				}
+				updateLv(i, lv);
 				return lv ;
 			}
 			@Override
@@ -100,8 +91,12 @@ public class MyCouponActivity extends MyTitleActivity {
 		titleManager.setTitleName("我的优惠券");
 		titleManager.initTitleBack();
 		
+		requestData();
+	}
+
+	private void requestData() {
 		GetBonusReq actReq = new GetBonusReq(me.getUser_id());
-		getbonusrcv = new GetBonusRcv(this){
+		getbonusrcv = new GetBonusRcv(null==jRa?this:null){
 			@Override
 			public boolean response(String result) throws JSONException {
 				boolean response = super.response(result);
@@ -109,12 +104,45 @@ public class MyCouponActivity extends MyTitleActivity {
 					aList = super.availableBonusList;
 					uList = super.usedBonusList;
 					eList = super.expiredBonusList;
-					initJackRadios();
+					if(null==jRa)initJackRadios();
+					else updateJackRadios(result);
 				}
 				return response;
 			}
 		};
 		ActionBuilder.getInstance().request(actReq, getbonusrcv );
 	}
+
+	protected void updateJackRadios(String result) {
+		View currentView = jRa.getCurrentView();
+		if(currentView instanceof MyScrollPageListView){
+			MyScrollPageListView msplv = (MyScrollPageListView)currentView;
+			try {
+				msplv.response(result);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			updateLv(mRadioGroup.getCheckedRadioButtonId(), msplv);
+			
+		}
+	}
+
+	private void updateLv(int i, MyScrollPageListView lv) {
+		switch (i) {
+		case R.id.radio1:
+			lv.updateList(aList);
+			break;
+		case R.id.radio2:
+			lv.updateList(uList);
+			break;
+		case R.id.radio3:
+			lv.updateList(eList);
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	
 }

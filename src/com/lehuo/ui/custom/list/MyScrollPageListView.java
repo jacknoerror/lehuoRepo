@@ -190,7 +190,7 @@ public class MyScrollPageListView extends ListView implements
 		}
 	}
 
-	private void removeMoreView() {
+	public void removeMoreView() {
 		if (null != moreView) {
 			removeFooterView(moreView);
 			moreView = null;
@@ -217,16 +217,13 @@ public class MyScrollPageListView extends ListView implements
 		this.gpListener = gpListener;
 	}
 
+	public void setNoHeader(boolean noHeader) {
+		this.noHeader = noHeader;
+	}
+
 	@Override
 	public boolean response(String result) throws JSONException {
-		// 如果头部刷新中
-		if (mPullRefreshState == EXIT_PULL_REFRESH) {
-			// mPullRefreshState = NONE_PULL_REFRESH;
-			Message msg = mHandler.obtainMessage();
-			msg.what = REFRESH_DONE;
-			// 通知主线程加载数据完成
-			mHandler.sendMessage(msg);
-		}
+		resetHeader();
 
 		currentPage = new MspPage(factory);
 		if (!result.isEmpty()) {// 确保有pages
@@ -244,6 +241,17 @@ public class MyScrollPageListView extends ListView implements
 		} else {
 		}
 		return false;
+	}
+
+	public void resetHeader() {
+		// 如果头部刷新中
+		if (mPullRefreshState == EXIT_PULL_REFRESH) {
+			// mPullRefreshState = NONE_PULL_REFRESH;
+			Message msg = mHandler.obtainMessage();
+			msg.what = REFRESH_DONE;
+			// 通知主线程加载数据完成
+			mHandler.sendMessage(msg);
+		}
 	}
 
 	@Override
@@ -326,6 +334,8 @@ public class MyScrollPageListView extends ListView implements
 	private float mDownY;
 	private float mMoveY;
 
+	private boolean noHeader;
+
 	/*
 	 * 特殊处理，当header完全显示后，下拉只按下拉1/3的距离下拉，给用户一种艰难下拉，该松手的弹簧感觉。
 	 * 这个在onTouchEvent里处理比较方便
@@ -342,15 +352,13 @@ public class MyScrollPageListView extends ListView implements
 			if(!iS_TOTAL_TOO_FEW) setHeaderTopPadding(0);//0523 abort minus header padding
 			break;
 		case MotionEvent.ACTION_MOVE:
-//			Log.i(TAG, "ACTION_MOVE:mPullRefreshState:"+mPullRefreshState);
-//			Log.i(TAG, "mCurrentScrollState:"+mCurrentScrollState);
 			mMoveY = ev.getY();
 			
 			int padTop = (int)( (mMoveY - mDownY) / 3);// 1/3距离折扣
 				// 移动时手指的位置
 			if(padTop>0) {
 			}
-//			Log.i(TAG, "mPullRefreshState"+mPullRefreshState);
+			if(null==gpListener||noHeader) break;//0605
 			if (mPullRefreshState == OVER_PULL_REFRESH) {
 				setHeaderTopPadding(padTop);
 				mHeaderTextView.setText(HINT_PULLTOREFRESH);

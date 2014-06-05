@@ -180,10 +180,6 @@ public class JackRadios implements OnCheckedChangeListener {
 		return view;
 	}
 	
-	private int getBtnId(int i){//userless?
-		if(rBtns.length<=i||i<0)return 0;
-		return rBtns[i].getId();
-	}
 	
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -204,5 +200,10 @@ public class JackRadios implements OnCheckedChangeListener {
 	 */
 	protected void onSelected() {
 //		if(!currentView.isSetup()) currentView.setup();//0422
+	}
+	
+	public View getCurrentView()
+	{
+		return currentView;
 	}
 }

@@ -4,8 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include layout="@layout/merge_jacktitle"/>
-	<LinearLayout 
+	    <LinearLayout 
 	    android:id="@id/layout_belowtitle"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	        >
+	        
+	   
+	<LinearLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal"
@@ -39,4 +46,5 @@
     <View 
         style="@style/DividerWH"
         />
+     </LinearLayout>
 </LinearLayout>

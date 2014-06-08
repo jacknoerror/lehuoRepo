@@ -47,6 +47,7 @@ public class ListAdapterOrder extends MspAdapter {
 			tv_price.setText(Html.fromHtml(String.format("%s<font color=\"#ff0000\">%s</font>", "总价：",oi.getTotal_fee())));
 			tv_count.setText("数量："+oi.getNums());
 			//
+			upLayout.removeAllViews();//0608
 			if(upLayout.getChildCount()==0){
 				JSONArray jar = oi.getGoods();
 				for(int i=0;i<jar.length();i++){

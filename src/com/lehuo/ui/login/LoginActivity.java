@@ -12,8 +12,10 @@ import com.lehuo.util.JackUtils;
 import com.lehuo.util.TestDataTracker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -78,6 +80,11 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 		ActionBuilder.getInstance().request(req, rcv);
 //		TestDataTracker.simulateConnection(rcv, req.getApiName());//test
 		
+		hideSoftKeyboard();//0608
+	}
+	private void hideSoftKeyboard() {
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.SHOW_FORCED);
 	}
 	
 }

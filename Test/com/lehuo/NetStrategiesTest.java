@@ -115,6 +115,9 @@ public class NetStrategiesTest extends AndroidTestCase {
 		case 21:
 			ari = new GetTbarReq();
 			break;
+		case 22:
+			ari = new GetOrderListReq(1, 1, 17);
+			break;
 		default:
 			break;
 		}
@@ -133,7 +136,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 	public void acttionTest() throws SocketTimeoutException, UnknownHostException, IOException{
 		String result="";
 		
-		result  = actionChoser(12);
+		result  = actionChoser(22);
 			
 		Log.i(TAG, "result=>"+result);
 		assertNotSame(result, "");

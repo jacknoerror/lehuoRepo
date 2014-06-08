@@ -15,8 +15,8 @@ scoreProduct.
 timezone.
 map diff.
 scroll.
+comment.
 service-1.slow,2.toast,3.exit,4.confirmBtn
 coupon
-comment
 courier ic
 

@@ -7,10 +7,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/light_cyan" 
         android:orientation="horizontal"
         android:layout_marginLeft="@dimen/common_margin_bigger"
         android:layout_marginRight="@dimen/common_margin_bigger"
+        android:background="@color/coupon_bg4"
         >
 
         <LinearLayout
@@ -26,14 +26,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="NAME"
-                android:textSize="@dimen/textsize_title_sub" />
+                android:textSize="@dimen/textsize_title_sub" 
+                android:textColor="@color/coupon_textcolor"
+                />
 
             <TextView
                 android:id="@+id/tv_itemcoupon_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_margin_bigger"
+                android:textColor="@color/coupon_textcolor"
                 android:textSize="@dimen/textsize_content_normal" />
+            
         </LinearLayout>
 
         <View
@@ -52,12 +56,14 @@
                 android:id="@+id/tv_itemcoupon_righttop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/coupon_textcolor"
                 android:text="使用期限"
                 android:textSize="@dimen/textsize_itemcontent" />
 
             <TextView
                 android:id="@+id/tv_itemcoupon_timestart"
                 android:layout_width="wrap_content"
+                android:textColor="@color/coupon_textcolor"
                 android:layout_height="wrap_content"
                 android:text="2000-11-11" />
 
@@ -65,6 +71,7 @@
                 android:id="@+id/tv_itemcoupon_timeends"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/coupon_textcolor"
                 android:text="2000-11-12" />
         </LinearLayout>
     </LinearLayout>

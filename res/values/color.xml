@@ -10,4 +10,10 @@
     <color name="orange_text">#fe5636</color>
     <color name="red_cart">#F73802</color>
     <color name="brown_bg">#DCCCB5</color>
+    
+    <color name="coupon_bg1">#F4B8BF</color>
+    <color name="coupon_bg2">#6EB9F2</color>
+    <color name="coupon_bg3">#A8FAB7</color>
+    <color name="coupon_bg4">#EEEED3</color>
+    <color name="coupon_textcolor">#F4437B</color>
 </resources>

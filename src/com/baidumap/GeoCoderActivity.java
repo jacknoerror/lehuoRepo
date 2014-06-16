@@ -129,6 +129,7 @@ public class GeoCoderActivity extends MyTitleActivity implements
 	}
 	MKSearch mSearch = null;	// 搜索模块，也可去掉地图模块独立使用
 	public static  String addressname="";
+	private ServiceConnection connection = null;
 	/**
 	 * 
 	 */
@@ -320,9 +321,11 @@ public class GeoCoderActivity extends MyTitleActivity implements
 
 	private void whenIsCourier() {
 		locHelper.setHolder(this);
-//		updatePtCenterWithLocations();
-		MyApplication.app().bindService(new Intent(MyApplication.app(), LocationService.class),
-				new ServiceConnection() {
+		Context context = 
+		MyApplication.app();
+//		this;
+			context.bindService(new Intent(context, LocationService.class),
+					connection = new ServiceConnection() {
 					@Override
 					public void onServiceConnected(ComponentName componentName,
 							IBinder binder) {
@@ -451,6 +454,7 @@ public class GeoCoderActivity extends MyTitleActivity implements
 			locHelper.setHolder(null);
 		}
 		// mSearch.destory();
+		if(null!=localService&&null!=connection) getApplicationContext().unbindService(connection);
 	}
 
 	@Override
@@ -512,4 +516,5 @@ public class GeoCoderActivity extends MyTitleActivity implements
 		return mLocations;
 	}
 
+	
 }

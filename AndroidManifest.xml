@@ -75,6 +75,10 @@
             android:name="com.baidumap.GeoCoderActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.baidumap.LocationOverlayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
 
         <service
             android:name="com.lehuo.net.location.LocationService"

@@ -101,6 +101,8 @@ public class MyScrollPageListView extends ListView implements
 			mAdapter = (MspAdapter) adapter;
 	}
 
+	
+	
 	public void updateList(List<ListItemImpl> list) {
 		if (null == getAdapter() && null != mAdapter)
 			setAdapter(mAdapter);

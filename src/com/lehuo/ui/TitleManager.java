@@ -41,7 +41,7 @@ public class TitleManager implements View.OnClickListener{
 	
 	public void setTitleName(String name){
 		if(null==tv_titlename)tv_titlename = (TextView) titleView().findViewById(R.id.tv_title);
-		tv_titlename.setText(name);
+		if(null!=tv_titlename)tv_titlename.setText(name);
 	}
 	public void setRightText(String text, View.OnClickListener listener){
 		if(null==tv_right)tv_right =   (TextView) titleView().findViewById(R.id.tv_title_right);

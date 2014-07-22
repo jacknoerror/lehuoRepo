@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.baidumap.GeoCoderActivity;
+import com.baidumap.LocationOverlayActivity;
 import com.lehuo.R;
 import com.lehuo.data.MyData;
 import com.lehuo.data.NetConst;
@@ -56,7 +57,8 @@ public class DeliverListActivity extends MyTitleActivity {
 						if(!response){
 							Intent intent = new Intent();
 //							intent.putExtra(address, JackUtils.getLocation());
-							intent.setClass(DeliverListActivity.this, GeoCoderActivity.class);
+							intent.setClass(DeliverListActivity.this, LocationOverlayActivity.class);
+//							intent.setClass(DeliverListActivity.this, GeoCoderActivity.class);
 							startActivity(intent);
 						}
 						return response;

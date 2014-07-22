@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
@@ -32,8 +33,15 @@ import com.baidu.mapapi.map.PopupOverlay;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.lehuo.MyApplication;
 import com.lehuo.R;
+import com.lehuo.data.MyData;
+import com.lehuo.net.action.ActionBuilder;
+import com.lehuo.net.action.ActionPhpReceiverImpl;
+import com.lehuo.net.action.ActionPhpRequestImpl;
+import com.lehuo.net.action.BareReceiver;
+import com.lehuo.net.action.user.SendCourierLocReq;
 import com.lehuo.net.location.LocationService;
 import com.lehuo.ui.MyTitleActivity;
+import com.lehuo.vo.User;
 /**
  * 此demo用来展示如何结合定位SDK实现定位，并使用MyLocationOverlay绘制定位位置
  * 同时展示如何使用自定义图标绘制并点击时弹出泡�?
@@ -41,6 +49,9 @@ import com.lehuo.ui.MyTitleActivity;
  */
 public class LocationOverlayActivity extends MyTitleActivity {
 	
+	private  boolean SEND = false;
+	private final long WAIT = 1000*10;
+
 	@Override
 	public int getLayoutRid() {
 		return R.layout.activity_locationoverlay;
@@ -82,6 +93,7 @@ public class LocationOverlayActivity extends MyTitleActivity {
     @Override
     public void initView() {
     	titleManager.setTitleName("开始配送");
+    	titleManager.initTitleBack();
 //        setContentView(R.layout.activity_locationoverlay);
 //        CharSequence titleLable="定位功能";
 //        setTitle(titleLable);
@@ -157,10 +169,34 @@ public class LocationOverlayActivity extends MyTitleActivity {
 		mMapView.getOverlays().add(myLocationOverlay);
 		myLocationOverlay.enableCompass();
 		//修改定位数据后刷新图层生�?
+		mMapView.getController().setZoom(18);//0722
 		mMapView.refresh();
-		
+		startSendLocation();
     }
     /**
+     * 在后台每隔十秒发送方位给服务器
+     */
+    private void startSendLocation() {
+    	SEND = true;
+    	new Thread(){
+
+			@Override
+    		public void run() {
+    			while(SEND){
+					SystemClock.sleep(WAIT);
+					User me = MyData.data().getMe();
+					if(null!=locData&&locData.latitude*locData.longitude>0&&null==me){
+						ActionPhpRequestImpl actReq = new SendCourierLocReq("杭州市", ""+locData.latitude, ""+locData.longitude, me.getUser_id());
+	    	    		ActionPhpReceiverImpl actRcv = new BareReceiver(null);
+	    	    		ActionBuilder.getInstance().request(actReq, actRcv);
+					}
+    	    	}
+    		};
+    		
+    	}.start();
+		
+	}
+	/**
      * 手动触发�?��定位请求
      */
     public void requestLocClick(){
@@ -284,6 +320,7 @@ public class LocationOverlayActivity extends MyTitleActivity {
             mLocClient.stop();
         mMapView.destroy();
         super.onDestroy();
+        SEND = false;
     }
     
     @Override

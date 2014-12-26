@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.lehuo.data.MyData;
-import com.lehuo.ui.address.AddAddressActivity;
-import com.lehuo.vo.User;
+import com.lehuozu.data.MyData;
+import com.lehuozu.ui.address.AddAddressActivity;
+import com.lehuozu.vo.User;
 
 public class AddAddrActivityTest extends ActivityInstrumentationTestCase2<AddAddressActivity> {
 

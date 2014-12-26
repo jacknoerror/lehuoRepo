@@ -1,8 +1,8 @@
 package com.lehuo.custom;
 
-import com.lehuo.net.action.ActionBuilder;
-import com.lehuo.net.action.ActionPhpReceiverImpl;
-import com.lehuo.net.action.ActionPhpRequestImpl;
+import com.lehuozu.net.action.ActionBuilder;
+import com.lehuozu.net.action.ActionPhpReceiverImpl;
+import com.lehuozu.net.action.ActionPhpRequestImpl;
 
 public class ActionBuilderTest implements Runnable{
 	ActionPhpRequestImpl req;

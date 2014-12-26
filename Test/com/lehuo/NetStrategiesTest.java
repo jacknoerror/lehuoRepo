@@ -10,29 +10,30 @@ import org.json.JSONArray;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
-import com.lehuo.net.NetStrategies;
-import com.lehuo.net.action.ActionPhpRequestImpl;
-import com.lehuo.net.action.brand.GetBrandReq;
-import com.lehuo.net.action.category.GetAllReq;
-import com.lehuo.net.action.courier.DeliverListReq;
-import com.lehuo.net.action.goods.GetProductAttrReq;
-import com.lehuo.net.action.goods.GetProductCommentReq;
-import com.lehuo.net.action.goods.GetProductDetailReq;
-import com.lehuo.net.action.goods.GetProductListReq;
-import com.lehuo.net.action.goods.GetTbarReq;
-import com.lehuo.net.action.order.AddCartReq;
-import com.lehuo.net.action.order.CheckoutOrderReq;
-import com.lehuo.net.action.order.GetBonusReq;
-import com.lehuo.net.action.order.GetCartReq;
-import com.lehuo.net.action.order.GetOrderListReq;
-import com.lehuo.net.action.order.UpdateCartReq;
-import com.lehuo.net.action.user.GetUserAddrReq;
-import com.lehuo.net.action.user.LoginReq;
-import com.lehuo.net.action.user.UGetDistrictReq;
-import com.lehuo.net.action.user.UGetcityReq;
-import com.lehuo.net.action.user.UGetprovinceReq;
-import com.lehuo.util.JackUtils;
-import com.lehuo.vo.AddCartGoodsStandard;
+import com.lehuozu.net.NetStrategies;
+import com.lehuozu.net.action.ActionPhpRequestImpl;
+import com.lehuozu.net.action.brand.GetBrandReq;
+import com.lehuozu.net.action.category.GetAllReq;
+import com.lehuozu.net.action.courier.DeliverListReq;
+import com.lehuozu.net.action.goods.GetLongImgRequest;
+import com.lehuozu.net.action.goods.GetProductAttrReq;
+import com.lehuozu.net.action.goods.GetProductCommentReq;
+import com.lehuozu.net.action.goods.GetProductDetailReq;
+import com.lehuozu.net.action.goods.GetProductListReq;
+import com.lehuozu.net.action.goods.GetTbarReq;
+import com.lehuozu.net.action.order.AddCartReq;
+import com.lehuozu.net.action.order.CheckoutOrderReq;
+import com.lehuozu.net.action.order.GetBonusReq;
+import com.lehuozu.net.action.order.GetCartReq;
+import com.lehuozu.net.action.order.GetOrderListReq;
+import com.lehuozu.net.action.order.UpdateCartReq;
+import com.lehuozu.net.action.user.GetUserAddrReq;
+import com.lehuozu.net.action.user.LoginReq;
+import com.lehuozu.net.action.user.UGetDistrictReq;
+import com.lehuozu.net.action.user.UGetcityReq;
+import com.lehuozu.net.action.user.UGetprovinceReq;
+import com.lehuozu.util.JackUtils;
+import com.lehuozu.vo.AddCartGoodsStandard;
 
 public class NetStrategiesTest extends AndroidTestCase {
 	private final String TAG  = "UNIT_TEST";
@@ -118,6 +119,9 @@ public class NetStrategiesTest extends AndroidTestCase {
 		case 22:
 			ari = new GetOrderListReq(1, 1, 17);
 			break;
+		case 23:
+			ari = new GetLongImgRequest(11);
+			break;
 		default:
 			break;
 		}
@@ -136,7 +140,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 	public void acttionTest() throws SocketTimeoutException, UnknownHostException, IOException{
 		String result="";
 		
-		result  = actionChoser(12);
+		result  = actionChoser(23);
 			
 		Log.i(TAG, "result=>"+result);
 		assertNotSame(result, "");

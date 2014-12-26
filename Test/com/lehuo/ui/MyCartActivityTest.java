@@ -2,17 +2,17 @@ package com.lehuo.ui;
 
 
 import com.lehuo.custom.ActionBuilderTest;
-import com.lehuo.data.MyData;
-import com.lehuo.data.NetConst;
-import com.lehuo.net.action.ActionPhpReceiverImpl;
-import com.lehuo.net.action.ActionPhpRequestImpl;
-import com.lehuo.net.action.user.UGetPlaceRcv;
-import com.lehuo.net.action.user.UGetprovinceReq;
-import com.lehuo.ui.login.PersonInfoCreateActivity;
-import com.lehuo.ui.product.MyCartActivity;
-import com.lehuo.ui.tab.HubActivity;
-import com.lehuo.vo.Place;
-import com.lehuo.vo.User;
+import com.lehuozu.data.MyData;
+import com.lehuozu.data.NetConst;
+import com.lehuozu.net.action.ActionPhpReceiverImpl;
+import com.lehuozu.net.action.ActionPhpRequestImpl;
+import com.lehuozu.net.action.user.UGetPlaceRcv;
+import com.lehuozu.net.action.user.UGetprovinceReq;
+import com.lehuozu.ui.login.PersonInfoCreateActivity;
+import com.lehuozu.ui.product.MyCartActivity;
+import com.lehuozu.ui.tab.HubActivity;
+import com.lehuozu.vo.Place;
+import com.lehuozu.vo.User;
 
 import android.content.Intent;
 import android.os.SystemClock;

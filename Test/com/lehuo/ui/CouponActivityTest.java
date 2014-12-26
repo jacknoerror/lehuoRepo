@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.lehuo.data.MyData;
-import com.lehuo.ui.courier.DeliverListActivity;
-import com.lehuo.ui.product.ProductListActivity;
-import com.lehuo.ui.tab.my.MyCouponActivity;
-import com.lehuo.ui.tab.order.ConfirmOrderActivity;
-import com.lehuo.vo.Category;
-import com.lehuo.vo.User;
+import com.lehuozu.data.MyData;
+import com.lehuozu.ui.courier.DeliverListActivity;
+import com.lehuozu.ui.product.ProductListActivity;
+import com.lehuozu.ui.tab.my.MyCouponActivity;
+import com.lehuozu.ui.tab.order.ConfirmOrderActivity;
+import com.lehuozu.vo.Category;
+import com.lehuozu.vo.User;
 
 public class CouponActivityTest extends ActivityInstrumentationTestCase2<MyCouponActivity> {
 

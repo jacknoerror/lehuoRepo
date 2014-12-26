@@ -1,9 +1,9 @@
 package com.lehuo.ui;
 
 
-import com.lehuo.data.MyData;
-import com.lehuo.ui.tab.HubActivity;
-import com.lehuo.vo.User;
+import com.lehuozu.data.MyData;
+import com.lehuozu.ui.tab.HubActivity;
+import com.lehuozu.vo.User;
 
 import android.content.Intent;
 import android.os.SystemClock;

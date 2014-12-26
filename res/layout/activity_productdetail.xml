@@ -7,7 +7,7 @@
 
     <include layout="@layout/merge_jacktitle" />
 
-    <com.lehuo.ui.custom.ScrollViewExtend
+    <com.lehuozu.ui.custom.ScrollViewExtend
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
@@ -19,7 +19,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp" >
+                android:layout_height="300dp" >
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewpager_"
@@ -37,13 +37,24 @@
                     android:layout_marginRight="@dimen/common_margin"
                     android:orientation="horizontal" >
                 </LinearLayout>
+                <TextView 
+                    android:id="@+id/tv_pd_pull"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/detail_pull"
+                    android:text="滑\n动\n查\n看\n图\n文\n详\n情"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@android:color/white"
+                    android:visibility="gone"
+                    />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/h_margin_activity"
-                android:background="@color/bg_grey_bigcolor"
+                android:layout_marginLeft="@dimen/h_margin_activity"
+                android:layout_marginRight="@dimen/h_margin_activity"
                 android:orientation="vertical"
                 android:padding="@dimen/common_margin" >
 
@@ -59,7 +70,7 @@
                     android:id="@+id/tv_productdetail_productdesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="productdescproductdescproductdescproductdescproductdesc" />
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout
@@ -133,6 +144,6 @@
                 android:layout_margin="@dimen/h_margin_activity" >
             </FrameLayout>
         </LinearLayout>
-    </com.lehuo.ui.custom.ScrollViewExtend>
+    </com.lehuozu.ui.custom.ScrollViewExtend>
 
 </LinearLayout>

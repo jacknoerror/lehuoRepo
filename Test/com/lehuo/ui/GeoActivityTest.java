@@ -6,15 +6,15 @@ import android.os.SystemClock;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.baidumap.GeoCoderActivity;
-import com.lehuo.MyApplication;
-import com.lehuo.data.MyData;
-import com.lehuo.data.NetConst;
-import com.lehuo.ui.courier.DeliverListActivity;
-import com.lehuo.ui.product.ProductListActivity;
-import com.lehuo.ui.tab.order.ConfirmOrderActivity;
-import com.lehuo.util.JackUtils;
-import com.lehuo.vo.Category;
-import com.lehuo.vo.User;
+import com.lehuozu.MyApplication;
+import com.lehuozu.data.MyData;
+import com.lehuozu.data.NetConst;
+import com.lehuozu.ui.courier.DeliverListActivity;
+import com.lehuozu.ui.product.ProductListActivity;
+import com.lehuozu.ui.tab.order.ConfirmOrderActivity;
+import com.lehuozu.util.JackUtils;
+import com.lehuozu.vo.Category;
+import com.lehuozu.vo.User;
 
 public class GeoActivityTest extends ActivityInstrumentationTestCase2<GeoCoderActivity> {
 

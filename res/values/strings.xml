@@ -13,6 +13,7 @@
     <string name="titlename_myaddr">收货地址</string>
     <string name="titlename_addaddr">新增收货地址</string>
     <string name="titlename_scoremarcket">积分超市</string>
+    <string name="titlename_findpwd">找回密码</string>
     <string name="hintedit_aa_name">请填写收货人姓名</string>
     <string name="hintedit_aa_phone">请填写手机号码</string>
     <string name="hintedit_aa_addr">请填写详细地址</string>

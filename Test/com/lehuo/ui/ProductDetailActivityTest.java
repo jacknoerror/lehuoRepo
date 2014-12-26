@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.lehuo.data.MyData;
-import com.lehuo.ui.product.ProductDetailActivity;
-import com.lehuo.vo.Category;
-import com.lehuo.vo.Product;
-import com.lehuo.vo.User;
+import com.lehuozu.data.MyData;
+import com.lehuozu.ui.product.ProductDetailActivity;
+import com.lehuozu.vo.Category;
+import com.lehuozu.vo.Product;
+import com.lehuozu.vo.User;
 
 public class ProductDetailActivityTest extends ActivityInstrumentationTestCase2<ProductDetailActivity> {
 
@@ -27,9 +27,9 @@ public class ProductDetailActivityTest extends ActivityInstrumentationTestCase2<
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //		i.putExtra(NetConst.EXTRA_PHONE, "15888889999");
 		User user = new User();
-		user.setUser_id(28);
+		user.setUser_id(18);
 		Product product = new Product();
-		product.setGoods_id(3);
+		product.setGoods_id(11);
 		MyData.data().setCurrentUser(user);
 		MyData.data().storeProduct(product);
 		super.setActivityIntent(i);

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/bg_grey_bigcolor"
+    >
+    <include layout="@layout/merge_jacktitle"/>
+    <ImageView 
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_launcher"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/h_margin_activity"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        />
+    <LinearLayout 
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_margin"
+        >
+        
+	<EditText 
+	    android:id="@+id/et_phone"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:hint="手机号码"
+	    android:inputType="phone"
+	    android:paddingLeft="12dp"
+	    />
+	<EditText 
+	    android:id="@+id/et_password"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:hint="密码"
+	    android:inputType="textPassword"
+	    android:paddingLeft="12dp"
+	    />
+    </LinearLayout>
+    <Button 
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="登 录"
+        android:textSize="@dimen/textsize_title_normal"
+        android:textColor="@android:color/white"
+        android:layout_margin="@dimen/common_margin"
+        android:background="@color/green_title"
+        />
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:padding="@dimen/common_margin"
+        
+        >
+	<TextView 
+	    android:id="@+id/tv_goregist"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textColor="#a000"
+	    android:text="免费注册"
+	    android:textSize="@dimen/textsize_title_normal"
+	    />
+	<TextView 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="|"
+	    android:layout_marginLeft="@dimen/common_margin"
+	    android:layout_marginRight="@dimen/common_margin"
+	    />
+	<TextView 
+	    android:id="@+id/tv_findpwd"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textColor="#a000"
+	    android:text="找回密码"
+	    android:textSize="@dimen/textsize_title_normal"
+	    />
+        
+    </LinearLayout>
+</LinearLayout>

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lehuo"
+    package="com.lehuozu"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -23,7 +23,7 @@
         android:targetSdkVersion="18" />
 
     <application
-        android:name="com.lehuo.MyApplication"
+        android:name="com.lehuozu.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -31,7 +31,7 @@
         <uses-library android:name="android.test.runner" />
 
         <activity
-            android:name="com.lehuo.ui.login.LoginActivity"
+            android:name="com.lehuozu.ui.login.LoginActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,53 +40,75 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.lehuo.ui.tab.HubActivity"
+            android:name="com.lehuozu.ui.tab.HubActivity"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.lehuo.ui.product.ProductListActivity" >
+        <activity android:name="com.lehuozu.ui.product.ProductListActivity" >
         </activity>
-        <activity android:name="com.lehuo.ui.product.ProductDetailActivity" >
+        <activity android:name="com.lehuozu.ui.product.ProductDetailActivity" >
         </activity>
-        <activity android:name="com.lehuo.ui.login.PersonInfoCreateActivity" >
-        </activity>
-        <activity
-            android:name="com.lehuo.ui.login.RegistCodeActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
-        <activity android:name="com.lehuo.ui.login.RegistPhoneActivity" 
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
-        <activity android:name="com.lehuo.ui.product.MyCartActivity" >
-        </activity>
-        <activity android:name="com.lehuo.ui.tab.order.ConfirmOrderActivity" >
-        </activity>
-        <activity android:name="com.lehuo.ui.address.MyAddressActivity" >
-        </activity>
-        <activity android:name="com.lehuo.ui.address.AddAddressActivity" >
-        </activity>
-        <activity android:name="com.lehuo.ui.courier.DeliverListActivity" >
+        <activity android:name="com.lehuozu.ui.login.PersonInfoCreateActivity" >
         </activity>
         <activity
-            android:name="com.lehuo.ui.product.CommentActivity"
+            android:name="com.lehuozu.ui.login.RegistCodeActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity android:name="com.lehuozu.ui.login.RegistPhoneActivity" 
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity android:name="com.lehuozu.ui.product.MyCartActivity" >
+        </activity>
+        <activity android:name="com.lehuozu.ui.tab.order.ConfirmOrderActivity" >
+        </activity>
+        <activity android:name="com.lehuozu.ui.address.MyAddressActivity" >
+        </activity>
+        <activity android:name="com.lehuozu.ui.address.AddAddressActivity" >
+        </activity>
+        <activity android:name="com.lehuozu.ui.courier.DeliverListActivity" >
+        </activity>
+        <activity
+          android:name="com.lehuozu.ui.product.CommentActivity"
             android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
-        <activity android:name="com.lehuo.ui.tab.my.MyCouponActivity" >
+        <activity
+      android:name="com.lehuozu.ui.tab.my.MyCouponActivity" >
         </activity>
-        <activity android:name="com.lehuo.ui.tab.my.ScoreMarcketActivity" >
+        <activity
+      android:name="com.lehuozu.ui.tab.my.ScoreMarcketActivity" >
         </activity>
-        <activity android:name="com.lehuo.ui.common.ViewpagerActivity" >
+        <activity android:name="com.lehuozu.ui.common.ViewpagerActivity" >
         </activity>
         <activity
             android:name="com.baidumap.GeoCoderActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.lehuozu.ui.login.FindPasswordActivityrdActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lehuozu.ui.login.FindPasswordDoActivityDoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.baidumap.LocationOverlayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.lehuozu.ui.tab.more.FocusActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.lehuozu.ui.tab.more.AboutUsActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.lehuozu.ui.product.LongImgActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.lehuozu.ui.StartActivity"
             android:screenOrientation="portrait" >
         </activity>
 
         <service
-            android:name="com.lehuo.net.location.LocationService"
+            android:name="com.lehuozu.net.location.LocationService"
             android:enabled="true"
             android:exported="false" >
             <intent-filter>

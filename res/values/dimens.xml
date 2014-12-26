@@ -5,6 +5,7 @@
     <dimen name="common_margin_super">25dp</dimen>
     <dimen name="h_margin_activity">16dp</dimen>
     <dimen name="h_width_drawerlist">165dp</dimen>
+    <dimen name="h_my">138dp</dimen>
     
     
     <dimen name="v_titleheight">54dp</dimen>

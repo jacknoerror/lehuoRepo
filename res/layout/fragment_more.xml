@@ -17,7 +17,7 @@
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal"
 	    android:gravity="center_vertical"
-	    android:background="@drawable/bg_login"
+	    android:background="@drawable/ad6"
 	    >
 	</LinearLayout>
 	<View 
@@ -33,14 +33,17 @@
         style="@style/DividerWH"
         android:background="@drawable/divider_h_grey"
         />
-     <View 
-        android:layout_marginTop="@dimen/v_margin_activity"
-        style="@style/DividerWH"
-        android:background="@drawable/divider_h_grey"
-        />
     <TextView 
         android:id="@+id/tv_more2_focus"
         android:text="关注我们"
+        style="@style/ClickBar"
+        />
+    <View 
+        style="@style/DividerWH"
+        />
+     <TextView 
+        android:id="@+id/tv_more2_contact"
+        android:text="联系我们"
         style="@style/ClickBar"
         />
     <View 

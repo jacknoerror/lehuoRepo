@@ -1,0 +1,133 @@
+package com.lehuozu.ui.login;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.lehuozu.R;
+import com.lehuozu.data.NetConst;
+import com.lehuozu.net.action.ActionBuilder;
+import com.lehuozu.net.action.ActionPhpReceiverImpl;
+import com.lehuozu.net.action.ActionPhpRequestImpl;
+import com.lehuozu.net.action.user.VerifyCodeReq;
+import com.lehuozu.ui.MyGate;
+import com.lehuozu.ui.MyTitleActivity;
+import com.lehuozu.util.JackUtils;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class RegistCodeActivity extends MyTitleActivity implements ActionPhpReceiverImpl {
+	private int timerSec;
+
+	String phone;
+	
+	TextView tv_mobile,tv_waiting;
+	EditText et_input;
+	Button btn_done;
+	
+	Handler mHandler = new Handler(){
+		
+		@Override
+		public void handleMessage(android.os.Message msg) {
+			
+			if(null==tv_waiting) return;
+			switch (msg.what) {
+			case 0:
+				tv_waiting.setText(String.format("%d秒后可重发验证码", timerSec--));
+				break;
+			case 1:
+				tv_waiting.setVisibility(View.VISIBLE);
+				break;
+			case 2:
+				tv_waiting.setVisibility(View.INVISIBLE);
+				break;
+			default:
+				break;
+			}
+				
+			
+		};
+		
+	};
+	
+	@Override
+	public int getLayoutRid() {
+		return R.layout.activity_commitcheck;
+	}
+
+	@Override
+	public void initView() {
+		titleManager.setTitleName(getString(R.string.titlename_commitcheck));
+		titleManager.initTitleBack();
+		
+		phone = getIntent().getStringExtra(NetConst.EXTRAS_PHONE);
+		if(null==phone) return;
+		
+		tv_mobile = (TextView)this.findViewById(R.id.tv_cmmtchck_mobile);
+		tv_waiting = (TextView)this.findViewById(R.id.tv_cmmtchck_wait);
+		et_input = (EditText)this.findViewById(R.id.et_cmmtchck_input);
+		btn_done = (Button)this.findViewById(R.id.btn_cmmtchck_go);
+		btn_done.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				commit();
+				
+			}
+		});
+		
+		tv_mobile.setText(phone);
+		
+		new Thread(){//TODO
+
+			@Override
+			public void run() {
+				if(null==mHandler) return;
+				timerSec=30;
+				mHandler.sendEmptyMessage(1);
+				while (timerSec>=0) {
+					mHandler.sendEmptyMessage(0);
+					SystemClock.sleep(1000);
+				}
+				mHandler.sendEmptyMessage(2);
+			};
+			
+			
+		}.start();
+	}
+	private void commit(){
+		String code = et_input.getText().toString();
+		ActionPhpRequestImpl actReq = new VerifyCodeReq(phone, code, 0);
+		ActionBuilder.getInstance().request(actReq, this);
+		
+		
+	}
+
+	@Override
+	public boolean response(String result) throws JSONException {
+		JSONObject job = new JSONObject(result);
+		if(null!=job&&job.has(RESULT_SIGN)&&job.getBoolean(RESULT_SIGN)){
+			MyGate.GoSetUser(this,phone);
+		}else{
+			if(null!=job)JackUtils.showToast(this, job.optString(RESULT_ERROR_MSG));
+		}
+		return false;
+	}
+
+	@Override
+	public Context getReceiverContext() {
+		return this;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		timerSec = -1;
+	}
+}

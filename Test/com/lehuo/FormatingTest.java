@@ -9,9 +9,9 @@ import org.json.JSONObject;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
-import com.lehuo.net.NetStrategies;
 import com.lehuo.util.HandleStrings;
-import com.lehuo.util.JackUtils;
+import com.lehuozu.net.NetStrategies;
+import com.lehuozu.util.JackUtils;
 
 public class FormatingTest extends AndroidTestCase {
 	private final String TAG  = "UNIT_TEST";

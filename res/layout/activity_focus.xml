@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_grey_bigcolor"
+    android:gravity="center_horizontal"
+     >
+     <include layout="@layout/merge_jacktitle"/>
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:drawableTop="@drawable/ic_launcher"
+        android:gravity="center"
+        android:layout_margin="@dimen/common_margin"
+        android:textColor="@android:color/black"
+        />
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="版本:1.02"
+        android:layout_margin="@dimen/common_margin"
+        />
+	<View 
+        style="@style/DividerWH"
+        android:background="#4111"
+        android:layout_marginTop="@dimen/common_margin_bigger"
+        android:layout_marginBottom="@dimen/common_margin_bigger"
+        />
+	<TextView 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="推荐好友扫描安装"
+	    android:textSize="@dimen/textsize_content_normal"
+	    android:textColor="#a05f"
+	    android:layout_marginBottom="@dimen/common_margin_bigger"
+	    />
+	<ImageView 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/about_code"
+	    />
+</LinearLayout>
+	<TextView 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal"
+	    android:text="深圳乐活族商务服务有限公司版权所有\nCopyright ©2014 Shenzhen lohas business service co. All Rights Reserved"
+	    android:layout_alignParentBottom="true"
+	    android:padding="@dimen/common_margin"
+	    />
+</RelativeLayout>

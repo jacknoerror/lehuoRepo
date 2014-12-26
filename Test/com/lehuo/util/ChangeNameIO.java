@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+import com.lehuozu.util.JackUtils;
+
 import android.content.Context;
 
 public class ChangeNameIO {

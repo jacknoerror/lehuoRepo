@@ -3,11 +3,11 @@ package com.baidumap;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.lehuo.data.MyData;
-import com.lehuo.net.NetStrategies;
-import com.lehuo.net.action.ActionPhpRequestImpl;
-import com.lehuo.net.action.user.SendCourierLocReq;
-import com.lehuo.vo.User;
+import com.lehuozu.data.MyData;
+import com.lehuozu.net.NetStrategies;
+import com.lehuozu.net.action.ActionPhpRequestImpl;
+import com.lehuozu.net.action.user.SendCourierLocReq;
+import com.lehuozu.vo.User;
 
 public class SendLocationThread extends Thread {
 	public double[] locArr = new double[2];

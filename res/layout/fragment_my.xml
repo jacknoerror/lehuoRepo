@@ -12,7 +12,7 @@
 	    android:layout_height="match_parent"
 	    android:orientation="vertical"
 	    >
-	    <LinearLayout 
+	    <!-- <LinearLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="150dp"
 	    android:orientation="horizontal"
@@ -66,7 +66,57 @@
 	            android:layout_weight="1"
 	            />
 	    </LinearLayout>
-	</LinearLayout>
+	</LinearLayout> -->
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/h_my"
+	    
+	    >
+	    <ImageView 
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/h_my"
+	        android:src="@drawable/ad5"
+	        android:scaleType="fitStart"
+	        />
+	    <LinearLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:orientation="vertical"
+	        android:gravity="center_horizontal"
+	        >
+	        <TextView 
+	            android:id="@+id/tv_account1_username"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="@android:color/black"
+	            android:textSize="@dimen/textsize_title_sub"
+	            android:text="1"
+	            />
+	        <TextView 
+	            android:id="@+id/tv_account1_phone"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="@android:color/black"
+	            android:textSize="@dimen/textsize_itemcontent"
+	            android:gravity="center_vertical"
+	            android:background="@drawable/myphone"
+	            android:text="3"/>
+	    </LinearLayout>
+	    <TextView 
+	            android:id="@+id/tv_account1_score"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:textColor="@android:color/white"
+	            android:textSize="@dimen/textsize_title_normal"
+	            android:gravity="center"
+	            android:text="2"
+	            android:background="@color/green_title"
+	            android:layout_alignParentBottom="true"
+	            android:paddingTop="@dimen/common_margin"
+	            android:paddingBottom="@dimen/common_margin"
+	            />
+	</RelativeLayout>
 	<View 
         style="@style/DividerWH"
         android:background="#a111"

@@ -1,5 +1,9 @@
 package com.lehuozu.ui.tab.order;
 
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,11 +12,19 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alipay.android.app.sdk.AliPay;
+import com.alipay.android.msp.demo.Keys;
+import com.alipay.android.msp.demo.Result;
+import com.alipay.android.msp.demo.Rsa;
 import com.lehuozu.R;
 import com.lehuozu.data.MyData;
 import com.lehuozu.data.NetConst;
@@ -62,6 +74,8 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 	private String[] timezoneArrays;
 
 	private String timezoneStr="";
+
+	private ImageView alipaycheck;
 
 	private void updateUI() {
 		// address
@@ -128,8 +142,9 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 				.findViewById(R.id.tv_co_nocouponhint);
 		btn_commit = (Button) this.findViewById(R.id.btn_co_commit);
 		btn_commit.setOnClickListener(this);
-		arrivepaycheck = (ImageView) this
-				.findViewById(R.id.img_co_arrivepaycheck);
+		arrivepaycheck = (ImageView) this.findViewById(R.id.img_co_arrivepaycheck);
+		alipaycheck = (ImageView) this.findViewById(R.id.img_co_alipaycheck);
+		
 	}
 
 	/**
@@ -152,9 +167,13 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 			break;
 		case R.id.checoutclickview_arrivepay:
 			arrivepaycheck.setSelected(true);
+			alipaycheck.setSelected(false);
 			dc_payment.setPay_id(Payment.PAYTYPE_ARRIVE);// name?
 			break;
 		case R.id.checoutclickview_alipay:
+			alipaycheck.setSelected(true);
+			arrivepaycheck.setSelected(false);
+			dc_payment.setPay_id(Payment.PAYTYPE_ALIPAY);
 			break;
 		case R.id.checoutclickview_coupon:
 			break;
@@ -176,9 +195,9 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 	private void commit() {
 		ActionPhpRequestImpl req = new ConfirmOrderReq(
 				dc_consignee.getAddress_id(), 0, dc_total.getIntegral(),
-				// dc_payment.getPay_id(),
-				2,// 写死
-				user.getUser_id(), timezoneStr);// TODO
+				 dc_payment.getPay_id(),
+//				2,// 写死
+				user.getUser_id(), timezoneStr);// 
 											// bonus
 											// 0,timezone
 											// null
@@ -186,20 +205,31 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 			public boolean response(String result) throws JSONException {
 				boolean response;
 				if (!(response = super.response(result))) {
-					// TODO
-					Intent intent = new Intent();
-					intent.setClass(ConfirmOrderActivity.this,
-							HubActivity.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					intent.putExtra(NetConst.EXTRAS_HUB, 2);//
-					startActivity(intent);
+					// 
+					if(dc_payment.getPay_id()==2){
+						gobacktohub();
+					}else{
+						onPay();
+					}
 				}
 				return response;
-			};
+			}
+
 		};
 		ActionBuilder.getInstance().request(req, rcv);
 	}
 
+	/**
+	 * 
+	 */
+	public void gobacktohub() {
+		Intent intent = new Intent();
+		intent.setClass(ConfirmOrderActivity.this,
+				HubActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra(NetConst.EXTRAS_HUB, 2);//
+		startActivity(intent);
+	};
 	private void showSelectTimeDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);   
 		 
@@ -257,4 +287,111 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		return this;
 	}
 
+	
+	/**
+	 * alipay
+	 */
+	
+	private static final int RQF_PAY = 1;
+	private static final int RQF_LOGIN = 2;
+	void onPay(){
+		try {
+			String info = getNewOrderInfo();
+			String sign = Rsa.sign(info, Keys.PRIVATE);
+			sign = URLEncoder.encode(sign);
+			info += "&sign=\"" + sign + "\"&" + getSignType();
+			Log.i("ConfirmOrderActivity", "start pay");
+			// start the pay.
+			Log.i(TAG, "info = " + info);
+
+			final String orderInfo = info;
+			new Thread() {
+				public void run() {
+					AliPay alipay = new AliPay(ConfirmOrderActivity.this, mHandler);
+					
+					//设置为沙箱模式，不设置默认为线上环境
+					//alipay.setSandBox(true);
+
+					String result = alipay.pay(orderInfo);
+
+					Log.i(TAG, "result = " + result);
+					Message msg = new Message();
+					msg.what = RQF_PAY;
+					msg.obj = result;
+					mHandler.sendMessage(msg);
+				}
+			}.start();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Toast.makeText(ConfirmOrderActivity.this, "尝试付款时出错",
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+	private String getSignType() {
+		return "sign_type=\"RSA\"";
+	}
+	private String getNewOrderInfo() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("partner=\"");
+		sb.append(Keys.DEFAULT_PARTNER);
+		sb.append("\"&out_trade_no=\"");
+		sb.append(getOutTradeNo());
+		sb.append("\"&subject=\"");
+		sb.append(dc_payment.getPay_id());
+		sb.append("\"&body=\"");
+		sb.append(dc_payment.getPay_name());
+		sb.append("\"&total_fee=\"");
+		sb.append("0.01");//FIXME
+		sb.append("\"&notify_url=\"");
+
+		// 网址需要做URL编码
+		sb.append(URLEncoder.encode("http://notify.java.jpxx.org/index.jsp"));
+		sb.append("\"&service=\"mobile.securitypay.pay");
+		sb.append("\"&_input_charset=\"UTF-8");
+		sb.append("\"&return_url=\"");
+//		sb.append(URLEncoder.encode("http://m.alipay.com"));
+		sb.append(URLEncoder.encode("http://ilehuozu.com:8084/zbcbaba/notify_url.php"));
+		sb.append("\"&payment_type=\"1");
+		sb.append("\"&seller_id=\"");
+		sb.append(Keys.DEFAULT_SELLER);
+
+		// 如果show_url值为空，可不传
+		// sb.append("\"&show_url=\"");
+		sb.append("\"&it_b_pay=\"1m");
+		sb.append("\"");
+
+		return new String(sb);
+	}
+	private String getOutTradeNo() {
+		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
+		Date date = new Date();
+		String key = format.format(date);
+
+		java.util.Random r = new java.util.Random();
+		key += r.nextInt();
+		key = key.substring(0, 15);
+		Log.d(TAG, "outTradeNo: " + key);
+		return key;
+	}
+	
+	Handler mHandler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			Result result = new Result((String) msg.obj);
+
+			switch (msg.what) {
+			case RQF_PAY:
+				gobacktohub();
+			case RQF_LOGIN: {
+				Toast.makeText(ConfirmOrderActivity.this, result.getResult(),
+						Toast.LENGTH_SHORT).show();
+
+			}
+				break;
+			default:
+				break;
+			}
+		};
+	};
+	
 }

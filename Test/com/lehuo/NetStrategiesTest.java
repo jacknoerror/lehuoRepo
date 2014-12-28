@@ -140,7 +140,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 	public void acttionTest() throws SocketTimeoutException, UnknownHostException, IOException{
 		String result="";
 		
-		result  = actionChoser(23);
+		result  = actionChoser(20);
 			
 		Log.i(TAG, "result=>"+result);
 		assertNotSame(result, "");

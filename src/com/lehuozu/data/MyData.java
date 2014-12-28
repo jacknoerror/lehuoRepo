@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.support.v4.widget.DrawerLayout;
+import android.widget.TabHost;
+
 import com.lehuozu.vo.Category;
 import com.lehuozu.vo.Product;
 import com.lehuozu.vo.User;
 import com.lehuozu.vo.UserAddress;
 import com.lehuozu.vo.cart.DataCart;
-
-import android.support.v4.widget.DrawerLayout;
-import android.widget.TabHost;
 
 public class MyData {
 	private static MyData data;

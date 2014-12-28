@@ -7,23 +7,26 @@ import com.lehuozu.data.NetConst;
 import com.lehuozu.net.NetStrategies;
 import com.lehuozu.net.action.ActionPhpRequestImpl;
 
-public class ConfirmArriveForCourierReq implements ActionPhpRequestImpl {
+public class DeliverFinishedForCourierReq implements ActionPhpRequestImpl {
 
-	int user_id;
-	int order_id;
+	private static final String ACTION_FINISH = "finish";
+	int user_id;//£¨¿Í»§id£©
+	int order_id ;//¶©µ¥ºÅ
 
-	public ConfirmArriveForCourierReq(int user_id, int order_id) {
+	public DeliverFinishedForCourierReq(int user_id, int order_id) {
 		super();
 		this.user_id = user_id;
 		this.order_id = order_id;
 	}
+	
+	@Override
 	public String getPhpName() {
 		return PHPNAME_COURIER;
 	}
 
 	@Override
 	public String getApiName() {
-		return NetConst.ACTION_PAY;
+		return ACTION_FINISH;
 	}
 
 	@Override

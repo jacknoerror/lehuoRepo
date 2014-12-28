@@ -3,22 +3,21 @@ package com.lehuozu.ui.adapter.msp;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lehuozu.R;
 import com.lehuozu.data.MyData;
-import com.lehuozu.net.NetStrategies;
 import com.lehuozu.net.action.ActionBuilder;
 import com.lehuozu.net.action.ActionPhpReceiverImpl;
 import com.lehuozu.net.action.ActionPhpRequestImpl;
 import com.lehuozu.net.action.JackShowToastReceiver;
 import com.lehuozu.net.action.courier.ConfirmArriveForCourierReq;
+import com.lehuozu.net.action.courier.DeliverFinishedForCourierReq;
 import com.lehuozu.ui.custom.list.MspAdapter;
 import com.lehuozu.util.JackUtils;
 import com.lehuozu.vo.InfoGoodsInOrder;
@@ -58,23 +57,43 @@ public class ListAdapterCourier extends MspAdapter {
 			if(null==best_time||best_time.isEmpty()) best_time = "任何时段";
 			tv_time.setText("最佳送货时间："+best_time);
 			String pay_status = itm.getPay_status();
-			if(pay_status.equals("已付款")){
-				tv_status1.setSelected(false);
-			}else{
-				tv_status1.setSelected(true);
-				pay_status = "确认收款";
-				tv_status1.setOnClickListener(new View.OnClickListener() {
-					
-					@Override
-					public void onClick(View arg0) {
-						showDialog(itm);
+			tv_payment.setText(itm.getPay_method());
+			if(itm.getPay_method().equals("货到付款")){
+				
+				if(pay_status.equals("已付款")){
+					tv_status1.setSelected(false);
+				}else{
+					tv_status1.setSelected(true);
+					pay_status = "确认收款";
+					tv_status1.setOnClickListener(new View.OnClickListener() {
 						
-					}
-				});
+						@Override
+						public void onClick(View arg0) {
+							showDialog(itm);
+							
+						}
+					});
+				}
+			}else{
+				if(pay_status.equals("已付款")){
+					pay_status = "送货完成";
+					tv_status1.setSelected(false);
+				}else{
+					pay_status = "送货完成";
+					tv_status1.setSelected(true);
+					tv_status1.setBackgroundColor(Color.rgb(52, 209, 0));
+					tv_status1.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View arg0) {
+							showDialog2(itm);
+							
+						}
+					});
+				}
 			}
 			tv_status1.setText(pay_status);//TODO 付款状态
 			tv_sn.setText(""+itm.getOrder_sn());
-			tv_payment.setText(itm.getPay_method());
 			tv_price.setText(itm.getTotal_fee());
 			tv_count.setText("x"+itm.getNums());
 //			tv_status2.setText(itm.getShipping_status());//TODO 配送状态 
@@ -113,7 +132,7 @@ public class ListAdapterCourier extends MspAdapter {
 		}
 
 		protected void showDialog(final OrderInCourier itm) {
-			JackUtils.showDialog(getContextInAdapter(), "确认收货吗", new DialogInterface.OnClickListener() {
+			JackUtils.showDialog(getContextInAdapter(), "确认收货吗？", new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int arg1) {
@@ -122,7 +141,6 @@ public class ListAdapterCourier extends MspAdapter {
 						@Override
 						public boolean response(String result)
 								throws JSONException {
-							// TODO Auto-generated method stub
 							boolean response =  super.response(result);
 							if(!response){
 								myScrollPageListView.setup();
@@ -130,7 +148,29 @@ public class ListAdapterCourier extends MspAdapter {
 							return response;
 						}
 					};
-					//TODO 
+					ActionBuilder.getInstance().request(actReq, actRcv);
+					dialog.dismiss();
+				}
+			});
+			
+		}
+		protected void showDialog2(final OrderInCourier itm) {
+			JackUtils.showDialog(getContextInAdapter(), "送货完成吗？", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int arg1) {
+					ActionPhpRequestImpl actReq = new DeliverFinishedForCourierReq(MyData.data().getMe().getUser_id(), itm.getOrder_id());
+					ActionPhpReceiverImpl actRcv = new JackShowToastReceiver(getContextInAdapter()){
+						@Override
+						public boolean response(String result)
+								throws JSONException {
+							boolean response =  super.response(result);
+							if(!response){
+								myScrollPageListView.setup();
+							}
+							return response;
+						}
+					};
 					ActionBuilder.getInstance().request(actReq, actRcv);
 					dialog.dismiss();
 				}

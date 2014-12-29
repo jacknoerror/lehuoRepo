@@ -8,6 +8,7 @@ import com.lehuozu.data.NetConst;
 import com.lehuozu.net.action.ActionBuilder;
 import com.lehuozu.net.action.ActionPhpReceiverImpl;
 import com.lehuozu.net.action.ActionPhpRequestImpl;
+import com.lehuozu.net.action.user.SendCodeForRegistReq;
 import com.lehuozu.net.action.user.VerifyCodeReq;
 import com.lehuozu.ui.MyGate;
 import com.lehuozu.ui.MyTitleActivity;
@@ -43,18 +44,22 @@ public class RegistCodeActivity extends MyTitleActivity implements ActionPhpRece
 				break;
 			case 1:
 				tv_waiting.setVisibility(View.VISIBLE);
+				tv_again.setVisibility(View.GONE);
 				break;
 			case 2:
-				tv_waiting.setVisibility(View.INVISIBLE);
+				tv_waiting.setVisibility(View.GONE);
+				tv_again.setVisibility(View.VISIBLE);
 				break;
 			default:
 				break;
 			}
-				
+
 			
 		};
 		
 	};
+
+	private TextView tv_again;
 	
 	@Override
 	public int getLayoutRid() {
@@ -71,6 +76,7 @@ public class RegistCodeActivity extends MyTitleActivity implements ActionPhpRece
 		
 		tv_mobile = (TextView)this.findViewById(R.id.tv_cmmtchck_mobile);
 		tv_waiting = (TextView)this.findViewById(R.id.tv_cmmtchck_wait);
+		tv_again = (TextView)this.findViewById(R.id.tv_cmmtchck_again);
 		et_input = (EditText)this.findViewById(R.id.et_cmmtchck_input);
 		btn_done = (Button)this.findViewById(R.id.btn_cmmtchck_go);
 		btn_done.setOnClickListener(new View.OnClickListener() {
@@ -81,15 +87,60 @@ public class RegistCodeActivity extends MyTitleActivity implements ActionPhpRece
 				
 			}
 		});
+		tv_again.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				getcheck();
+			}
+			private void getcheck() {
+//				phone = et_phone.getText().toString();
+				ActionPhpRequestImpl actReq = new SendCodeForRegistReq(phone);
+				ActionBuilder.getInstance().request(actReq, new ActionPhpReceiverImpl() {
+					
+					@Override
+					public boolean response(String result) throws JSONException {
+						JSONObject job = new JSONObject(result);
+						if(null!=job){
+							if(job.has(RESULT_SIGN)&&job.getBoolean(RESULT_SIGN)){
+//								MyGate.GoRegistCode(this,getPhone());
+								JackUtils.showToast(getReceiverContext(), "短信已重发");
+								startCount();
+							}else{
+								if(job.has(RESULT_ERROR_MSG)){
+									String msg = job.optString(RESULT_ERROR_MSG);
+									JackUtils.showToast(getReceiverContext(), msg);
+								}
+							}
+						}
+						return false;
+					}
+					
+					@Override
+					public Context getReceiverContext() {
+						return RegistCodeActivity.this;
+					}
+				});
+				
+//				MyGate.GoRegistCode(this,getPhone());//test
+			}
+		});
 		
 		tv_mobile.setText(phone);
 		
-		new Thread(){//TODO
+		startCount();
+	}
+
+	/**
+	 * 
+	 */
+	public void startCount() {
+		new Thread(){//
 
 			@Override
 			public void run() {
 				if(null==mHandler) return;
-				timerSec=30;
+				timerSec=60;
 				mHandler.sendEmptyMessage(1);
 				while (timerSec>=0) {
 					mHandler.sendEmptyMessage(0);
@@ -97,8 +148,6 @@ public class RegistCodeActivity extends MyTitleActivity implements ActionPhpRece
 				}
 				mHandler.sendEmptyMessage(2);
 			};
-			
-			
 		}.start();
 	}
 	private void commit(){
@@ -114,6 +163,7 @@ public class RegistCodeActivity extends MyTitleActivity implements ActionPhpRece
 		JSONObject job = new JSONObject(result);
 		if(null!=job&&job.has(RESULT_SIGN)&&job.getBoolean(RESULT_SIGN)){
 			MyGate.GoSetUser(this,phone);
+			finish();
 		}else{
 			if(null!=job)JackUtils.showToast(this, job.optString(RESULT_ERROR_MSG));
 		}

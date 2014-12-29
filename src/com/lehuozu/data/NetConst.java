@@ -153,5 +153,9 @@ public interface NetConst {
 	public static final String ACTION_ABOUTUS = "aboutus";
 
 	public static final String ACTION_GOOD_LONG_IMG = "good_long_img";
+
+	public static final String ACTION_DONE = "done";
+
+	public static final String EXTRAS_NEEDBACKUP = "needbackup";
 	
 }

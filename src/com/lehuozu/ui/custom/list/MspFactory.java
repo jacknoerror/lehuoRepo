@@ -3,25 +3,20 @@ package com.lehuozu.ui.custom.list;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 
 import com.lehuozu.data.MyData;
-import com.lehuozu.entity.json.JsonImport;
 import com.lehuozu.net.action.ActionBuilder;
 import com.lehuozu.net.action.ActionPhpRequestImpl;
 import com.lehuozu.net.action.courier.DeliverListReq;
 import com.lehuozu.net.action.order.GetOrderListReq;
 import com.lehuozu.ui.adapter.msp.ListAdapterCoupon;
-import com.lehuozu.ui.adapter.msp.ListAdapterCourier;
 import com.lehuozu.ui.adapter.msp.ListAdapterDeliver;
 import com.lehuozu.ui.adapter.msp.ListAdapterGoods;
 import com.lehuozu.ui.adapter.msp.ListAdapterOrder;
-import com.lehuozu.ui.adapter.msp.ListAdapterOrder.OrderViewHolder;
+import com.lehuozu.ui.courier.DeliverListActivity.ListAdapterCourier;
 import com.lehuozu.ui.custom.list.ListItemImpl.Type;
-import com.lehuozu.ui.custom.list.MspAdapter.ViewHolderImpl;
 import com.lehuozu.ui.custom.list.MyScrollPageListView.OnGetPageListener;
-import com.lehuozu.util.TestDataTracker;
 import com.lehuozu.vo.OrderInfo;
 import com.lehuozu.vo.Product;
 import com.lehuozu.vo.User;

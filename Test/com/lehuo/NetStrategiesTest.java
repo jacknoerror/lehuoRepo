@@ -32,6 +32,7 @@ import com.lehuozu.net.action.user.LoginReq;
 import com.lehuozu.net.action.user.UGetDistrictReq;
 import com.lehuozu.net.action.user.UGetcityReq;
 import com.lehuozu.net.action.user.UGetprovinceReq;
+import com.lehuozu.net.action.user.UserInformationReq;
 import com.lehuozu.util.JackUtils;
 import com.lehuozu.vo.AddCartGoodsStandard;
 
@@ -122,6 +123,9 @@ public class NetStrategiesTest extends AndroidTestCase {
 		case 23:
 			ari = new GetLongImgRequest(11);
 			break;
+		case 24:
+			ari = new UserInformationReq(49);
+			break;
 		default:
 			break;
 		}
@@ -140,7 +144,7 @@ public class NetStrategiesTest extends AndroidTestCase {
 	public void acttionTest() throws SocketTimeoutException, UnknownHostException, IOException{
 		String result="";
 		
-		result  = actionChoser(20);
+		result  = actionChoser(24);
 			
 		Log.i(TAG, "result=>"+result);
 		assertNotSame(result, "");

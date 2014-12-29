@@ -62,7 +62,7 @@ public class JackUtils {
 	public final static String srcRegEx = "(?<=src=\")(.*?)(?=\")";
 	
 	public static void showToast(Context context,String text){
-		Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+		if(null!=text&&!text.isEmpty())Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
 	}
 	
 	public static ProgressDialog showProgressDialog(Context context,String text){

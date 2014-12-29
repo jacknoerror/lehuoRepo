@@ -35,9 +35,11 @@ import com.lehuozu.net.action.ActionPhpRequestImpl;
 import com.lehuozu.net.action.JackShowToastReceiver;
 import com.lehuozu.net.action.order.CheckoutOrderReq;
 import com.lehuozu.net.action.order.ConfirmOrderReq;
+import com.lehuozu.ui.MyGate;
 import com.lehuozu.ui.MyTitleActivity;
 import com.lehuozu.ui.address.MyAddressActivity;
 import com.lehuozu.ui.tab.HubActivity;
+import com.lehuozu.ui.tab.my.MyCouponActivity;
 import com.lehuozu.util.JackUtils;
 import com.lehuozu.vo.User;
 import com.lehuozu.vo.checkoutorder.CheckTotal;
@@ -66,7 +68,7 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 	private Payment dc_payment;
 
 	private CheckTotal dc_total;
-
+	private JSONObject dc_user_points;
 	private JSONArray dc_user_bonus;
 
 	private int mSingleChoiceID=-1;
@@ -76,6 +78,8 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 	private String timezoneStr="";
 
 	private ImageView alipaycheck;
+
+	private String bonus_name;
 
 	private void updateUI() {
 		// address
@@ -94,7 +98,8 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		// userbonus
 		if (null != dc_user_bonus && dc_user_bonus.length() > 0) {
 			tv_co_nocouponhint.setVisibility(View.INVISIBLE);
-			// TODO storeData?
+			//  storeData?
+			if(!tv_co_nocouponhint.getText().toString().contains("无")) tv_co_nocouponhint.setVisibility(View.VISIBLE);
 
 		} else {
 			tv_co_nocouponhint.setVisibility(View.VISIBLE);
@@ -176,6 +181,13 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 			dc_payment.setPay_id(Payment.PAYTYPE_ALIPAY);
 			break;
 		case R.id.checoutclickview_coupon:
+			if(null != dc_user_bonus && dc_user_bonus.length() > 0){
+//				MyGate.goCoupon(this);
+				Intent couponIntent = new Intent();
+				couponIntent.setClass(this, MyCouponActivity.class);
+				couponIntent.putExtra(NetConst.EXTRAS_NEEDBACKUP, true);
+				startActivityForResult(couponIntent, 0x998);
+			}
 			break;
 		case R.id.checoutclickview_timezone:
 			showSelectTimeDialog();
@@ -189,27 +201,51 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		}
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode == RESULT_OK&&requestCode == 0x998){
+			bonus_id = data.getIntExtra("bonus_id", 0);
+			bonus_name = data.getStringExtra("bonus_name");
+			if(bonus_id>0){
+				tv_co_nocouponhint.setText(bonus_name);
+				tv_co_nocouponhint.setVisibility(View.VISIBLE);
+			}
+		}
+	}
+	
+	private long commitOrderId;
+	private int bonus_id;
+
+
+	
+
 	/**
 	 * 
 	 */
 	private void commit() {
 		ActionPhpRequestImpl req = new ConfirmOrderReq(
-				dc_consignee.getAddress_id(), 0, dc_total.getIntegral(),
+				dc_consignee.getAddress_id(), 
+				bonus_id, //1229
+//				dc_total.getIntegral(),
+				null!=dc_user_points?dc_user_points.optInt("available"):0,//1229
 				 dc_payment.getPay_id(),
-//				2,// 写死
 				user.getUser_id(), timezoneStr);// 
 											// bonus
 											// 0,timezone
 											// null
 		ActionPhpReceiverImpl rcv = new JackShowToastReceiver(this) {
+
 			public boolean response(String result) throws JSONException {
 				boolean response;
+				//{"result":true,"data":{"shipping_id":0,"pay_id":1,"pack_id":0,"card_id":0,"card_message":"","surplus":0,"integral":0,"bonus_id":0,"need_inv":0,"inv_type":"","inv_payee":"","inv_content":"","postscript":"","how_oos":"\u7b49\u5f85\u6240\u6709\u5546\u54c1\u5907\u9f50\u540e\u518d\u53d1","need_insure":0,"user_id":49,"add_time":1419815414,"order_status":0,"shipping_status":0,"pay_status":0,"agency_id":0,"extension_code":"","extension_id":0,"address_id":"44","address_name":"","consignee":"\u5f88\u4e45\u4e86","email":"","country":"1","province":"31","city":"383","district":"3233","address":"\u6c5f\u5357\u5927\u9053","zipcode":"","tel":"","mobile":"15858596499","sign_building":"","best_time":"","is_default":"1","bonus":0,"goods_amount":99,"discount":null,"tax":0,"shipping_name":"\u81ea\u6709\u5feb\u9012","shipping_fee":10,"insure_fee":0,"pay_name":"\u652f\u4ed8\u5b9d","pay_fee":null,"cod_fee":0,"pack_fee":0,"card_fee":0,"order_amount":"109.00","integral_money":0,"from_ad":"0","referer":"","parent_id":0,"order_sn":"2014122945044","order_id":281,"log_id":276},"message":"\u8ba2\u5355\u751f\u4ea7\u6210\u529f"}
 				if (!(response = super.response(result))) {
-					// 
-					if(dc_payment.getPay_id()==2){
-						gobacktohub();
-					}else{
+					if(dc_payment.getPay_id()==Payment.PAYTYPE_ALIPAY){
+						JSONObject job = new JSONObject(result).optJSONObject("data");
+						commitOrderId = job.optLong("order_sn");
 						onPay();
+					}else{
+						gobacktohub(2);
 					}
 				}
 				return response;
@@ -222,12 +258,12 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 	/**
 	 * 
 	 */
-	public void gobacktohub() {
+	public void gobacktohub(int tab) {
 		Intent intent = new Intent();
 		intent.setClass(ConfirmOrderActivity.this,
 				HubActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		intent.putExtra(NetConst.EXTRAS_HUB, 2);//
+		intent.putExtra(NetConst.EXTRAS_HUB, tab);//
 		startActivity(intent);
 	};
 	private void showSelectTimeDialog() {
@@ -274,6 +310,8 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 			dc_payment = dCheckout.getPayment();
 			dc_total = dCheckout.getTotal();
 			dc_user_bonus = dCheckout.getUser_bonus();
+			dc_user_points = dCheckout.getUser_points();
+//			Log.i(TAG, dc_total.getAmount()+":总价");
 			// update UI
 			updateUI();
 			return false;
@@ -332,26 +370,27 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		return "sign_type=\"RSA\"";
 	}
 	private String getNewOrderInfo() {
+		if(commitOrderId<=0) throw new IllegalStateException("订单号不正确"); 
 		StringBuilder sb = new StringBuilder();
 		sb.append("partner=\"");
 		sb.append(Keys.DEFAULT_PARTNER);
 		sb.append("\"&out_trade_no=\"");
-		sb.append(getOutTradeNo());
+		sb.append(commitOrderId);//taotao
 		sb.append("\"&subject=\"");
 		sb.append(dc_payment.getPay_id());
 		sb.append("\"&body=\"");
 		sb.append(dc_payment.getPay_name());
 		sb.append("\"&total_fee=\"");
-		sb.append("0.01");//FIXME
+		sb.append("0.01");//FIXME dc_total.getAmount();
 		sb.append("\"&notify_url=\"");
-
 		// 网址需要做URL编码
-		sb.append(URLEncoder.encode("http://notify.java.jpxx.org/index.jsp"));
+		sb.append(URLEncoder.encode("http://ilehuozu.com:8084/zbcbaba/notify_url.php"));
+//		sb.append(URLEncoder.encode("http://notify.java.jpxx.org/index.jsp"));
 		sb.append("\"&service=\"mobile.securitypay.pay");
 		sb.append("\"&_input_charset=\"UTF-8");
 		sb.append("\"&return_url=\"");
-//		sb.append(URLEncoder.encode("http://m.alipay.com"));
-		sb.append(URLEncoder.encode("http://ilehuozu.com:8084/zbcbaba/notify_url.php"));
+		sb.append(URLEncoder.encode("http://m.alipay.com"));
+//		sb.append(URLEncoder.encode("http://ilehuozu.com:8084/zbcbaba/notify_url.php"));
 		sb.append("\"&payment_type=\"1");
 		sb.append("\"&seller_id=\"");
 		sb.append(Keys.DEFAULT_SELLER);
@@ -363,7 +402,7 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 
 		return new String(sb);
 	}
-	private String getOutTradeNo() {
+	/*private String getOutTradeNo() {
 		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
 		Date date = new Date();
 		String key = format.format(date);
@@ -373,20 +412,18 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		key = key.substring(0, 15);
 		Log.d(TAG, "outTradeNo: " + key);
 		return key;
-	}
+	}*/
 	
 	Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			Result result = new Result((String) msg.obj);
-
+			if(null==result) return;
 			switch (msg.what) {
 			case RQF_PAY:
-				gobacktohub();
-			case RQF_LOGIN: {
+				gobacktohub(result.getResult().contains("取消")?0:2);//
+			case RQF_LOGIN: 
 				Toast.makeText(ConfirmOrderActivity.this, result.getResult(),
 						Toast.LENGTH_SHORT).show();
-
-			}
 				break;
 			default:
 				break;

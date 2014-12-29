@@ -4,6 +4,7 @@
 package com.lehuozu.ui.tab.my;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -19,8 +20,10 @@ import com.lehuozu.data.MyData;
 import com.lehuozu.net.action.ActionBuilder;
 import com.lehuozu.net.action.ActionPhpReceiverImpl;
 import com.lehuozu.net.action.ActionPhpRequestImpl;
+import com.lehuozu.net.action.JackDefJobRcv;
 import com.lehuozu.net.action.JackShowToastReceiver;
 import com.lehuozu.net.action.user.UserEdituserReq;
+import com.lehuozu.net.action.user.UserInformationReq;
 import com.lehuozu.ui.MyGate;
 import com.lehuozu.ui.address.MyAddressActivity;
 import com.lehuozu.ui.tab.ContentAbstractFragment;
@@ -43,6 +46,36 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 	@Override
 	public int getLayoutRid() {
 		return R.layout.fragment_my;
+	}
+	
+	@Override
+	public void onResume() {
+		updateMe();
+		super.onResume();
+	}
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		if(!hidden){
+			updateMe();
+		}
+	}
+	
+	private void updateMe() {
+		User me = MyData.data().getMe();
+		if(null==me) return;
+		ActionBuilder.getInstance().request(new UserInformationReq(me.getUser_id()), 
+				new JackDefJobRcv(null) {
+					
+					@Override
+					public boolean respJob(JSONObject job) throws JSONException {
+						if(null!=job){
+							tv_score.setText("乐活积分>  "+job.optInt("pay_points"));
+						}
+						return false;
+					}
+				} );
+		
 	}
 
 	@Override
@@ -69,8 +102,8 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 		tv_coupon.setOnClickListener(this);
 		btn_logout.setOnClickListener(this);
 		
-		tv_name.setText(user.getUser_name());
-		tv_score.setText("乐活积分>  "+user.getRank_points());
+		tv_name.setText(user.getTruename());
+		tv_score.setText("乐活积分>  "+user.getPay_points());//1229
 		tv_phone.setText(user.getMobile_phone());
 		birthdayString = user.getBirthday();
 		tv_birthday.setText("我的生日\t\t\t"+birthdayString);  

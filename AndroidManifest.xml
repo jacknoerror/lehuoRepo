@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
     <application
@@ -32,7 +32,7 @@
 
         <activity
             android:name="com.lehuozu.ui.login.LoginActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -83,11 +83,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.lehuozu.ui.login.FindPasswordActivityrdActivity"
+            android:name="com.lehuozu.ui.login.FindPasswordActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.lehuozu.ui.login.FindPasswordDoActivityDoActivity"
+            android:name="com.lehuozu.ui.login.FindPasswordDoActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -104,6 +104,9 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity android:name="com.lehuozu.ui.StartActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.alipay.android.app.sdk.WapPayActivity"
             android:screenOrientation="portrait" >
         </activity>
 

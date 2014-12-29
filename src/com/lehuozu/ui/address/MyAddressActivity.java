@@ -9,6 +9,7 @@ import org.json.JSONException;
 
 import android.content.DialogInterface;
 import android.util.SparseArray;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,8 @@ public class MyAddressActivity extends MyTitleActivity {
 		};
 		titleManager.setTitleName(getResources().getString(
 				R.string.titlename_myaddr));
-		titleManager.setRightText("гл", goaaListener);
+//		titleManager.setRightText("гл", goaaListener);
+		titleManager.initAddBtn(goaaListener);
 		titleManager.initTitleBack();
 
 		user = MyData.data().getMe();

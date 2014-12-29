@@ -44,8 +44,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:textColor="#DBA400"
+            android:layout_marginLeft="@dimen/common_margin_bigger"
+            />
+        <TextView 
+            android:id="@+id/tv_cmmtchck_again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:textColor="#00f"
+            android:text="获取验证码"
             android:layout_marginLeft="@dimen/common_margin_bigger"
             />
     </LinearLayout>

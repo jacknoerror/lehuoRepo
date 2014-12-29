@@ -1,16 +1,19 @@
 package com.lehuozu.ui.tab;
 
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.lehuozu.R;
-import com.lehuozu.ui.custom.list.MyScrollPageListView;
 import com.lehuozu.ui.custom.list.ListItemImpl.Type;
+import com.lehuozu.ui.custom.list.MyScrollPageListView;
 import com.lehuozu.util.JackUtils;
 
 public abstract class JackListAbsContFrag extends ContentAbstractFragment {
 
-	FrameLayout mFrame;
-	private MyScrollPageListView mListView;
+	protected FrameLayout mFrame;
+	protected MyScrollPageListView mListView;
 
 
 	@Override
@@ -30,6 +33,7 @@ public abstract class JackListAbsContFrag extends ContentAbstractFragment {
 		mFrame.addView(mListView);
 		mListView.setDivider(getResources().getDrawable(android.R.color.transparent));
 		mListView.setDividerHeight(JackUtils.dip2px(getActivity(), 15));
+		
 	}
 	public abstract Type getType();
 	

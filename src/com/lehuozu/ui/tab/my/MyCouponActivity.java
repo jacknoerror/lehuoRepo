@@ -19,10 +19,12 @@ import com.lehuozu.vo.Coupon;
 import com.lehuozu.vo.User;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -31,7 +33,7 @@ import android.widget.RadioGroup;
  *只是查看 不需要点击
  * @author tao
  */
-public class MyCouponActivity extends MyTitleActivity {
+public class MyCouponActivity extends MyTitleActivity implements OnItemClickListener {
 	
 	
 	
@@ -131,17 +133,31 @@ public class MyCouponActivity extends MyTitleActivity {
 		switch (i) {
 		case R.id.radio1:
 			lv.updateList(aList);
+			lv.setOnItemClickListener(this);
 			break;
 		case R.id.radio2:
 			lv.updateList(uList);
+			lv.setOnItemClickListener(null);
 			break;
 		case R.id.radio3:
 			lv.updateList(eList);
+			lv.setOnItemClickListener(null);
 			break;
 
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Intent data = new Intent();
+		Coupon coupon = (Coupon)parent.getItemAtPosition(position);
+		data.putExtra("bonus_id", coupon.getBonus_id());
+		data.putExtra("bonus_name", coupon.getType_name());
+		setResult(RESULT_OK, data);
+		finish();
 	}
 
 	

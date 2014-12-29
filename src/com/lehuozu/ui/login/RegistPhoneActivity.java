@@ -66,6 +66,7 @@ public class RegistPhoneActivity extends MyTitleActivity implements ActionPhpRec
 		if(null!=job){
 			if(job.has(RESULT_SIGN)&&job.getBoolean(RESULT_SIGN)){
 				MyGate.GoRegistCode(this,getPhone());
+				finish();
 			}else{
 				if(job.has(RESULT_ERROR_MSG)){
 					String msg = job.optString(RESULT_ERROR_MSG);

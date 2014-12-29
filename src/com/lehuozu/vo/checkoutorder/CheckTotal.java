@@ -42,7 +42,7 @@ public class CheckTotal extends JsonImport {
 		return gift_amount;
 	}
 
-	public String getBonus_formated() {
+	public String getBonus_formated() {//”≈ª›»Ø
 		return bonus_formated;
 	}
 

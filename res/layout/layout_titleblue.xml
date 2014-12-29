@@ -35,7 +35,7 @@
 
         <ImageView
             android:id="@+id/btn_title_back"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
             android:layout_marginLeft="@dimen/common_margin"
@@ -59,7 +59,15 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/common_margin" 
         >
-
+		<ImageView 
+		    android:id="@+id/btn_add"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/btn_add"
+		    android:gravity="center|right"
+		    android:layout_gravity="center_vertical|right"
+		    android:visibility="invisible"
+		    />
         <TextView
             android:id="@+id/tv_title_right"
             android:layout_width="wrap_content"

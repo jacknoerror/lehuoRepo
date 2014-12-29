@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,6 +49,7 @@ public class TitleManager implements View.OnClickListener{
 		tv_right.setText(text);
 		tv_right.setOnClickListener(listener);
 		tv_right.setVisibility(View.VISIBLE);
+		tv_right.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 	}
 	public void initTitleLogo(){
 		img_logo = (ImageView) titleView().findViewById(R.id.img_title_logo);
@@ -62,6 +64,11 @@ public class TitleManager implements View.OnClickListener{
 		btn_titlemenu = (ImageView) titleView().findViewById(R.id.btn_title_menu);
 		btn_titlemenu.setOnClickListener(this);
 		btn_titlemenu.setVisibility(View.VISIBLE);
+	}
+	public void initAddBtn(View.OnClickListener li){
+		 View btn_add = titleView().findViewById(R.id.btn_add);
+		 btn_add.setVisibility(View.VISIBLE);
+		 btn_add.setOnClickListener(li);
 	}
 	
 	public JackTitle titleView(){

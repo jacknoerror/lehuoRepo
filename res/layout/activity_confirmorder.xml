@@ -124,11 +124,13 @@
             <TextView
             android:id="@+id/checoutclickview_alipay"
                 style="@style/MatchWidthOnly"
-                android:text="支付宝"
+                android:text="支付宝支付"
                 android:textColor="@color/transparent_dark"
                 android:textSize="@dimen/textsize_title_normal" 
                 android:padding="@dimen/common_margin_bigger"
                 android:background="@android:color/white"
+                android:drawableLeft="@drawable/payment_ali"
+                android:drawablePadding="@dimen/common_margin"
                 />
 
             <ImageView

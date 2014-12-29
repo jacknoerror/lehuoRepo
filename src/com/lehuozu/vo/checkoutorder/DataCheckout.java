@@ -16,6 +16,7 @@ public class DataCheckout extends JsonImport {
 	CheckTotal total;//价格等信息
 	JSONArray user_bonus;//优惠券
 	Payment payment;//付款方式
+	private JSONObject user_points;
 	
 	public DataCheckout(JSONObject job) {
 		super(job);
@@ -61,9 +62,15 @@ public class DataCheckout extends JsonImport {
 		this.payment = payment;
 	}
 
+
+	public final JSONObject getUser_points() {
+		return user_points;
+	}
+
 	@Override
 	public void initJackJson(JSONObject job) throws JSONException {
 		if(job.has("cart")) cart = job.getJSONArray("cart");
+		if(job.has("user_points")) user_points = job.getJSONObject("user_points");
 		if(job.has("user_bonus")) user_bonus = job.getJSONArray("user_bonus");
 		if(job.has("consignee")) consignee = new Consignee(job.getJSONObject("consignee"));
 		if(job.has("total")) total = new CheckTotal(job.getJSONObject("total"));

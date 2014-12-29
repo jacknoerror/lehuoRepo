@@ -66,5 +66,4 @@ final static long a = System.currentTimeMillis()&10;//0610
 	public ViewHolderImpl getHolderInstance() {
 		return new CouponViewHolder();
 	}
-
 }

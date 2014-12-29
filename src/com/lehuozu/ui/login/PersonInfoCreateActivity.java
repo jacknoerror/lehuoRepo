@@ -96,6 +96,12 @@ public class PersonInfoCreateActivity extends MyTitleActivity implements ActionP
 			fail();
 			return;
 		}
+		String address = et_address.getText().toString();
+		if(address.isEmpty()	){
+			et_address.setError("«ÎÃÓ–¥œÍœ∏µÿ÷∑");
+			et_address.requestFocus();
+			return ;
+		}
 //		String p,c,d;
 		int pp,cc,dd;//turns out to be ids
 //		p = getItemName(spinnerPrv);
@@ -109,7 +115,7 @@ public class PersonInfoCreateActivity extends MyTitleActivity implements ActionP
 				et_name.getText().toString(), 
 				"310000",
 				pp, cc, dd, 
-				et_address.getText().toString(), 
+				address, 
 				JackUtils.getMD5(et_pwd.getText().toString()),
 				group.getCheckedRadioButtonId()==R.id.radio_man?1:2);
 		ActionBuilder.getInstance().request(actReq, this);

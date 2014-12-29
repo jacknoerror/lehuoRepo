@@ -34,7 +34,7 @@ public class ConfirmOrderReq implements ActionPhpRequestImpl {
 
 	@Override
 	public String getApiName() {
-		return "done";
+		return NetConst.ACTION_DONE;
 	}
 
 	@Override

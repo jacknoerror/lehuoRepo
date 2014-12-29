@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -492,7 +493,14 @@ public class MyScrollPageListView extends ListView implements
 			}
 		}
 	};
-
+	public static TextView getEmptyTextView(Context context, String text) {
+		if(null==context) return null;
+		TextView etv = new TextView(context);
+		etv.setTextAppearance(context, R.style.Nodata_textview);
+		etv.setGravity(Gravity.CENTER);//gravity in style not work
+		etv.setText(text);
+		return etv;
+	}
 	private View makeItLongView;
 
 	private boolean iS_TOTAL_TOO_FEW;

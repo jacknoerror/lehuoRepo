@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:background="@android:color/white"
+    android:descendantFocusability="afterDescendants"
     >
 
     <View style="@style/DividerWH" />
@@ -63,7 +64,7 @@
                 android:layout_marginBottom="@dimen/common_margin"
                 />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_item_courier_status1"
                 style="@style/MatchWidthOnly"
                 android:layout_weight="1"
@@ -72,6 +73,9 @@
                 android:textSize="@dimen/textsize_content_normal"
                 android:textColor="@android:color/white" 
                 android:text="状态"
+                android:focusable="true"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
                 />
         </LinearLayout>
     </LinearLayout>

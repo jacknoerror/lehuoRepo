@@ -50,7 +50,7 @@ public abstract class ContentAbstractFragment extends JackAbsFragment {
 	 */
 	public void moveLikeAJagger(float arg1){
 		View view  ;
-		if(null==mView||null==(view = mView.findViewById(R.id.layout_belowtitle))) return;
+		if(null==mView||null==(view = mView.findViewById(R.id.layout_belowtitle))) return;//ø’‘Ú∑µªÿ
 		final float drawerListWidth =getResources().getDimension(R.dimen.h_width_drawerlist);
 		final float headerHeight =getResources().getDimension(R.dimen.v_titleheight);
 		view.layout((int)(drawerListWidth*arg1), (int)headerHeight, (int)(drawerListWidth*arg1+Const.SCREEN_WIDTH), (int) (view.getHeight()+headerHeight));

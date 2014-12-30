@@ -21,9 +21,14 @@ public class OrderInfo extends MspJsonItem {
 	 private String order_sn;
 	private int need_integral;
 	private int courier_status;
+	private String pay_method;
 
 	public final JSONArray getGoods() {
 		return goods;
+	}
+
+	public final String getPay_method() {
+		return pay_method;
 	}
 
 	public final void setGoods(JSONArray goods) {
@@ -161,6 +166,8 @@ public class OrderInfo extends MspJsonItem {
 			shipping_status = job.getInt("shipping_status");
 		if (job.has("order_sn"))
 			order_sn = job.getString("order_sn");
+		if (job.has("pay_method"))//1230
+			pay_method = job.getString("pay_method");
 		if (job.has("need_integral"))
 			need_integral = job.getInt("need_integral");
 		if (job.has("courier_status"))

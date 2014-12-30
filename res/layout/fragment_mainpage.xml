@@ -5,9 +5,14 @@
     android:orientation="vertical" >
 
     <include layout="@layout/merge_jacktitle" />
-
-    <ScrollView
+	<android.support.v4.widget.SwipeRefreshLayout
         android:id="@id/layout_belowtitle"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    >
+	    
+    
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -52,5 +57,6 @@
             </GridView>
         </LinearLayout>
     </ScrollView>
+	</android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

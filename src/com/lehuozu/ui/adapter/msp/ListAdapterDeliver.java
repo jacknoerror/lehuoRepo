@@ -58,11 +58,17 @@ public class ListAdapterDeliver extends MspAdapter {
 			tv_count.setText("数量：x" + oi.getNums());
 			// deliver
 			tv_checkmap.setVisibility(View.VISIBLE);
+			if(oi.getPay_method().equals("支付宝")&&oi.getPay_status()==0){
+				tv_checkmap.setEnabled(false);
+				tv_checkmap.setText("已取消");
+			}else{
+				tv_checkmap.setEnabled(true);
+				tv_checkmap.setText("查看物流");
+			}
 			tv_checkmap.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					int shipping_status = oi.getShipping_status();
 					String order_status_state = oi.getOrder_status_state();
 					int courier_status = oi.getCourier_status();
@@ -72,7 +78,7 @@ public class ListAdapterDeliver extends MspAdapter {
 							+ courier_status + "+" + order_status_state + "+"
 							+ order_status + "+" + pay_status);
 					// if()
-					// goGeo();TODO
+					// goGeo(); 
 					if (shipping_status == 0) {
 						JackUtils.showToast(MyApplication.app(), "还没有发货");
 					} else if (shipping_status == 1) {

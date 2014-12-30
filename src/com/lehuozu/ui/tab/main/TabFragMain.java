@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -27,13 +27,14 @@ import com.lehuozu.net.NetStrategies;
 import com.lehuozu.net.action.ActionBuilder;
 import com.lehuozu.net.action.ActionPhpReceiverImpl;
 import com.lehuozu.net.action.ActionPhpRequestImpl;
+import com.lehuozu.net.action.category.GetAllReq;
+import com.lehuozu.net.action.category.GetCatRcv;
 import com.lehuozu.net.action.goods.GetTbarReq;
-import com.lehuozu.net.action.order.UpdateCartRcv;
-import com.lehuozu.net.action.order.UpdateCartReq;
 import com.lehuozu.ui.MyGate;
 import com.lehuozu.ui.adapter.MyGridViewAdapter;
 import com.lehuozu.ui.adapter.MyPagerAdapater;
 import com.lehuozu.ui.tab.ContentAbstractFragment;
+import com.lehuozu.ui.tab.HubActivity;
 import com.lehuozu.util.JackImageLoader;
 import com.lehuozu.util.JackUtils;
 import com.lehuozu.vo.Category;
@@ -58,7 +59,8 @@ public class TabFragMain extends ContentAbstractFragment implements
 	ViewPager mViewPager;
 	private LinearLayout spotLayout;
 	private List<View> viewList;
-
+	android.support.v4.widget.SwipeRefreshLayout srlayout;
+	
 	@Override
 	public int getLayoutRid() {
 		return R.layout.fragment_mainpage;
@@ -80,6 +82,33 @@ public class TabFragMain extends ContentAbstractFragment implements
 		// R.drawable.ic_launcher, R.string.app_name, R.string.app_name);
 		// mDrawer.setDrawerListener(mDrawerToggle);
 
+		//swipe
+		srlayout = (SwipeRefreshLayout) mView.findViewById(R.id.layout_belowtitle);
+		srlayout.setOnRefreshListener(new OnRefreshListener() {
+			
+			@Override
+			public void onRefresh() {
+				requestMain();
+				srlayout.setRefreshing(false);
+				requestAll();
+			}
+
+			private void requestAll() {
+				ActionBuilder.getInstance().request(new GetAllReq(), new GetCatRcv(getActivity()){
+					@Override
+					public boolean response(String result) throws JSONException {
+						boolean response = super.response(result);
+						try{if(!response){
+							((HubActivity)getActivity()).initListView();
+							initGrid(MyData.data().getAllCate());
+						}}catch(Exception e){};//bite me
+						return response;
+					}
+				});
+				
+			}
+		});
+		
 		// viewpager
 		mViewPager = (ViewPager) mView.findViewById(R.id.viewpager_);
 		viewList = new ArrayList<View>();
@@ -89,6 +118,22 @@ public class TabFragMain extends ContentAbstractFragment implements
 
 		mViewPager.setOnPageChangeListener(this);
 		// request
+		requestMain();
+
+		// gridview
+		categoryList = MyData.data().getAllCate();
+		if (categoryList.size() > 0)
+			initGrid(categoryList);// else happen?
+		// request
+
+		// updateUI();
+	}
+
+
+	/**
+	 * 
+	 */
+	public void requestMain() {
 		ActionPhpRequestImpl actReq = new GetTbarReq();
 		ActionPhpReceiverImpl actRcv = new ActionPhpReceiverImpl() {
 
@@ -96,6 +141,7 @@ public class TabFragMain extends ContentAbstractFragment implements
 			public boolean response(String result) throws JSONException {
 				JSONArray jar = NetStrategies.getResultArray(result);
 				if (null != jar) {
+					clearAll();
 					for (int i = 0; i < jar.length(); i++) {
 						TongData td = new TongData(jar.getJSONObject(i));
 						addImg(td);
@@ -109,20 +155,22 @@ public class TabFragMain extends ContentAbstractFragment implements
 				return true;
 			}
 
+			/**
+			 * 
+			 */
+			public void clearAll() {
+				viewList.clear();
+				imgList.clear();
+				spotLayout.removeAllViews();
+				spotList.clear();
+			}
+
 			@Override
 			public Context getReceiverContext() {
 				return null;
 			}
 		};
 		ActionBuilder.getInstance().request(actReq, actRcv);
-
-		// gridview
-		categoryList = MyData.data().getAllCate();
-		if (categoryList.size() > 0)
-			initGrid(categoryList);// else happen?
-		// request
-
-		// updateUI();
 	}
 
 	/**

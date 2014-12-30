@@ -18,7 +18,7 @@
             android:divider="@android:color/black"
             android:layout_gravity = "left"
             android:layout_marginTop = "@dimen/v_titleheight"
-            android:layout_marginBottom = "-2dp"
+            android:layout_marginBottom = "@dimen/v_alilbitnot"
             android:scrollbars="none"
             ></ListView>
     </android.support.v4.widget.DrawerLayout>

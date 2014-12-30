@@ -38,6 +38,7 @@ public class PersonInfoCreateActivity extends MyTitleActivity implements ActionP
 	public Spinner spinnerPrv,spinnerCt,spinnerDist;
 	RadioGroup group;
 	private String phone;
+	private EditText et_pwd2;
 	
 	@Override
 	public int getLayoutRid() {
@@ -62,6 +63,7 @@ public class PersonInfoCreateActivity extends MyTitleActivity implements ActionP
 //		titleManager.
 		
 		et_pwd = (EditText)this.findViewById(R.id.et_cuser_pwd);
+		et_pwd2 = (EditText)this.findViewById(R.id.et_cuser_pwd2);
 		et_name = (EditText)this.findViewById(R.id.et_cuser_name);
 		et_address = (EditText)this.findViewById(R.id.et_cuser_address);
 //		layout_allareas = (View)this.findViewById(R.id.relative_createuser_allareas);
@@ -102,6 +104,17 @@ public class PersonInfoCreateActivity extends MyTitleActivity implements ActionP
 			et_address.requestFocus();
 			return ;
 		}
+		String pwd2 = et_pwd2.getText().toString();
+		String pwd1 = et_pwd.getText().toString();
+		if(pwd1.isEmpty()){
+			et_pwd.setError("密码不能为空");et_pwd.requestFocus();
+			return;
+		}
+		if(!pwd2.equals(pwd1)){
+			et_pwd2.setError("两次密码输入不同");et_pwd2.requestFocus();
+			return;
+		}
+		
 //		String p,c,d;
 		int pp,cc,dd;//turns out to be ids
 //		p = getItemName(spinnerPrv);

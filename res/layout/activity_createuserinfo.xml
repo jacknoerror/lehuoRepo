@@ -20,6 +20,17 @@
         android:layout_marginLeft="@dimen/h_margin_activity"
         />
     <EditText 
+        android:id="@+id/et_cuser_pwd2"
+        style="@style/EditText_Transparent"
+        android:inputType="textPassword"
+        android:hint="请再次输入密码"
+        />
+    
+    <View 
+        style="@style/DividerWH"
+        android:layout_marginLeft="@dimen/h_margin_activity"
+        />
+    <EditText 
         android:id="@+id/et_cuser_name"
         style="@style/EditText_Transparent"
         android:hint="请设置您的名称"

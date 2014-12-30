@@ -144,7 +144,7 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 		
 	}
 	
-	private void initListView() {
+	public void initListView() {//1230 public for main
 		mDrawerList = (ListView) this.findViewById(R.id.left_drawer);
 
 		// mPlanetTitles = getResources().getStringArray(R.array.planets_array);

@@ -72,6 +72,8 @@
 	             android:id="@+id/tv_checkdeliver"
 	             android:text="查看物流"
 	             style="@style/BtnGreenStroke"
+	             android:background="@drawable/selector_btn_green_grey_stroke"
+	             android:textColor="@color/selector_btn_textcolor_green_grey"
 	             android:layout_gravity="right"
 	             android:visibility="gone" />
 

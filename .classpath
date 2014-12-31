@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="src" path="Test"/>
-	<classpathentry exported="true" kind="lib" path="libs/alipay.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/baidumapapi_v2_3_0.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/locSDK_3.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/eventbus-2.1.0-beta-1.jar"/>

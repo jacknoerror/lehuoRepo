@@ -1,8 +1,7 @@
 package com.lehuozu.ui.tab.order;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,17 +13,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alipay.android.app.sdk.AliPay;
-import com.alipay.android.msp.demo.Keys;
-import com.alipay.android.msp.demo.Result;
-import com.alipay.android.msp.demo.Rsa;
+import com.alipay.sdk.app.PayTask;
+import com.alipay.sdk.pay.Result;
+import com.alipay.sdk.pay.SignUtils;
 import com.lehuozu.R;
 import com.lehuozu.data.MyData;
 import com.lehuozu.data.NetConst;
@@ -35,7 +33,6 @@ import com.lehuozu.net.action.ActionPhpRequestImpl;
 import com.lehuozu.net.action.JackShowToastReceiver;
 import com.lehuozu.net.action.order.CheckoutOrderReq;
 import com.lehuozu.net.action.order.ConfirmOrderReq;
-import com.lehuozu.ui.MyGate;
 import com.lehuozu.ui.MyTitleActivity;
 import com.lehuozu.ui.address.MyAddressActivity;
 import com.lehuozu.ui.tab.HubActivity;
@@ -243,7 +240,7 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 					if(dc_payment.getPay_id()==Payment.PAYTYPE_ALIPAY){
 						JSONObject job = new JSONObject(result).optJSONObject("data");
 						commitOrderId = job.optLong("order_sn");
-						onPay();
+						pay(null);
 					}else{
 						gobacktohub(2);
 					}
@@ -329,10 +326,13 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 	/**
 	 * alipay
 	 */
+	private static final int SDK_PAY_FLAG = 1;
+	private static final int SDK_CHECK_FLAG = 2;
 	
-	private static final int RQF_PAY = 1;
-	private static final int RQF_LOGIN = 2;
-	void onPay(){
+	
+	/*private static final int RQF_PAY = 1;
+	private static final int RQF_LOGIN = 2;*/
+	/*void onPay(){
 		try {
 			String info = getNewOrderInfo();
 			String sign = Rsa.sign(info, Keys.PRIVATE);
@@ -365,11 +365,46 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 			Toast.makeText(ConfirmOrderActivity.this, "尝试付款时出错",
 					Toast.LENGTH_SHORT).show();
 		}
+	}*/
+	/**
+	 * call alipay sdk pay. 调用SDK支付
+	 * 
+	 */
+	public void pay(View v) {
+		String orderInfo = getOrderInfo("乐活族", dc_payment.getPay_name(), "0.01");//FIXME dc_total.getAmount();
+		String sign =sign(orderInfo);
+		try {
+			// 仅需对sign 做URL编码
+			sign = URLEncoder.encode(sign, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
+				+ getSignType();
+
+		Runnable payRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				// 构造PayTask 对象
+				PayTask alipay = new PayTask(ConfirmOrderActivity.this);
+				// 调用支付接口
+				String result = alipay.pay(payInfo);
+
+				Message msg = new Message();
+				msg.what = SDK_PAY_FLAG;
+				msg.obj = result;
+				mHandler.sendMessage(msg);
+			}
+		};
+
+		Thread payThread = new Thread(payRunnable);
+		payThread.start();
 	}
 	private String getSignType() {
 		return "sign_type=\"RSA\"";
 	}
-	private String getNewOrderInfo() {
+	/*private String getNewOrderInfo() {
 		if(commitOrderId<=0) throw new IllegalStateException("订单号不正确"); 
 		StringBuilder sb = new StringBuilder();
 		sb.append("partner=\"");
@@ -381,7 +416,7 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		sb.append("\"&body=\"");
 		sb.append(dc_payment.getPay_name());
 		sb.append("\"&total_fee=\"");
-		sb.append("0.01");//FIXME dc_total.getAmount();
+		sb.append("0.01");// dc_total.getAmount();
 		sb.append("\"&notify_url=\"");
 		// 网址需要做URL编码
 		sb.append(URLEncoder.encode("http://ilehuozu.com:8084/zbcbaba/notify_url.php"));
@@ -401,20 +436,106 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		sb.append("\"");
 
 		return new String(sb);
-	}
-	/*private String getOutTradeNo() {
-		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
-		Date date = new Date();
-		String key = format.format(date);
-
-		java.util.Random r = new java.util.Random();
-		key += r.nextInt();
-		key = key.substring(0, 15);
-		Log.d(TAG, "outTradeNo: " + key);
-		return key;
 	}*/
-	
-	Handler mHandler = new Handler() {
+	/**
+	 * create the order info. 创建订单信息
+	 * 
+	 */
+	public String getOrderInfo(String subject, String body, String price) {
+		// 合作者身份ID
+		String orderInfo = "partner=" + "\"" + DEFAULT_PARTNER + "\"";
+
+		// 卖家支付宝账号
+		orderInfo += "&seller_id=" + "\"" + DEFAULT_SELLER + "\"";
+
+		// 商户网站唯一订单号
+		orderInfo += "&out_trade_no=" + "\"" + commitOrderId + "\"";
+
+		// 商品名称
+		orderInfo += "&subject=" + "\"" + subject + "\"";
+
+		// 商品详情
+		orderInfo += "&body=" + "\"" + body + "\"";
+
+		// 商品金额
+		orderInfo += "&total_fee=" + "\"" + price + "\"";//
+
+		// 服务器异步通知页面路径
+		orderInfo += "&notify_url=" + "\"" + "http://ilehuozu.com:8084/zbcbaba/notify_url.php"
+//				orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm"
+				+ "\"";
+
+		// 接口名称， 固定值
+		orderInfo += "&service=\"mobile.securitypay.pay\"";
+
+		// 支付类型， 固定值
+		orderInfo += "&payment_type=\"1\"";
+
+		// 参数编码， 固定值
+		orderInfo += "&_input_charset=\"utf-8\"";
+
+		// 设置未付款交易的超时时间
+		// 默认30分钟，一旦超时，该笔交易就会自动被关闭。
+		// 取值范围：1m～15d。
+		// m-分钟，h-小时，d-天，1c-当天（无论交易何时创建，都在0点关闭）。
+		// 该参数数值不接受小数点，如1.5h，可转换为90m。
+		orderInfo += "&it_b_pay=\"30m\"";
+
+		// 支付宝处理完请求后，当前页面跳转到商户指定页面的路径，可空
+		orderInfo += "&return_url=\"m.alipay.com\"";
+
+		// 调用银行卡支付，需配置此参数，参与签名， 固定值
+		// orderInfo += "&paymethod=\"expressGateway\"";
+
+		return orderInfo;
+	}
+	/**
+	 * sign the order info. 对订单信息进行签名
+	 * 
+	 * @param content
+	 *            待签名订单信息
+	 */
+	public String sign(String content) {
+		return SignUtils.sign(content, PRIVATE);
+	}
+	private Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case SDK_PAY_FLAG: {
+				Result resultObj = new Result((String) msg.obj);
+				String resultStatus = resultObj.resultStatus;
+
+				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
+				if (TextUtils.equals(resultStatus, "9000")) {
+					Toast.makeText(ConfirmOrderActivity.this, "支付成功",
+							Toast.LENGTH_SHORT).show();
+					gobacktohub(2);//
+				} else {
+					// 判断resultStatus 为非“9000”则代表可能支付失败
+					// “8000” 代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
+					if (TextUtils.equals(resultStatus, "8000")) {
+						Toast.makeText(ConfirmOrderActivity.this, "支付结果确认中",
+								Toast.LENGTH_SHORT).show();
+
+					} else {
+						Toast.makeText(ConfirmOrderActivity.this, "支付失败",
+								Toast.LENGTH_SHORT).show();
+						gobacktohub(0);//
+					}
+				}
+				break;
+			}
+			case SDK_CHECK_FLAG: {//not going here
+				Toast.makeText(ConfirmOrderActivity.this, "检查结果为：" + msg.obj,
+						Toast.LENGTH_SHORT).show();
+				break;
+			}
+			default:
+				break;
+			}
+		};
+	};
+	/*Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			Result result = new Result((String) msg.obj);
 			if(null==result) return;
@@ -429,6 +550,16 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 				break;
 			}
 		};
-	};
-	
+	};*/
+	//合作身份者id，以2088开头的16位纯数字
+		public static final String DEFAULT_PARTNER = "2088311474028851";
+
+		//收款支付宝账号
+		public static final String DEFAULT_SELLER = "ilehuozu@163.com";
+
+		//商户私钥，自助生成
+		public static final String PRIVATE = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBALVRpT4eSKRqGDuNkcKkqbD0Krtilo5v8gTWIOwpJK63YIvxrNEsVztqRx+aR/XEdcHyNBNbAGEIA2X7Gu1L7cmu2b7cn2MmDJTwfPGQMCybrBB8lXdBgkIBLrxMM/Jo+PjWETJPBUUk/GXqZ/AZX3icXZ8THrISBkwXe25vjTGzAgMBAAECgYBK5uRtKdN2YAGMsGnTT3RuDh+M8yggxSvkRZSqGkD2D/jJNtfePQP4HmotKu2pIDRJH0XV7RTWAJpuyXGRL3mV0iwgUIy0ggcP7dhjoJx5jiMJxwFoG1o79zDa9mgdbqSOb3F5oQWNvRpMfBnE67O/psTfbVkr5d7GVIAh1VBjuQJBANkb0VHV+++Wr8P0s0y8daqgdnqX/3YwjL9QFKupEJa7/9p8P9ZYupX5GWNxXI549q4rJrBxw3IzRY5l33RNJwcCQQDVzJR4cStjP3Big1TEwFC+54mcXZrs2yf9yfHkMufigKEBQZezCL+GRAwoMY/oNH8gaZ2ESR9jWO3JaI80RGj1AkEApg/w+3eBTLEln+z7eCZumiRCe2Lns69O+MZ4CRU36xPBj4yaB4m2rh/qm3WKJi+//1hiL3PU2vT8rv6c/IhG4QJBAKsDt4cXzwLWTckfEAFJa80oW5St8yyeqMCCdnB4n684AJGGrBdTWg/GAotsCZZN15pPoOWdr/PBwIKollPSnLkCQAkzsa4hE75YwP5XI+KXGs4c+ekM8VdghmWDI7TFGPqBd3rSfc/AhtFpZ0FSZ77di0SN4FX01uRNZxil8jdBec8=";
+
+		public static final String PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
+
 }

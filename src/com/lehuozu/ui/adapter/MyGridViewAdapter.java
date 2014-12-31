@@ -100,7 +100,7 @@ public class MyGridViewAdapter extends BaseAdapter {
 		if(null!=itm){
 			JackImageLoader.justSetMeImage(itm.getPicUrl(), holder.prizImg);
 			holder.prizImg.setLayoutParams(new LinearLayout.LayoutParams(JackUtils.dip2px(
-					context, 180), JackUtils.dip2px(context, 160)));
+					context, 175), JackUtils.dip2px(context, 160)));
 		}
 		itemHeight = view.getMeasuredHeight();
 		return view;

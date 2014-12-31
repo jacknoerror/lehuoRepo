@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@color/bg_grey_bigcolor"
+    
+    >
 
     <include layout="@layout/merge_jacktitle" />
 	<android.support.v4.widget.SwipeRefreshLayout
@@ -53,6 +56,7 @@
                 android:scrollbars="none"
                 android:verticalSpacing="5dp"
                 android:listSelector="@drawable/selector_common_grey"
+                android:horizontalSpacing = "3dp"
                  >
             </GridView>
         </LinearLayout>

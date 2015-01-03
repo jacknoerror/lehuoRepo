@@ -109,7 +109,8 @@ public class JackRadios implements OnCheckedChangeListener {
 	        //设置可以支持缩放   
 	        ws.setSupportZoom(true);   
 	        //设置默认缩放方式尺寸是far   
-	        ws.setDefaultZoom(WebSettings.ZoomDensity.FAR);  
+	        ws.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);  
+	        ws.setDefaultFontSize(20);//0103
 	        //设置出现缩放工具   
 	        ws.setBuiltInZoomControls(true);
 	     // 让网页自适应屏幕宽度

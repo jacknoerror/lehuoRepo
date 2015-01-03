@@ -12,6 +12,7 @@ import com.lehuozu.net.action.user.SendCodeForRegistReq;
 import com.lehuozu.net.action.user.VerifyCodeReq;
 import com.lehuozu.ui.MyGate;
 import com.lehuozu.ui.MyTitleActivity;
+import com.lehuozu.ui.common.ZeroTextWather;
 import com.lehuozu.util.JackUtils;
 
 import android.app.Activity;
@@ -129,6 +130,9 @@ public class RegistCodeActivity extends MyTitleActivity implements ActionPhpRece
 		tv_mobile.setText(phone);
 		
 		startCount();
+		
+		et_input.addTextChangedListener(new ZeroTextWather(this, btn_done));//0102
+		
 	}
 
 	/**

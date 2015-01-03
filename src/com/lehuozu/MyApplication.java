@@ -12,6 +12,11 @@ import com.baidu.mapapi.MKGeneralListener;
 import com.baidu.mapapi.map.MKEvent;
 import com.lehuozu.data.Const;
 
+/**
+ * @author tao
+ *MD5 : 4D:16:67:E9:30:5C:A9:18:35:E7:4B:C4:EB:E9:BE:7C
+ *SHA1: BD:16:B6:07:43:A1:FA:C0:5F:2F:9C:9C:52:E1:90:E5:DA:7C:79:DB
+ */
 public class MyApplication extends Application {
 	static MyApplication app;
 	public static MyApplication app()	{
@@ -38,7 +43,8 @@ public class MyApplication extends Application {
 	public boolean m_bKeyRight = true;
     public BMapManager mBMapManager = null;
     
-    public static final String strKey = "lspWjcpYnCBGmGTDUnhNfBRT";//pc
+    public static final String strKey = "9GprKFWrXYKCpQo71pLHUKal";//ÕýÊ½
+//    public static final String strKey = "lspWjcpYnCBGmGTDUnhNfBRT";//pc
 //    public static final String strKey = "9GprKFWrXYKCpQo71pLHUKal";//mac
     
     public void initEngineManager(Context context) {

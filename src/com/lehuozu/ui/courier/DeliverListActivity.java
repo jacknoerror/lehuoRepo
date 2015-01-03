@@ -93,6 +93,11 @@ public class DeliverListActivity extends MyTitleActivity {
 		return Type.ORDER_COURIER;
 	}
 
+	@Override
+	protected void onDestroy() {
+		
+		super.onDestroy();
+	}
 	
 	static public class ListAdapterCourier extends MspAdapter {
 

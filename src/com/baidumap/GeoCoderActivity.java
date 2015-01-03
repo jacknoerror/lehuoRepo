@@ -22,6 +22,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.baidu.mapapi.map.ItemizedOverlay;
@@ -246,9 +247,18 @@ public class GeoCoderActivity extends MyTitleActivity implements
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				// TODO to be tested
 				ActionPhpRequestImpl actReq = new ConfirmArriveReq(MyData.data().getMe().getUser_id(), order_id);
-				ActionPhpReceiverImpl actRcv = new JackFinishActivityReceiver(GeoCoderActivity.this);
+				ActionPhpReceiverImpl actRcv = new JackFinishActivityReceiver(GeoCoderActivity.this){
+					@Override
+					public boolean response(String result) throws JSONException {
+						boolean response = super.response(result);
+						if(!response){
+							TabHost tabHost = MyData.data().getTabHost();
+							if(null!=tabHost)tabHost.setCurrentTab(1);
+						}
+						return response;
+					}
+				};
 				ActionBuilder.getInstance().request(actReq, actRcv);
 			}
 		};

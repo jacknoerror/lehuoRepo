@@ -66,6 +66,15 @@
         <item name="android:padding">@dimen/common_margin</item>
         <item name="android:layout_margin">0.5dp</item>
     </style>
+    <style name="RadioButton_sex" parent="WrapAll">
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_tabs_green_white</item>
+        <item name="android:textColorLink">@color/selector_tab_textcolor_green_reverse</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/common_margin</item>
+        <item name="android:layout_margin">0.5dp</item>
+    </style>
 
     <style name="EditText_Transparent" parent="MatchWidthOnly">
         <item name="android:background">@android:color/transparent</item>

@@ -7,6 +7,7 @@ import java.util.List;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.TabHost;
 
+import com.lehuozu.util.LoginKeeper;
 import com.lehuozu.vo.Category;
 import com.lehuozu.vo.Product;
 import com.lehuozu.vo.User;

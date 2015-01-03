@@ -9,7 +9,6 @@ import org.json.JSONException;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -84,7 +83,7 @@ public class TabFragMain extends ContentAbstractFragment implements
 
 		//swipe
 		srlayout = (SwipeRefreshLayout) mView.findViewById(R.id.layout_belowtitle);
-		srlayout.setOnRefreshListener(new OnRefreshListener() {
+		srlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			
 			@Override
 			public void onRefresh() {

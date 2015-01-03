@@ -3,6 +3,7 @@ package com.lehuozu.ui.adapter.msp;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.text.Html;
 import android.util.Log;
@@ -16,8 +17,8 @@ import com.baidumap.GeoCoderActivity;
 import com.lehuozu.MyApplication;
 import com.lehuozu.R;
 import com.lehuozu.data.NetConst;
-import com.lehuozu.ui.MyGate;
 import com.lehuozu.ui.custom.list.MspAdapter;
+import com.lehuozu.ui.tab.HubActivity;
 import com.lehuozu.util.JackImageLoader;
 import com.lehuozu.util.JackUtils;
 import com.lehuozu.vo.InfoGoodsInOrder;
@@ -79,13 +80,14 @@ public class ListAdapterDeliver extends MspAdapter {
 							+ order_status + "+" + pay_status);
 					// if()
 					// goGeo(); 
-					if (shipping_status == 0) {
+					if (shipping_status == 0||courier_status == 0) {
 						JackUtils.showToast(MyApplication.app(), "还没有发货");
 					} else if (shipping_status == 1) {
 //						if(pay_status==2){
 //							JackUtils.showToast(MyApplication.app(), "已付款");
 //						}else if(pay_status==0){
-							goGeo(oi);
+							if(courier_status==1||courier_status==2) //0102 0103
+								goGeo(oi);
 //						}
 					}
 				}
@@ -135,7 +137,11 @@ public class ListAdapterDeliver extends MspAdapter {
 			intent.putExtra(NetConst.EXTRAS_COURIER_ID, oi.getCourier_id());
 			intent.putExtra(NetConst.EXTRAS_IS_ARRIVED, oi.getCourier_status()==2);//0:未开始配送 1:正在配送中 2:配送已完成
 			intent.putExtra(NetConst.EXTRAS_ORDER_ID, oi.getOrder_id());//
-			getContextInAdapter().startActivity(intent);
+			try{
+				((Activity)getContextInAdapter()).startActivityForResult(intent, HubActivity.AR_GOGEO);
+			}catch(Exception e){
+				(getContextInAdapter()).startActivity(intent);
+			}
 		}
 
 	}

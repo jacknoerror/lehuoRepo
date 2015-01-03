@@ -29,6 +29,7 @@ import com.lehuozu.ui.address.MyAddressActivity;
 import com.lehuozu.ui.tab.ContentAbstractFragment;
 import com.lehuozu.util.JackButtonColorFilter;
 import com.lehuozu.util.JackUtils;
+import com.lehuozu.util.LoginKeeper;
 import com.lehuozu.vo.User;
 
 /**
@@ -114,6 +115,7 @@ public class TabFragMy extends ContentAbstractFragment implements OnClickListene
 		Intent intent = null;
 		switch (arg0.getId()) {
 		case R.id.btn_logout:
+			LoginKeeper.putValue(getActivity(), LoginKeeper.PREF_LOGINJOB, "");
 			MyData.data().destroy();
 			getActivity().finish();
 			break;

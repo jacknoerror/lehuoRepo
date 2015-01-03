@@ -28,6 +28,7 @@ public class TabFragDeliver extends JackListAbsContFrag {
 		el.setGravity(Gravity.CENTER);
 		mFrame.addView(el);
 		mListView.setEmptyView(el);
+		mListView.setTag(getActivity());
 //		eView.setVisibility(View.GONE);
 	}
 	

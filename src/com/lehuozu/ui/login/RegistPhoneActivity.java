@@ -12,13 +12,17 @@ import com.lehuozu.net.action.user.SendCodeForRegistReq;
 import com.lehuozu.net.action.user.VerifyCodeReq;
 import com.lehuozu.ui.MyGate;
 import com.lehuozu.ui.MyTitleActivity;
+import com.lehuozu.ui.common.ZeroTextWather;
 import com.lehuozu.util.JackUtils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class RegistPhoneActivity extends MyTitleActivity implements ActionPhpReceiverImpl {
 
@@ -36,6 +40,8 @@ public class RegistPhoneActivity extends MyTitleActivity implements ActionPhpRec
 		titleManager.initTitleBack();
 		
 		et_phone = (EditText)this.findViewById(R.id.et_registphone_phone);
+		
+		
 		btn_getcheck = (Button)this.findViewById(R.id.btn_registphone_getcheck);
 		btn_getcheck.setOnClickListener(new View.OnClickListener() {
 			
@@ -47,6 +53,7 @@ public class RegistPhoneActivity extends MyTitleActivity implements ActionPhpRec
 
 		});
 		
+		et_phone.addTextChangedListener(new ZeroTextWather(this, btn_getcheck));//0102
 	}
 	private void getcheck() {
 		if(getPhone().isEmpty()) {

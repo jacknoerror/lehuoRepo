@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -52,6 +53,7 @@ import com.lehuozu.util.JackUtils;
 import com.lehuozu.util.TestDataTracker;
 import com.lehuozu.vo.Category;
 import com.lehuozu.vo.TongData;
+import com.umeng.analytics.MobclickAgent;
 
 public class HubActivity extends FragmentActivity implements OnTabChangeListener, OnItemClickListener{
 	
@@ -72,6 +74,8 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 	private String[] mPlanetTitles;
 
 	private List<Category> categoryList;
+
+	public static final int AR_GOGEO = 0x002;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -247,4 +251,22 @@ public class HubActivity extends FragmentActivity implements OnTabChangeListener
 						categoryList.get(position));
 	}
 
+	@Override
+	protected void onResume() {
+		MobclickAgent.onResume(this);
+		super.onResume();
+	}
+	@Override
+	protected void onPause() {
+		MobclickAgent.onPause(this);
+		super.onPause();
+	}
+	
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		super.onActivityResult(arg0, arg1, arg2);
+		if(arg0==AR_GOGEO&&arg1==RESULT_OK){
+			mTabHost.setCurrentTab(1);
+		}
+	}
 }

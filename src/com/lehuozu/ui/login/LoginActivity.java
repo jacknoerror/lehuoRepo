@@ -1,5 +1,8 @@
 package com.lehuozu.ui.login;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -19,6 +22,7 @@ import com.lehuozu.ui.MyTitleActivity;
 import com.lehuozu.ui.StartActivity;
 import com.lehuozu.util.JackUtils;
 import com.lehuozu.util.LoginKeeper;
+import com.lehuozu.vo.User;
 
 public class LoginActivity extends MyTitleActivity implements View.OnClickListener{
 	 
@@ -52,7 +56,7 @@ public class LoginActivity extends MyTitleActivity implements View.OnClickListen
 	private void goStartPage() {
 		Intent intent = new Intent();
 		intent.setClass(this, StartActivity.class);
-		this.startActivity(intent);
+		this.startActivityForResult(intent, 0x001);
 		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 	}
 	private void goFind() {
@@ -103,6 +107,25 @@ public class LoginActivity extends MyTitleActivity implements View.OnClickListen
 		btn_log.setOnClickListener(this);
 		
 		et_mobile.setText(LoginKeeper.getValue(this, "login"));
+		
+		
+		
 	}
-	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode==0x001){
+			autoLogin();
+		}
+	}
+	private void autoLogin() {
+		String loginJob = LoginKeeper.getValue(this, LoginKeeper.PREF_LOGINJOB);
+		if(!loginJob.isEmpty()){
+			try {
+				MyGate.login(this, new User(new JSONObject(loginJob))	);
+				finish();
+			} catch (JSONException e) {
+			}
+		}
+	}
 }

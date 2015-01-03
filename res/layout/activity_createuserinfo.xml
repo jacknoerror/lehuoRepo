@@ -86,12 +86,12 @@
         <RadioButton 
             android:id="@+id/radio_man"
             android:text="男"
-            style="@style/RadioButton_category"
+            style="@style/RadioButton_sex"
             />
         <RadioButton 
             android:id="@+id/radio_woman"
             android:text="女"
-            style="@style/RadioButton_category"
+            style="@style/RadioButton_sex"
             />
     </RadioGroup>
     <View 

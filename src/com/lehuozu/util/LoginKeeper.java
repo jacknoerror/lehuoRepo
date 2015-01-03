@@ -19,4 +19,5 @@ public class LoginKeeper {
 	public static String getValue(Context context , String key){
 		return getSpInstance(context).getString(key, "");
 	}
+	public static final String PREF_LOGINJOB = "loginjob";
 }

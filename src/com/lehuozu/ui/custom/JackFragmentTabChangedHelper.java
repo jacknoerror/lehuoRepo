@@ -81,7 +81,7 @@ public class JackFragmentTabChangedHelper {
     		ft.add(realtabcontentid, fra, tabId);
     	}
     	currentFragment = fra;
-    	ft.commit();
+    	ft.commitAllowingStateLoss();//0103
     	
     }
 	

@@ -37,8 +37,11 @@ public class JackFinishActivityReceiver implements ActionPhpReceiverImpl {
 	public boolean response(String result) throws JSONException {
 //		NetStrategies.getResultObj(result);//0421
 //		if(result.contains(RESULT_OBJ)&&null!=activity&&(null==arv||!arv.response(result)))activity.finish();
-		if(NetStrategies.dataAvailable(new JSONObject(result))&&null!=activity&&(null==arv||!arv.response(result)))activity.finish();
-		return false;//TODO
+		boolean b = NetStrategies.dataAvailable(new JSONObject(result))&&null!=activity&&(null==arv||!arv.response(result));
+		if(b){
+			activity.finish();
+		}
+		return !b;//
 	}
 
 

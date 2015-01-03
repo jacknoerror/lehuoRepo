@@ -89,7 +89,7 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 		if (null != dc_payment) {
 			// check sth
 			int pay_id = null!=PAYID?PAYID:dc_payment.getPay_id();//
-			arrivepaycheck.setSelected(pay_id == Payment.PAYTYPE_ARRIVE);
+			arrivepaycheck.setSelected(pay_id != Payment.PAYTYPE_ALIPAY);
 			;
 		}
 		// userbonus
@@ -371,7 +371,7 @@ public class ConfirmOrderActivity extends MyTitleActivity implements
 	 * 
 	 */
 	public void pay(View v) {
-		String orderInfo = getOrderInfo("乐活族", dc_payment.getPay_name(), "0.01");//FIXME dc_total.getAmount();
+		String orderInfo = getOrderInfo("乐活族", dc_payment.getPay_name(), ""+dc_total.getAmount());//"0.01");// dc_total.getAmount();
 		String sign =sign(orderInfo);
 		try {
 			// 仅需对sign 做URL编码

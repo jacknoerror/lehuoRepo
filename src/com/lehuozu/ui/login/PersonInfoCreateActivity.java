@@ -75,8 +75,8 @@ public class PersonInfoCreateActivity extends MyTitleActivity implements ActionP
 		//give it colors
 		RadioButton rb1 = (RadioButton) this.findViewById(R.id.radio_man);
 		RadioButton rb2 = (RadioButton) this.findViewById(R.id.radio_woman);
-		rb1.setTextColor(getResources().getColorStateList(R.color.selector_tab_textcolor_green));
-		rb2.setTextColor(getResources().getColorStateList(R.color.selector_tab_textcolor_green));
+		rb1.setTextColor(getResources().getColorStateList(R.color.selector_tab_textcolor_green_reverse));
+		rb2.setTextColor(getResources().getColorStateList(R.color.selector_tab_textcolor_green_reverse));
 		
 		spinnerPrv.setOnItemSelectedListener(this); 
 		spinnerCt.setOnItemSelectedListener(this); 

@@ -18,6 +18,7 @@
     <dimen name="side_goodsicon">118dp</dimen>
     <dimen name="side_goodsicon_smaller">92dp</dimen>
     
+    <dimen name="textsize_title_big">22sp</dimen>
     <dimen name="textsize_title">20sp</dimen>
     <dimen name="textsize_title_sub">18sp</dimen>
     <dimen name="textsize_title_bigger">17sp</dimen>

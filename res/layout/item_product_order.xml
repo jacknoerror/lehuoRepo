@@ -68,14 +68,17 @@
 	             android:visibility="gone"
 	             /> -->
 
-	         <TextView
+	         <Button
 	             android:id="@+id/tv_checkdeliver"
 	             android:text="查看物流"
 	             style="@style/BtnGreenStroke"
 	             android:background="@drawable/selector_btn_green_grey_stroke"
 	             android:textColor="@color/selector_btn_textcolor_green_grey"
-	             android:layout_gravity="right"
-	             android:visibility="gone" />
+	             android:layout_gravity="right|center_vertical"
+	             android:layout_height="32dp"
+	             android:textSize="14sp"
+	             android:visibility="gone"
+	              />
 
 	     </LinearLayout>
 	</LinearLayout>
